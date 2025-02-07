@@ -14,7 +14,8 @@ exports.adminTable = dbHandler.define(
         "id":{
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
+            allowNull: false
         },
         "username":{
             type: DataTypes.STRING,
@@ -36,7 +37,8 @@ exports.personalTable = dbHandler.define(
         "id":{
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
+            allowNull: false
         },
         "name":{
             type: DataTypes.STRING,
@@ -70,7 +72,8 @@ exports.userTable = dbHandler.define(
         "id":{
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
+            allowNull: false
         },
         "username":{
             type: DataTypes.STRING,
@@ -100,7 +103,8 @@ exports.carsTable = dbHandler.define(
         "id":{
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
+            allowNull: false
         },
         "picture":{
             type: DataTypes.STRING,
@@ -122,10 +126,6 @@ exports.carsTable = dbHandler.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        "year":{
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         "drive":{
             type: DataTypes.STRING,
             allowNull: false
@@ -134,7 +134,7 @@ exports.carsTable = dbHandler.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        "fule":{
+        "fuel":{
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -150,10 +150,6 @@ exports.carsTable = dbHandler.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        "place":{
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         "info":{
             type: DataTypes.STRING,
             allowNull: false
@@ -166,17 +162,18 @@ exports.reservationTable = dbHandler.define(
         "id":{
             type: DataTypes.INTIGER,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
+            allowNull: false
         },
         "carId":{
             type: DataTypes.INTIGER,
             primaryKey: true,
-            autoIncrement: true
+            allowNull: false
         },
         "personId":{
             type: DataTypes.INTIGER,
             primaryKey: true,
-            autoIncrement: true
+            allowNull: false
         },
         "start":{
             type: DataTypes.DATE,
