@@ -55,18 +55,18 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // IDLabel
             // 
             this.IDLabel.AutoSize = true;
-            this.IDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.IDLabel.Location = new System.Drawing.Point(2, 0);
+            this.IDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.IDLabel.Location = new System.Drawing.Point(0, 0);
             this.IDLabel.Name = "IDLabel";
-            this.IDLabel.Size = new System.Drawing.Size(14, 16);
+            this.IDLabel.Size = new System.Drawing.Size(28, 15);
             this.IDLabel.TabIndex = 0;
-            this.IDLabel.Text = "0";
+            this.IDLabel.Text = "111";
             // 
             // BrandLabel
             // 
             this.BrandLabel.AutoSize = true;
             this.BrandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BrandLabel.Location = new System.Drawing.Point(22, 0);
+            this.BrandLabel.Location = new System.Drawing.Point(20, 0);
             this.BrandLabel.Name = "BrandLabel";
             this.BrandLabel.Size = new System.Drawing.Size(73, 15);
             this.BrandLabel.TabIndex = 1;
@@ -76,7 +76,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.TypeLabel.AutoSize = true;
             this.TypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TypeLabel.Location = new System.Drawing.Point(65, 0);
+            this.TypeLabel.Location = new System.Drawing.Point(94, 0);
             this.TypeLabel.Name = "TypeLabel";
             this.TypeLabel.Size = new System.Drawing.Size(66, 15);
             this.TypeLabel.TabIndex = 2;
@@ -86,7 +86,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.YearLabel.AutoSize = true;
             this.YearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.YearLabel.Location = new System.Drawing.Point(103, 0);
+            this.YearLabel.Location = new System.Drawing.Point(161, 0);
             this.YearLabel.Name = "YearLabel";
             this.YearLabel.Size = new System.Drawing.Size(35, 15);
             this.YearLabel.TabIndex = 3;
@@ -94,19 +94,19 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             // DirveLabel
             // 
-            this.DirveLabel.AutoSize = true;
             this.DirveLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.DirveLabel.Location = new System.Drawing.Point(134, 0);
+            this.DirveLabel.Location = new System.Drawing.Point(195, 0);
             this.DirveLabel.Name = "DirveLabel";
-            this.DirveLabel.Size = new System.Drawing.Size(72, 15);
+            this.DirveLabel.Size = new System.Drawing.Size(42, 15);
             this.DirveLabel.TabIndex = 4;
-            this.DirveLabel.Text = "Hátsó kerék";
+            this.DirveLabel.Text = "4WD";
+            this.DirveLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ShiftLabel
             // 
             this.ShiftLabel.AutoSize = true;
             this.ShiftLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ShiftLabel.Location = new System.Drawing.Point(207, 0);
+            this.ShiftLabel.Location = new System.Drawing.Point(268, 0);
             this.ShiftLabel.Name = "ShiftLabel";
             this.ShiftLabel.Size = new System.Drawing.Size(59, 15);
             this.ShiftLabel.TabIndex = 5;
@@ -116,7 +116,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.FuelLabel.AutoSize = true;
             this.FuelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FuelLabel.Location = new System.Drawing.Point(256, 0);
+            this.FuelLabel.Location = new System.Drawing.Point(332, 0);
             this.FuelLabel.Name = "FuelLabel";
             this.FuelLabel.Size = new System.Drawing.Size(45, 15);
             this.FuelLabel.TabIndex = 6;
@@ -126,7 +126,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.AirCondLabel.AutoSize = true;
             this.AirCondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.AirCondLabel.Location = new System.Drawing.Point(310, 0);
+            this.AirCondLabel.Location = new System.Drawing.Point(364, 0);
             this.AirCondLabel.Name = "AirCondLabel";
             this.AirCondLabel.Size = new System.Drawing.Size(28, 15);
             this.AirCondLabel.TabIndex = 7;
@@ -136,7 +136,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.RadarLabel.AutoSize = true;
             this.RadarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RadarLabel.Location = new System.Drawing.Point(350, 0);
+            this.RadarLabel.Location = new System.Drawing.Point(399, 0);
             this.RadarLabel.Name = "RadarLabel";
             this.RadarLabel.Size = new System.Drawing.Size(28, 15);
             this.RadarLabel.TabIndex = 8;
@@ -146,7 +146,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.CruiseControlLabel.AutoSize = true;
             this.CruiseControlLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CruiseControlLabel.Location = new System.Drawing.Point(392, 0);
+            this.CruiseControlLabel.Location = new System.Drawing.Point(435, 0);
             this.CruiseControlLabel.Name = "CruiseControlLabel";
             this.CruiseControlLabel.Size = new System.Drawing.Size(28, 15);
             this.CruiseControlLabel.TabIndex = 9;
@@ -156,7 +156,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label12.Location = new System.Drawing.Point(486, 0);
+            this.label12.Location = new System.Drawing.Point(474, 0);
             this.label12.Margin = new System.Windows.Forms.Padding(0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(42, 15);
@@ -167,7 +167,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label13.Location = new System.Drawing.Point(529, 0);
+            this.label13.Location = new System.Drawing.Point(516, 0);
             this.label13.Margin = new System.Windows.Forms.Padding(0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(49, 15);
@@ -178,7 +178,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(579, 0);
+            this.label1.Location = new System.Drawing.Point(565, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 15);
@@ -189,7 +189,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(629, 0);
+            this.label2.Location = new System.Drawing.Point(614, 0);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 15);

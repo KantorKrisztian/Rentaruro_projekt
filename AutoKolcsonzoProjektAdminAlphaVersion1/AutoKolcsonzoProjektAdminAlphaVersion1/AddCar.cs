@@ -75,6 +75,13 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             };
             CarPanel.AutoScroll = Enabled;
             
+            for (int i = 0; i < 20; i++)
+            {
+                OneCar auto = new OneCar();
+                auto.Top = i * 50;
+                CarPanel.Controls.Add(auto);
+                
+            }
         }
 
         private void InitializeComponent()
@@ -456,7 +463,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.IDHeaderLabel.AutoSize = true;
             this.IDHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.IDHeaderLabel.Location = new System.Drawing.Point(2, 269);
+            this.IDHeaderLabel.Location = new System.Drawing.Point(0, 269);
             this.IDHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
             this.IDHeaderLabel.Name = "IDHeaderLabel";
             this.IDHeaderLabel.Size = new System.Drawing.Size(19, 15);
@@ -465,29 +472,29 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             // BrandHeaderLabel
             // 
-            this.BrandHeaderLabel.AutoSize = true;
             this.BrandHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BrandHeaderLabel.Location = new System.Drawing.Point(22, 269);
+            this.BrandHeaderLabel.Location = new System.Drawing.Point(20, 269);
             this.BrandHeaderLabel.Name = "BrandHeaderLabel";
-            this.BrandHeaderLabel.Size = new System.Drawing.Size(42, 15);
+            this.BrandHeaderLabel.Size = new System.Drawing.Size(73, 15);
             this.BrandHeaderLabel.TabIndex = 37;
             this.BrandHeaderLabel.Text = "Márka";
+            this.BrandHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TypeHeaderLabel
             // 
-            this.TypeHeaderLabel.AutoSize = true;
             this.TypeHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TypeHeaderLabel.Location = new System.Drawing.Point(65, 269);
+            this.TypeHeaderLabel.Location = new System.Drawing.Point(94, 269);
             this.TypeHeaderLabel.Name = "TypeHeaderLabel";
-            this.TypeHeaderLabel.Size = new System.Drawing.Size(37, 15);
+            this.TypeHeaderLabel.Size = new System.Drawing.Size(66, 15);
             this.TypeHeaderLabel.TabIndex = 38;
             this.TypeHeaderLabel.Text = "Típus";
+            this.TypeHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // YearHeaderLabel
             // 
             this.YearHeaderLabel.AutoSize = true;
             this.YearHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.YearHeaderLabel.Location = new System.Drawing.Point(103, 269);
+            this.YearHeaderLabel.Location = new System.Drawing.Point(161, 269);
             this.YearHeaderLabel.Name = "YearHeaderLabel";
             this.YearHeaderLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.YearHeaderLabel.Size = new System.Drawing.Size(30, 15);
@@ -496,19 +503,20 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             // DriveHeaderLabel
             // 
+            this.DriveHeaderLabel.AutoSize = true;
             this.DriveHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.DriveHeaderLabel.Location = new System.Drawing.Point(134, 269);
+            this.DriveHeaderLabel.Location = new System.Drawing.Point(201, 269);
             this.DriveHeaderLabel.Name = "DriveHeaderLabel";
-            this.DriveHeaderLabel.Size = new System.Drawing.Size(72, 15);
+            this.DriveHeaderLabel.Size = new System.Drawing.Size(42, 15);
             this.DriveHeaderLabel.TabIndex = 40;
-            this.DriveHeaderLabel.Text = "Meghajtás";
+            this.DriveHeaderLabel.Text = "Hajtás";
             this.DriveHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ShiftHeaderLabel
             // 
             this.ShiftHeaderLabel.AutoSize = true;
             this.ShiftHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ShiftHeaderLabel.Location = new System.Drawing.Point(207, 269);
+            this.ShiftHeaderLabel.Location = new System.Drawing.Point(274, 269);
             this.ShiftHeaderLabel.Name = "ShiftHeaderLabel";
             this.ShiftHeaderLabel.Size = new System.Drawing.Size(34, 15);
             this.ShiftHeaderLabel.TabIndex = 41;
@@ -518,7 +526,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.FuelHeaderLabel.AutoSize = true;
             this.FuelHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FuelHeaderLabel.Location = new System.Drawing.Point(242, 269);
+            this.FuelHeaderLabel.Location = new System.Drawing.Point(309, 269);
             this.FuelHeaderLabel.Name = "FuelHeaderLabel";
             this.FuelHeaderLabel.Size = new System.Drawing.Size(73, 15);
             this.FuelHeaderLabel.TabIndex = 42;
@@ -528,7 +536,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.AirCondHeaderLabel.AutoSize = true;
             this.AirCondHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.AirCondHeaderLabel.Location = new System.Drawing.Point(316, 269);
+            this.AirCondHeaderLabel.Location = new System.Drawing.Point(383, 269);
             this.AirCondHeaderLabel.Name = "AirCondHeaderLabel";
             this.AirCondHeaderLabel.Size = new System.Drawing.Size(39, 15);
             this.AirCondHeaderLabel.TabIndex = 43;
@@ -540,7 +548,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RadarHeaderLabel.AutoSize = true;
             this.RadarHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RadarHeaderLabel.Location = new System.Drawing.Point(356, 269);
+            this.RadarHeaderLabel.Location = new System.Drawing.Point(423, 269);
             this.RadarHeaderLabel.Name = "RadarHeaderLabel";
             this.RadarHeaderLabel.Size = new System.Drawing.Size(41, 15);
             this.RadarHeaderLabel.TabIndex = 44;
@@ -550,7 +558,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // CruiseControlHeaderLabel
             // 
             this.CruiseControlHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CruiseControlHeaderLabel.Location = new System.Drawing.Point(398, 269);
+            this.CruiseControlHeaderLabel.Location = new System.Drawing.Point(465, 269);
             this.CruiseControlHeaderLabel.Name = "CruiseControlHeaderLabel";
             this.CruiseControlHeaderLabel.Size = new System.Drawing.Size(28, 15);
             this.CruiseControlHeaderLabel.TabIndex = 45;
@@ -560,7 +568,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // OneToFiveHeaderLabel
             // 
             this.OneToFiveHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.OneToFiveHeaderLabel.Location = new System.Drawing.Point(427, 269);
+            this.OneToFiveHeaderLabel.Location = new System.Drawing.Point(494, 269);
             this.OneToFiveHeaderLabel.Name = "OneToFiveHeaderLabel";
             this.OneToFiveHeaderLabel.Size = new System.Drawing.Size(42, 15);
             this.OneToFiveHeaderLabel.TabIndex = 47;
@@ -570,7 +578,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // SixToFourteenHeaderLabel
             // 
             this.SixToFourteenHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.SixToFourteenHeaderLabel.Location = new System.Drawing.Point(470, 269);
+            this.SixToFourteenHeaderLabel.Location = new System.Drawing.Point(537, 269);
             this.SixToFourteenHeaderLabel.Name = "SixToFourteenHeaderLabel";
             this.SixToFourteenHeaderLabel.Size = new System.Drawing.Size(49, 15);
             this.SixToFourteenHeaderLabel.TabIndex = 48;
@@ -580,7 +588,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // FromFifteenHeaderLabel
             // 
             this.FromFifteenHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FromFifteenHeaderLabel.Location = new System.Drawing.Point(541, 269);
+            this.FromFifteenHeaderLabel.Location = new System.Drawing.Point(608, 269);
             this.FromFifteenHeaderLabel.Name = "FromFifteenHeaderLabel";
             this.FromFifteenHeaderLabel.Size = new System.Drawing.Size(49, 15);
             this.FromFifteenHeaderLabel.TabIndex = 49;
@@ -590,7 +598,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(592, 269);
+            this.label1.Location = new System.Drawing.Point(659, 269);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 15);
             this.label1.TabIndex = 50;
