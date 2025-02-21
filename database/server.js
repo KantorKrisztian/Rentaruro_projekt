@@ -1,0 +1,56 @@
+const express = require('express')
+const server = express()
+require('dotenv').config()
+
+server.use(express.json())
+server.use(express.static('public'))
+const PORT = process.env.PORT
+
+const JWT = require('jsonwebtoken')
+
+const timeLimit = '1h'
+const SUPERSECRET = process.env.SECRETKEY
+
+const dbHandler = require('./dbHandler')
+dbHandler.adminTable.sync({alter:true})
+dbHandler.personalTable.sync({alter:true})
+dbHandler.userTable.sync({alter:true})
+dbHandler.carsTable.sync({alter:true})
+dbHandler.reservationTable.sync({alter:true})
+
+function authenticate() {
+    return (req,res,next) => {
+        const token = req.headers.authorization
+        if(!token || token.split(' ')[0].toLowerCase() != "bearer"){
+            res.status(498)
+            res.json({'message':'Hibás vagy nem létező bejelentkezési token'})
+            res.end()
+            return
+        }
+        const bearerToken = token.split(' ')[1]
+        try{
+            const decodedData = JWT.verify(bearerToken, SUPERSECRET)
+            req.username = decodedData.username
+            req.email = decodedData.email
+            //??????
+            next()
+        }
+        catch(error){
+            res.json({'message':error})
+            res.end()
+        }
+    }
+}
+
+function notUser(req,res,next){
+    return (req,res,next) => {
+        if(req.role != 'user'){
+            next()
+        }
+        else{
+            res.status(401)
+            res.json({'message':'Belépés csak a személyzetnek!'})
+            res.end()
+        }
+    }
+}
