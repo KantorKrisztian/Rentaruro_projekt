@@ -54,8 +54,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private Label OneToFiveHeaderLabel;
         private Label SixToFourteenHeaderLabel;
         private Label FromFifteenHeaderLabel;
-        private Label label1;
+        private Label DepositeHeaderLabel;
         public Panel CarPanel;
+        private Label LocationHeaderLabel;
         private Label CarsLabel;
 
         public AddCar()
@@ -132,8 +133,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.OneToFiveHeaderLabel = new System.Windows.Forms.Label();
             this.SixToFourteenHeaderLabel = new System.Windows.Forms.Label();
             this.FromFifteenHeaderLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.DepositeHeaderLabel = new System.Windows.Forms.Label();
             this.CarPanel = new System.Windows.Forms.Panel();
+            this.LocationHeaderLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AutoTitleDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CarPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
@@ -516,7 +518,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.ShiftHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ShiftHeaderLabel.Location = new System.Drawing.Point(252, 269);
             this.ShiftHeaderLabel.Name = "ShiftHeaderLabel";
-            this.ShiftHeaderLabel.Size = new System.Drawing.Size(34, 15);
+            this.ShiftHeaderLabel.Size = new System.Drawing.Size(59, 15);
             this.ShiftHeaderLabel.TabIndex = 41;
             this.ShiftHeaderLabel.Text = "Váltó";
             this.ShiftHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -525,7 +527,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.FuelHeaderLabel.AutoSize = true;
             this.FuelHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FuelHeaderLabel.Location = new System.Drawing.Point(287, 269);
+            this.FuelHeaderLabel.Location = new System.Drawing.Point(312, 269);
             this.FuelHeaderLabel.Name = "FuelHeaderLabel";
             this.FuelHeaderLabel.Size = new System.Drawing.Size(73, 15);
             this.FuelHeaderLabel.TabIndex = 42;
@@ -535,7 +537,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.AirCondHeaderLabel.AutoSize = true;
             this.AirCondHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.AirCondHeaderLabel.Location = new System.Drawing.Point(361, 269);
+            this.AirCondHeaderLabel.Location = new System.Drawing.Point(386, 269);
             this.AirCondHeaderLabel.Name = "AirCondHeaderLabel";
             this.AirCondHeaderLabel.Size = new System.Drawing.Size(39, 15);
             this.AirCondHeaderLabel.TabIndex = 43;
@@ -547,7 +549,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RadarHeaderLabel.AutoSize = true;
             this.RadarHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RadarHeaderLabel.Location = new System.Drawing.Point(401, 269);
+            this.RadarHeaderLabel.Location = new System.Drawing.Point(426, 269);
             this.RadarHeaderLabel.Name = "RadarHeaderLabel";
             this.RadarHeaderLabel.Size = new System.Drawing.Size(41, 15);
             this.RadarHeaderLabel.TabIndex = 44;
@@ -557,7 +559,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // CruiseControlHeaderLabel
             // 
             this.CruiseControlHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CruiseControlHeaderLabel.Location = new System.Drawing.Point(443, 269);
+            this.CruiseControlHeaderLabel.Location = new System.Drawing.Point(468, 269);
             this.CruiseControlHeaderLabel.Name = "CruiseControlHeaderLabel";
             this.CruiseControlHeaderLabel.Size = new System.Drawing.Size(28, 15);
             this.CruiseControlHeaderLabel.TabIndex = 45;
@@ -567,7 +569,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // OneToFiveHeaderLabel
             // 
             this.OneToFiveHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.OneToFiveHeaderLabel.Location = new System.Drawing.Point(472, 269);
+            this.OneToFiveHeaderLabel.Location = new System.Drawing.Point(497, 269);
             this.OneToFiveHeaderLabel.Name = "OneToFiveHeaderLabel";
             this.OneToFiveHeaderLabel.Size = new System.Drawing.Size(42, 15);
             this.OneToFiveHeaderLabel.TabIndex = 47;
@@ -577,7 +579,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // SixToFourteenHeaderLabel
             // 
             this.SixToFourteenHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.SixToFourteenHeaderLabel.Location = new System.Drawing.Point(515, 269);
+            this.SixToFourteenHeaderLabel.Location = new System.Drawing.Point(540, 269);
             this.SixToFourteenHeaderLabel.Name = "SixToFourteenHeaderLabel";
             this.SixToFourteenHeaderLabel.Size = new System.Drawing.Size(49, 15);
             this.SixToFourteenHeaderLabel.TabIndex = 48;
@@ -587,22 +589,22 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // FromFifteenHeaderLabel
             // 
             this.FromFifteenHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FromFifteenHeaderLabel.Location = new System.Drawing.Point(565, 269);
+            this.FromFifteenHeaderLabel.Location = new System.Drawing.Point(590, 269);
             this.FromFifteenHeaderLabel.Name = "FromFifteenHeaderLabel";
             this.FromFifteenHeaderLabel.Size = new System.Drawing.Size(49, 15);
             this.FromFifteenHeaderLabel.TabIndex = 49;
             this.FromFifteenHeaderLabel.Text = "15<";
             this.FromFifteenHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // DepositeHeaderLabel
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(615, 269);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 15);
-            this.label1.TabIndex = 50;
-            this.label1.Text = "Kaució";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.DepositeHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.DepositeHeaderLabel.Location = new System.Drawing.Point(640, 269);
+            this.DepositeHeaderLabel.Name = "DepositeHeaderLabel";
+            this.DepositeHeaderLabel.Size = new System.Drawing.Size(49, 15);
+            this.DepositeHeaderLabel.TabIndex = 50;
+            this.DepositeHeaderLabel.Text = "Kaució";
+            this.DepositeHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CarPanel
             // 
@@ -611,10 +613,21 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.CarPanel.Size = new System.Drawing.Size(785, 243);
             this.CarPanel.TabIndex = 51;
             // 
+            // LocationHeaderLabel
+            // 
+            this.LocationHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LocationHeaderLabel.Location = new System.Drawing.Point(690, 269);
+            this.LocationHeaderLabel.Name = "LocationHeaderLabel";
+            this.LocationHeaderLabel.Size = new System.Drawing.Size(33, 15);
+            this.LocationHeaderLabel.TabIndex = 52;
+            this.LocationHeaderLabel.Text = "Hely";
+            this.LocationHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // AddCar
             // 
+            this.Controls.Add(this.LocationHeaderLabel);
             this.Controls.Add(this.CarPanel);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.DepositeHeaderLabel);
             this.Controls.Add(this.FromFifteenHeaderLabel);
             this.Controls.Add(this.SixToFourteenHeaderLabel);
             this.Controls.Add(this.OneToFiveHeaderLabel);
