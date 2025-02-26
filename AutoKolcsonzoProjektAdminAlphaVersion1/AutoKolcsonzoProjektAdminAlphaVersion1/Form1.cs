@@ -15,11 +15,23 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         public Form1()
         {
             InitializeComponent();
+            Start();
         }
         void Start()
         {
-            
+            rentCar1.Hide();
+            RentLabel.Click += showRentedCars;
+            CarsLabel.Click += showCars;
         }
-        
+        void showRentedCars(object s, EventArgs e)
+        {
+            rentCar1.Show();
+            addCar1.Hide();
+        }
+        void showCars(object s, EventArgs e)
+        {
+            rentCar1.Hide();
+            addCar1.Show();
+        }
     }
 }

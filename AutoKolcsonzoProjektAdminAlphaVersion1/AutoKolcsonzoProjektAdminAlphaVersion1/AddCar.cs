@@ -9,7 +9,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 {
     public class AddCar: UserControl
     {
-        private DataGridView AutoTitleDGV;
         private PictureBox CarPictureBox;
         private DataGridView InfoDGV;
         private Label BrandLabel;
@@ -88,7 +87,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private void InitializeComponent()
         {
             this.CarsLabel = new System.Windows.Forms.Label();
-            this.AutoTitleDGV = new System.Windows.Forms.DataGridView();
             this.CarPictureBox = new System.Windows.Forms.PictureBox();
             this.InfoDGV = new System.Windows.Forms.DataGridView();
             this.BrandLabel = new System.Windows.Forms.Label();
@@ -136,7 +134,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.DepositeHeaderLabel = new System.Windows.Forms.Label();
             this.CarPanel = new System.Windows.Forms.Panel();
             this.LocationHeaderLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.AutoTitleDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CarPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).BeginInit();
@@ -144,28 +141,20 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             // CarsLabel
             // 
-            this.CarsLabel.AutoSize = true;
             this.CarsLabel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.CarsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CarsLabel.Location = new System.Drawing.Point(337, 10);
+            this.CarsLabel.Location = new System.Drawing.Point(0, 0);
             this.CarsLabel.Name = "CarsLabel";
-            this.CarsLabel.Size = new System.Drawing.Size(105, 37);
+            this.CarsLabel.Size = new System.Drawing.Size(785, 57);
             this.CarsLabel.TabIndex = 0;
             this.CarsLabel.Text = "Autók";
-            // 
-            // AutoTitleDGV
-            // 
-            this.AutoTitleDGV.BackgroundColor = System.Drawing.SystemColors.ControlLight;
-            this.AutoTitleDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.AutoTitleDGV.Location = new System.Drawing.Point(0, 0);
-            this.AutoTitleDGV.Name = "AutoTitleDGV";
-            this.AutoTitleDGV.Size = new System.Drawing.Size(785, 57);
-            this.AutoTitleDGV.TabIndex = 1;
+            this.CarsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CarPictureBox
             // 
             this.CarPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.CarPictureBox.Location = new System.Drawing.Point(1, 57);
+            this.CarPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CarPictureBox.Location = new System.Drawing.Point(0, 57);
             this.CarPictureBox.Name = "CarPictureBox";
             this.CarPictureBox.Size = new System.Drawing.Size(240, 107);
             this.CarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -673,10 +662,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.Controls.Add(this.CarPictureBox);
             this.Controls.Add(this.InfoDGV);
             this.Controls.Add(this.CarsLabel);
-            this.Controls.Add(this.AutoTitleDGV);
             this.Name = "AddCar";
             this.Size = new System.Drawing.Size(785, 530);
-            ((System.ComponentModel.ISupportInitialize)(this.AutoTitleDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CarPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).EndInit();

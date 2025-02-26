@@ -73,3 +73,4 @@ C:\Users\kantor.krisztian\Desktop\proj\13-projekt\AutoKolcsonzoProjektAdminAlpha
 C:\Users\kantor.krisztian\Desktop\proj\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.csproj.CoreCompileInputs.cache
 C:\Users\kantor.krisztian\Desktop\proj\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.exe
 C:\Users\kantor.krisztian\Desktop\proj\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.pdb
+C:\Users\kantor.krisztian\Desktop\projekt\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.RentCar.resources
