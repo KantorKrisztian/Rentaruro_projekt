@@ -169,6 +169,10 @@ cars.init({
     "info":{
         type: DataTypes.STRING,
         allowNull: false
+    },
+    "location":{
+        type: DataTypes.STRING,
+        allowNull: false
     }
 },{
     sequelize:dbHandler, modelName: 'cars'
