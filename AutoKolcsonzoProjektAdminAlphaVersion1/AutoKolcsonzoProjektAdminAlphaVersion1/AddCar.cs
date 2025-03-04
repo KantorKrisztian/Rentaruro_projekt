@@ -597,7 +597,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             // CarPanel
             // 
-            this.CarPanel.Location = new System.Drawing.Point(0, 287);
+            this.CarPanel.Location = new System.Drawing.Point(0, 286);
             this.CarPanel.Name = "CarPanel";
             this.CarPanel.Size = new System.Drawing.Size(785, 243);
             this.CarPanel.TabIndex = 51;

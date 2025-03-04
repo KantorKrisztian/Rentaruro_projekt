@@ -10,6 +10,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
     public class RentCar:UserControl
     {
         private DataGridView InfoDGV;
+        private Panel panel1;
+        private DataGridView HeaderDGV;
         private Label RentLabel;
         public RentCar()
         {
@@ -19,7 +21,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         {
             this.RentLabel = new System.Windows.Forms.Label();
             this.InfoDGV = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.HeaderDGV = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).BeginInit();
             this.SuspendLayout();
             // 
             // RentLabel
@@ -41,15 +46,35 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.InfoDGV.Size = new System.Drawing.Size(785, 212);
             this.InfoDGV.TabIndex = 4;
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(0, 286);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(785, 243);
+            this.panel1.TabIndex = 5;
+            // 
+            // HeaderDGV
+            // 
+            this.HeaderDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.HeaderDGV.Location = new System.Drawing.Point(0, 268);
+            this.HeaderDGV.Name = "HeaderDGV";
+            this.HeaderDGV.Size = new System.Drawing.Size(785, 17);
+            this.HeaderDGV.TabIndex = 36;
+            // 
             // RentCar
             // 
+            this.Controls.Add(this.HeaderDGV);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.InfoDGV);
             this.Controls.Add(this.RentLabel);
             this.Name = "RentCar";
-            this.Size = new System.Drawing.Size(785, 532);
+            this.Size = new System.Drawing.Size(785, 530);
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).EndInit();
             this.ResumeLayout(false);
 
         }
+
+        
     }
 }
