@@ -56,6 +56,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private Label DepositeHeaderLabel;
         public Panel CarPanel;
         private Label LocationHeaderLabel;
+        private Label LocationLabel;
+        private ComboBox LocationCB;
         private Label CarsLabel;
 
         public AddCar()
@@ -134,6 +136,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.DepositeHeaderLabel = new System.Windows.Forms.Label();
             this.CarPanel = new System.Windows.Forms.Panel();
             this.LocationHeaderLabel = new System.Windows.Forms.Label();
+            this.LocationLabel = new System.Windows.Forms.Label();
+            this.LocationCB = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.CarPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).BeginInit();
@@ -229,7 +233,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.AirCondLabel.AutoSize = true;
             this.AirCondLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.AirCondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.AirCondLabel.Location = new System.Drawing.Point(480, 88);
+            this.AirCondLabel.Location = new System.Drawing.Point(674, 67);
             this.AirCondLabel.Name = "AirCondLabel";
             this.AirCondLabel.Size = new System.Drawing.Size(49, 18);
             this.AirCondLabel.TabIndex = 9;
@@ -416,7 +420,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.AirCondChB.AutoSize = true;
             this.AirCondChB.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.AirCondChB.Location = new System.Drawing.Point(572, 93);
+            this.AirCondChB.Location = new System.Drawing.Point(729, 71);
             this.AirCondChB.Name = "AirCondChB";
             this.AirCondChB.Size = new System.Drawing.Size(15, 14);
             this.AirCondChB.TabIndex = 32;
@@ -612,8 +616,29 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.LocationHeaderLabel.Text = "Hely";
             this.LocationHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // LocationLabel
+            // 
+            this.LocationLabel.AutoSize = true;
+            this.LocationLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.LocationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LocationLabel.Location = new System.Drawing.Point(480, 88);
+            this.LocationLabel.Name = "LocationLabel";
+            this.LocationLabel.Size = new System.Drawing.Size(41, 18);
+            this.LocationLabel.TabIndex = 53;
+            this.LocationLabel.Text = "Hely:";
+            // 
+            // LocationCB
+            // 
+            this.LocationCB.FormattingEnabled = true;
+            this.LocationCB.Location = new System.Drawing.Point(534, 89);
+            this.LocationCB.Name = "LocationCB";
+            this.LocationCB.Size = new System.Drawing.Size(121, 21);
+            this.LocationCB.TabIndex = 54;
+            // 
             // AddCar
             // 
+            this.Controls.Add(this.LocationCB);
+            this.Controls.Add(this.LocationLabel);
             this.Controls.Add(this.LocationHeaderLabel);
             this.Controls.Add(this.CarPanel);
             this.Controls.Add(this.DepositeHeaderLabel);
