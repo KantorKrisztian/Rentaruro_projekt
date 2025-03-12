@@ -31,6 +31,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private Label NameLabel;
         private TextBox NameTB;
         private Button AddRentBtn;
+        private Label IDHeaderLabel;
+        private Label StartHeaderLabel;
+        private Label EndHeaderLabel;
+        private Label CarIDHeaderLabel;
+        private Label BrandHeaderLabel;
+        private Label TypeHeaderLabel;
         private Label RentLabel;
         public RentCar()
         {
@@ -61,6 +67,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.NameLabel = new System.Windows.Forms.Label();
             this.NameTB = new System.Windows.Forms.TextBox();
             this.AddRentBtn = new System.Windows.Forms.Button();
+            this.IDHeaderLabel = new System.Windows.Forms.Label();
+            this.StartHeaderLabel = new System.Windows.Forms.Label();
+            this.EndHeaderLabel = new System.Windows.Forms.Label();
+            this.CarIDHeaderLabel = new System.Windows.Forms.Label();
+            this.BrandHeaderLabel = new System.Windows.Forms.Label();
+            this.TypeHeaderLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).BeginInit();
             this.SuspendLayout();
@@ -276,8 +288,79 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.AddRentBtn.Text = "Hozzáadás";
             this.AddRentBtn.UseVisualStyleBackColor = true;
             // 
+            // IDHeaderLabel
+            // 
+            this.IDHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.IDHeaderLabel.Location = new System.Drawing.Point(1, 232);
+            this.IDHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.IDHeaderLabel.Name = "IDHeaderLabel";
+            this.IDHeaderLabel.Size = new System.Drawing.Size(30, 15);
+            this.IDHeaderLabel.TabIndex = 56;
+            this.IDHeaderLabel.Text = "ID";
+            this.IDHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // StartHeaderLabel
+            // 
+            this.StartHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.StartHeaderLabel.Location = new System.Drawing.Point(32, 232);
+            this.StartHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.StartHeaderLabel.Name = "StartHeaderLabel";
+            this.StartHeaderLabel.Size = new System.Drawing.Size(55, 15);
+            this.StartHeaderLabel.TabIndex = 57;
+            this.StartHeaderLabel.Text = "Kezdete";
+            this.StartHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // EndHeaderLabel
+            // 
+            this.EndHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.EndHeaderLabel.Location = new System.Drawing.Point(88, 232);
+            this.EndHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.EndHeaderLabel.Name = "EndHeaderLabel";
+            this.EndHeaderLabel.Size = new System.Drawing.Size(55, 15);
+            this.EndHeaderLabel.TabIndex = 58;
+            this.EndHeaderLabel.Text = "Vége";
+            this.EndHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // CarIDHeaderLabel
+            // 
+            this.CarIDHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.CarIDHeaderLabel.Location = new System.Drawing.Point(144, 232);
+            this.CarIDHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.CarIDHeaderLabel.Name = "CarIDHeaderLabel";
+            this.CarIDHeaderLabel.Size = new System.Drawing.Size(43, 15);
+            this.CarIDHeaderLabel.TabIndex = 59;
+            this.CarIDHeaderLabel.Text = "AutóID";
+            this.CarIDHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // BrandHeaderLabel
+            // 
+            this.BrandHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.BrandHeaderLabel.Location = new System.Drawing.Point(188, 232);
+            this.BrandHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.BrandHeaderLabel.Name = "BrandHeaderLabel";
+            this.BrandHeaderLabel.Size = new System.Drawing.Size(66, 15);
+            this.BrandHeaderLabel.TabIndex = 60;
+            this.BrandHeaderLabel.Text = "Márka";
+            this.BrandHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TypeHeaderLabel
+            // 
+            this.TypeHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TypeHeaderLabel.Location = new System.Drawing.Point(255, 232);
+            this.TypeHeaderLabel.Name = "TypeHeaderLabel";
+            this.TypeHeaderLabel.Size = new System.Drawing.Size(66, 15);
+            this.TypeHeaderLabel.TabIndex = 61;
+            this.TypeHeaderLabel.Text = "Típus";
+            this.TypeHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // RentCar
             // 
+            this.Controls.Add(this.TypeHeaderLabel);
+            this.Controls.Add(this.BrandHeaderLabel);
+            this.Controls.Add(this.CarIDHeaderLabel);
+            this.Controls.Add(this.EndHeaderLabel);
+            this.Controls.Add(this.StartHeaderLabel);
+            this.Controls.Add(this.IDHeaderLabel);
             this.Controls.Add(this.AddRentBtn);
             this.Controls.Add(this.NameTB);
             this.Controls.Add(this.NameLabel);
