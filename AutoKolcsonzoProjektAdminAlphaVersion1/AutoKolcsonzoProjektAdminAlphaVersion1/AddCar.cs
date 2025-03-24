@@ -611,7 +611,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.LocationHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.LocationHeaderLabel.Location = new System.Drawing.Point(690, 269);
             this.LocationHeaderLabel.Name = "LocationHeaderLabel";
-            this.LocationHeaderLabel.Size = new System.Drawing.Size(33, 15);
+            this.LocationHeaderLabel.Size = new System.Drawing.Size(31, 15);
             this.LocationHeaderLabel.TabIndex = 52;
             this.LocationHeaderLabel.Text = "Hely";
             this.LocationHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
