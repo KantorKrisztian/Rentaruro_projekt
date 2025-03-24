@@ -58,6 +58,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private Label LocationHeaderLabel;
         private Label LocationLabel;
         private ComboBox LocationCB;
+        private Label YearLabel;
+        private ComboBox YearCB;
         private Label CarsLabel;
 
         public AddCar()
@@ -86,6 +88,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
         }
 
+        
         private void InitializeComponent()
         {
             this.CarsLabel = new System.Windows.Forms.Label();
@@ -138,6 +141,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.LocationHeaderLabel = new System.Windows.Forms.Label();
             this.LocationLabel = new System.Windows.Forms.Label();
             this.LocationCB = new System.Windows.Forms.ComboBox();
+            this.YearLabel = new System.Windows.Forms.Label();
+            this.YearCB = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.CarPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).BeginInit();
@@ -189,7 +194,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.DriveLabel.AutoSize = true;
             this.DriveLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.DriveLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.DriveLabel.Location = new System.Drawing.Point(252, 88);
+            this.DriveLabel.Location = new System.Drawing.Point(252, 113);
             this.DriveLabel.Name = "DriveLabel";
             this.DriveLabel.Size = new System.Drawing.Size(80, 18);
             this.DriveLabel.TabIndex = 5;
@@ -200,7 +205,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.ShiftLabel.AutoSize = true;
             this.ShiftLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ShiftLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ShiftLabel.Location = new System.Drawing.Point(252, 112);
+            this.ShiftLabel.Location = new System.Drawing.Point(480, 88);
             this.ShiftLabel.Name = "ShiftLabel";
             this.ShiftLabel.Size = new System.Drawing.Size(45, 18);
             this.ShiftLabel.TabIndex = 6;
@@ -244,7 +249,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.RadarLabel.AutoSize = true;
             this.RadarLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.RadarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RadarLabel.Location = new System.Drawing.Point(480, 112);
+            this.RadarLabel.Location = new System.Drawing.Point(674, 92);
             this.RadarLabel.Name = "RadarLabel";
             this.RadarLabel.Size = new System.Drawing.Size(88, 18);
             this.RadarLabel.TabIndex = 10;
@@ -385,7 +390,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // DriveCB
             // 
             this.DriveCB.FormattingEnabled = true;
-            this.DriveCB.Location = new System.Drawing.Point(339, 88);
+            this.DriveCB.Location = new System.Drawing.Point(339, 113);
             this.DriveCB.Name = "DriveCB";
             this.DriveCB.Size = new System.Drawing.Size(121, 21);
             this.DriveCB.TabIndex = 28;
@@ -393,7 +398,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // ShiftCB
             // 
             this.ShiftCB.FormattingEnabled = true;
-            this.ShiftCB.Location = new System.Drawing.Point(339, 112);
+            this.ShiftCB.Location = new System.Drawing.Point(534, 89);
             this.ShiftCB.Name = "ShiftCB";
             this.ShiftCB.Size = new System.Drawing.Size(121, 21);
             this.ShiftCB.TabIndex = 29;
@@ -430,7 +435,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.RadarChB.AutoSize = true;
             this.RadarChB.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.RadarChB.Location = new System.Drawing.Point(572, 117);
+            this.RadarChB.Location = new System.Drawing.Point(758, 96);
             this.RadarChB.Name = "RadarChB";
             this.RadarChB.Size = new System.Drawing.Size(15, 14);
             this.RadarChB.TabIndex = 33;
@@ -621,7 +626,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.LocationLabel.AutoSize = true;
             this.LocationLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.LocationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LocationLabel.Location = new System.Drawing.Point(480, 88);
+            this.LocationLabel.Location = new System.Drawing.Point(480, 111);
             this.LocationLabel.Name = "LocationLabel";
             this.LocationLabel.Size = new System.Drawing.Size(41, 18);
             this.LocationLabel.TabIndex = 53;
@@ -630,13 +635,34 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // LocationCB
             // 
             this.LocationCB.FormattingEnabled = true;
-            this.LocationCB.Location = new System.Drawing.Point(534, 89);
+            this.LocationCB.Location = new System.Drawing.Point(534, 113);
             this.LocationCB.Name = "LocationCB";
             this.LocationCB.Size = new System.Drawing.Size(121, 21);
             this.LocationCB.TabIndex = 54;
             // 
+            // YearLabel
+            // 
+            this.YearLabel.AutoSize = true;
+            this.YearLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.YearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.YearLabel.Location = new System.Drawing.Point(252, 90);
+            this.YearLabel.Name = "YearLabel";
+            this.YearLabel.Size = new System.Drawing.Size(57, 18);
+            this.YearLabel.TabIndex = 55;
+            this.YearLabel.Text = "Évjárat:";
+            // 
+            // YearCB
+            // 
+            this.YearCB.FormattingEnabled = true;
+            this.YearCB.Location = new System.Drawing.Point(339, 89);
+            this.YearCB.Name = "YearCB";
+            this.YearCB.Size = new System.Drawing.Size(121, 21);
+            this.YearCB.TabIndex = 56;
+            // 
             // AddCar
             // 
+            this.Controls.Add(this.YearCB);
+            this.Controls.Add(this.YearLabel);
             this.Controls.Add(this.LocationCB);
             this.Controls.Add(this.LocationLabel);
             this.Controls.Add(this.LocationHeaderLabel);

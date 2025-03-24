@@ -54,3 +54,39 @@ function notUser(req,res,next){
         }
     }
 }
+
+
+server.post("/AddCar",async (req,res)=>{
+    try {
+        await dbHandler.carsTable.create({
+            picture:req.body.picture,
+            brand:req.body.brand,
+            type:req.body.type,
+            year:req.body.year,
+            drive:req.body.drive,
+            gearShift:req.body.gearShift,
+            fuel:req.body.fuel,
+            airCondition:req.body.airCondition,
+            radar:req.body.radar,
+            cruiseControl:req.body.cruiseControl,
+            info:req.body.info,
+            location:req.body.location,
+            OneToFive:req.body.OneToFive,
+            SixToForteen:req.body.SixToForteen,
+            OverForteen:req.body.OverForteen,
+            Deposit:req.body.Deposit
+        })
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
+        return
+    }
+    res.status(201)
+    res.json({"message":"Sikeres hozzáadás!"})
+    res.end()
+})
+
+
+
+
+server.listen(3000)

@@ -89,3 +89,6 @@ E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjekt
 E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.exe
 E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.pdb
 E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.OneRent.resources
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\Newtonsoft.Json.dll
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\Newtonsoft.Json.xml
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolc.0ADAFBBE.Up2Date
