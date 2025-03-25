@@ -62,6 +62,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private ComboBox YearCB;
         private Label CarsLabel;
 
+        HttpRequests httpRequests = new HttpRequests();
         public AddCar()
         {
             InitializeComponent();
@@ -86,9 +87,56 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 CarPanel.Controls.Add(auto);
                 
             }
+
+            AddCarBtn.Click += AddOneCar;
         }
 
-        
+        void AddOneCar(object s,EventArgs e)
+        {
+            jsonCars carss = new jsonCars();
+            try
+            {
+                carss.picture = CarPictureBox.ImageLocation;
+                carss.brand = BrandTB.Text;
+                carss.type = TypeTB.Text;
+                carss.year = YearCB.Text;
+                carss.drive = DriveCB.Text;
+                carss.gearShift = ShiftCB.Text;
+                carss.fuel = FuelCB.Text;
+                carss.airCondition = AirCondChB.Checked.ToString();
+                carss.radar = RadarChB.Checked.ToString();
+                carss.cruiseControl = CruiseControlChB.Checked.ToString();
+                carss.info = textBox5.Text;
+                carss.location = LocationCB.Text;
+                carss.OneToFive = int.Parse(OneToFiveRentalTB.Text);
+                carss.SixToForteen = int.Parse(SixToFourteenRentalTB.Text);
+                carss.OverForteen = int.Parse(FromFifteenRentalTB.Text);
+                carss.Deposit = int.Parse(DepositTB.Text);
+                httpRequests.CreateCar(carss);
+                CarPictureBox.Image = null;
+                BrandTB.Text = "";
+                TypeTB.Text = "";
+                YearCB.Text = "";
+                DriveCB.Text = "";
+                ShiftCB.Text = "";
+                FuelCB.Text = "";
+                AirCondChB.Checked = false;
+                RadarChB.Checked = false;
+                CruiseControlChB.Checked = false;
+                textBox5.Text = "";
+                LocationCB.Text = "";
+                OneToFiveRentalTB.Text = "";
+                SixToFourteenRentalTB.Text = "";
+                FromFifteenRentalTB.Text = "";
+                DepositTB.Text = "";
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+            
+            return;
+        }
         private void InitializeComponent()
         {
             this.CarsLabel = new System.Windows.Forms.Label();

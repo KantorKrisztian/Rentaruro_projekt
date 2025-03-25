@@ -77,7 +77,7 @@ server.post("/AddCar",async (req,res)=>{
             Deposit:req.body.Deposit
         })
     } catch (error) {
-        res.json({'message':error})
+        res.json({'message':"error"})
         res.end()
         return
     }
@@ -89,4 +89,4 @@ server.post("/AddCar",async (req,res)=>{
 
 
 
-server.listen(3000)
+server.listen(PORT)
