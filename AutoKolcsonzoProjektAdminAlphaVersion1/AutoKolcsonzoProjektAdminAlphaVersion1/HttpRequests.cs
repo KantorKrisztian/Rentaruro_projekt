@@ -19,7 +19,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             try
             {
                 string serverUrl = this.serverUrl + "AddCar";
-                MessageBox.Show(serverUrl);
                 string jsonString = JsonConvert.SerializeObject(Cars);
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
@@ -30,6 +29,23 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 MessageBox.Show(e.Message);
             }
             
+        }
+        public async Task<List<jsonCars>> ListAllCars()
+        {
+            List<jsonCars> cars = new List<jsonCars>();
+            try
+            {
+                string serverUrl = this.serverUrl + "ListCars";
+                string response = await client.GetStringAsync(serverUrl);
+                cars = JsonConvert.DeserializeObject<List<jsonCars>>(response);
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+            return cars;
         }
 
     }
