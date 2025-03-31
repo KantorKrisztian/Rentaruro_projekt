@@ -38,14 +38,39 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 string serverUrl = this.serverUrl + "ListCars";
                 string response = await client.GetStringAsync(serverUrl);
                 cars = JsonConvert.DeserializeObject<List<jsonCars>>(response);
-                
+                return cars;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
                 return null;
             }
-            return cars;
+            
+        }
+        public async void Registration(string username, string password)
+        {
+            string serverUrl = this.serverUrl + "AdminRegistration";
+            try
+            {
+                var jsonData = new
+                {
+                    registerNev = username,
+                    registerPassword = password
+                };
+                string jsonString = JsonConvert.SerializeObject(jsonData);
+                HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
+                HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
+
+                response.EnsureSuccessStatusCode();
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+                MessageBox.Show(responseBody);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
     }

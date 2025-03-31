@@ -82,10 +82,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             };
             CarPanel.AutoScroll = Enabled;
             
-            CarList();
+            
             AddCarBtn.Click += AddOneCar;
             
-            AddCarBtn.Click += (s, e) => CarList();
+            /*AddCarBtn.Click += (s, e) => CarList();*/
         }
 
         void AddOneCar(object s,EventArgs e)
