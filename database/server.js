@@ -18,42 +18,71 @@ dbHandler.userTable.sync({alter:true})
 dbHandler.carsTable.sync({alter:true})
 dbHandler.reservationTable.sync({alter:true})
 
-function authenticate() {
-    return (req,res,next) => {
-        const token = req.headers.authorization
-        if(!token || token.split(' ')[0].toLowerCase() != "bearer"){
-            res.status(498)
-            res.json({'message':'Hibás vagy nem létező bejelentkezési token'})
+function authorization() {
+    return (req,res,next)=>{
+        const auth=req.headers.authorization
+        if (typeof(auth)=='undefined') {
+            res.status(401)
+            res.json({"message":"Nem létező token"})
             res.end()
             return
         }
-        const bearerToken = token.split(' ')[1]
-        try{
-            const decodedData = JWT.verify(bearerToken, SUPERSECRET)
-            req.username = decodedData.username
-            req.email = decodedData.email
-            //??????
-            next()
+        if (!auth.startsWith("Bearer")) {
+            res.status(401)
+            res.json({"message":"Hibás token"})
+            res.end()
+            return
         }
-        catch(error){
-            res.json({'message':error})
+        const encodedToken=auth.split(' ')[1]
+        try {
+            const decodedToken=jwt.verify(encodedToken,TITOK)
+            req.userName=decodedToken.nev
+            req.userId=decodedToken.id
+            next()
+        } catch (error) {
+            res.json({"message":error})
             res.end()
         }
     }
 }
 
-function notUser(req,res,next){
-    return (req,res,next) => {
-        if(req.role != 'user'){
-            next()
-        }
-        else{
-            res.status(401)
-            res.json({'message':'Belépés csak a személyzetnek!'})
-            res.end()
-        }
+server.post("/AdminRegistration",async (req,res)=>{
+    let oneUser
+    try {
+        oneUser=await dbHandler.adminTable.findOne({
+            where:{
+                username:req.body.registerNev
+            }
+        })
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
+        console.log(error)
+        return
     }
-}
+    if (oneUser) {
+        res.status(403)
+        res.json({'message':'Ilyen felhasználó már van'})
+        res.end()
+        return
+    }
+    try {
+        await dbHandler.adminTable.create({
+            username:req.body.registerNev,
+            password:req.body.registerPassword,
+            role:"dolgozo"
+        })
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
+        return
+    }
+    
+    res.status(201)
+    res.json({"message":"Sikeres regisztráció"})
+    res.end()
+})
+
 
 
 server.post("/AddCar",async (req,res)=>{
@@ -86,6 +115,38 @@ server.post("/AddCar",async (req,res)=>{
     res.end()
 })
 
+server.post("/AdminLogin",async (req,res)=>{
+    let oneUser
+    try {
+        oneUser=await dbHandler.adminTable.findOne({
+            where:{
+                username:req.body.loginNev,
+                password:req.body.loginPassword
+            }
+        })
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
+        return
+    }
+
+    if (oneUser) {
+        try {
+            const token=await JWT.sign({"username":oneUser.nev,'id':oneUser.id},TITOK,{expiresIn:'1h'})
+            res.json({'message':'Sikeres bejelentkezés','token':token})
+            res.end()
+            return
+        } catch (error) {
+            res.json({'message':error})
+            res.end()
+            return
+        }
+    }
+
+    res.status(409)
+    res.json({"message":"Hibás felhasználónév, vagy jeélszó"})
+    res.end()
+})
 
 
 

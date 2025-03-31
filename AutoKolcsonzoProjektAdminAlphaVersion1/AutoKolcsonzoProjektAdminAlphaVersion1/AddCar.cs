@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,15 +82,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             };
             CarPanel.AutoScroll = Enabled;
             
-            for (int i = 0; i < 20; i++)
-            {
-                OneCar auto = new OneCar();
-                auto.Top = i * auto.Height;
-                CarPanel.Controls.Add(auto);
-                
-            }
-
+            
             AddCarBtn.Click += AddOneCar;
+            
+            /*AddCarBtn.Click += (s, e) => CarList();*/
         }
 
         void AddOneCar(object s,EventArgs e)
@@ -113,7 +110,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 carss.OverForteen = int.Parse(FromFifteenRentalTB.Text);
                 carss.Deposit = int.Parse(DepositTB.Text);
                 httpRequests.CreateCar(carss);
-                /*
                 CarPictureBox.Image = null;
                 BrandTB.Text = "";
                 TypeTB.Text = "";
@@ -129,14 +125,42 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 OneToFiveRentalTB.Text = "";
                 SixToFourteenRentalTB.Text = "";
                 FromFifteenRentalTB.Text = "";
-                DepositTB.Text = "";*/
+                DepositTB.Text = "";
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message);
             }
             
-            return;
+        }
+        public async void CarList()
+        {
+            List<jsonCars> AllCars=await httpRequests.ListAllCars();
+            CarPanel.Controls.Clear();
+            int count = 0;
+            foreach (jsonCars item in AllCars)
+            {
+                count++;
+                OneCar auto = new OneCar();
+                auto.IDLabel.Text = item.id.ToString();
+                auto.BrandLabel.Text = item.brand;
+                auto.TypeLabel.Text = item.type;
+                auto.YearLabel.Text = item.year;
+                auto.DriveLabel.Text = item.drive;
+                auto.ShiftLabel.Text = item.gearShift;
+                auto.FuelLabel.Text = item.fuel;
+                auto.AirCondLabel.Text = item.airCondition;
+                auto.RadarLabel.Text = item.radar;
+                auto.CruiseControlLabel.Text = item.cruiseControl;
+                auto.OneToFiveLabel.Text = item.OneToFive.ToString();
+                auto.SixToFourteenLabel.Text = item.SixToForteen.ToString();
+                auto.FromFifteenLabel.Text = item.OverForteen.ToString();
+                auto.DepositLabel.Text = item.Deposit.ToString();
+                auto.LocationLabel.Text = item.location;
+                CarPanel.Controls.Add(auto);
+                auto.Top = (count-1) * auto.Height;
+            }
+            count = 0;
         }
         private void InitializeComponent()
         {

@@ -5,7 +5,7 @@ const USERNAME = 'root'
 const PASSWORD = process.env.PASSWORD
 const HOST = process.env.HOST
 
-const dbHandler = new Sequelize(DBNAME,USERNAME,PASSWORD,
+const dbHandler = new Sequelize("adat",USERNAME,PASSWORD,
     {
         host: HOST,
         dialect: "mysql"
