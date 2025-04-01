@@ -42,6 +42,7 @@ function authenticate() {
     }
 }
 
+
 function notUser(req,res,next){
     return (req,res,next) => {
         if(req.role != 'user'){
@@ -77,7 +78,7 @@ server.post("/AddCar",async (req,res)=>{
             Deposit:req.body.Deposit
         })
     } catch (error) {
-        res.json({'message':"error"})
+        res.json({'message':error})
         res.end()
         return
     }
@@ -86,6 +87,11 @@ server.post("/AddCar",async (req,res)=>{
     res.end()
 })
 
+server.get("/ListCars",async (req,res)=>{
+    const cars = await dbHandler.carsTable.findAll()
+    res.json(cars)
+    res.end()
+})
 
 
 
