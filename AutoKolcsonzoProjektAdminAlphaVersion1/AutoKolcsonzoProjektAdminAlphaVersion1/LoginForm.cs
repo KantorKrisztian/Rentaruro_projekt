@@ -20,23 +20,34 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         void Start()
         {
-            LoginBtn.Click += formShow;
+            LoginBtn.Click += (object s, EventArgs e)=> formShow();
             carForm.FormClosing += closeForm;
             carForm.ExitLabel.Click += exitForm;
-            carForm.ExitLabel.MouseHover += hover;
-        }
-        void hover(object s, EventArgs e)
-        {
-            
+            button1.Click += register;
         }
         void closeForm(object s, EventArgs e)
         {
             Application.Exit();
         }
-        void formShow(object s, EventArgs e)
+        HttpRequests httpRequests = new HttpRequests();
+        async void formShow()
         {
-            carForm.Show();
-            this.Hide();
+            
+            bool loginSuccess = await httpRequests.Login(LoginUserTb.Text, LoginPassTb.Text);
+            if (loginSuccess)
+            {
+                this.Hide();
+                carForm.Show();
+                LoginUserTb.Text = "";
+                LoginPassTb.Text = "";
+            }
+
+            
+
+        }
+        void register(object s, EventArgs e)
+        {
+            httpRequests.Registration(LoginUserTb.Text, LoginPassTb.Text);
         }
         void exitForm(object s, EventArgs e)
         {

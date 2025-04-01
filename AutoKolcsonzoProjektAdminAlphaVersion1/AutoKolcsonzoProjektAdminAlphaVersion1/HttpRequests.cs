@@ -38,14 +38,72 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 string serverUrl = this.serverUrl + "ListCars";
                 string response = await client.GetStringAsync(serverUrl);
                 cars = JsonConvert.DeserializeObject<List<jsonCars>>(response);
-                
+                return cars;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
                 return null;
             }
-            return cars;
+            
+        }
+        public async void Registration(string username, string password)
+        {
+            string serverUrl = this.serverUrl + "AdminRegistration";
+            try
+            {
+                var jsonData = new
+                {
+                    registerNev = username,
+                    registerPassword = password
+                };
+                string jsonString = JsonConvert.SerializeObject(jsonData);
+                HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
+                HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
+                response.EnsureSuccessStatusCode();
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+        
+        public async Task<bool> Login(string username, string password)
+        {
+            string serverUrl = this.serverUrl + "AdminLogin";
+            string message;
+            try
+            {
+                var jsonData = new
+                {
+                    loginNev = username,
+                    loginPassword = password
+                };
+                string jsonString = JsonConvert.SerializeObject(jsonData);
+                HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
+                HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
+                
+                string stringResult = await response.Content.ReadAsStringAsync();
+                message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
+                string status = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).status;
+                
+                
+
+                Token.token = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).token;
+                response.EnsureSuccessStatusCode();
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
         }
 
     }
