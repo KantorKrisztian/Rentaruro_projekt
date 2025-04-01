@@ -53,6 +53,20 @@ server.get("/ListCars",async (req,res)=>{
     res.json(cars)
 })
 
+server.get("/ListAllReservetions",async (req,res)=>{
+    const reservations = await dbHandler.reservationTable.findAll()
+    const cars = await dbHandler.carsTable.findAll()
+    const users = await dbHandler.userTable.findAll()
+    reservations.forEach((reservation)=>{
+        const car = cars.find((car)=>car.id==reservation.carId)
+        const user = users.find((user)=>user.id==reservation.userId)
+        reservation.car=car
+        reservation.user=user
+    })
+    res.json(reservations)
+})
+
+
 
 server.post("/AddCar",async (req,res)=>{
     try {
