@@ -60,8 +60,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 string jsonString = JsonConvert.SerializeObject(jsonData);
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
                 HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
-                string responseBody = await response.Content.ReadAsStringAsync();
-                MessageBox.Show(responseBody);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
                 response.EnsureSuccessStatusCode();
 
 
@@ -85,8 +86,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
                 HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
                 string stringResult = await response.Content.ReadAsStringAsync();
-                MessageBox.Show(stringResult);
+                
                 string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
                 Token.token = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).token;
                 response.EnsureSuccessStatusCode();
 

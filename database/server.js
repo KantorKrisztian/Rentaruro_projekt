@@ -11,6 +11,7 @@ const JWT = require('jsonwebtoken')
 const timeLimit = '1h'
 const SUPERSECRET = process.env.SECRETKEY
 
+
 const dbHandler = require('./dbHandler')
 dbHandler.adminTable.sync({alter:true})
 dbHandler.personalTable.sync({alter:true})
@@ -35,7 +36,7 @@ function authorization() {
         }
         const encodedToken=auth.split(' ')[1]
         try {
-            const decodedToken=jwt.verify(encodedToken,TITOK)
+            const decodedToken=jwt.verify(encodedToken,SUPERSECRET)
             req.userName=decodedToken.nev
             req.userId=decodedToken.id
             next()
@@ -132,12 +133,12 @@ server.post("/AdminLogin",async (req,res)=>{
 
     if (oneUser) {
         try {
-            const token=await JWT.sign({"username":oneUser.nev,'id':oneUser.id},TITOK,{expiresIn:'1h'})
+            const token=await JWT.sign({"username":oneUser.nev,'id':oneUser.id},SUPERSECRET,{expiresIn:'1h'})
             res.json({'message':'Sikeres bejelentkezés','token':token})
             res.end()
             return
         } catch (error) {
-            res.json({'message':error})
+            res.json({'message':"error"})
             res.end()
             return
         }
