@@ -5,7 +5,7 @@ const USERNAME = 'root'
 const PASSWORD = process.env.PASSWORD
 const HOST = process.env.HOST
 
-const dbHandler = new Sequelize("adat",USERNAME,PASSWORD,
+const dbHandler = new Sequelize(DBNAME,USERNAME,PASSWORD,
     {
         host: HOST,
         dialect: "mysql"
@@ -47,6 +47,14 @@ personalInfo.init({
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
+    },
+    "userId":{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references:{
+            model: admin,
+            key:'id'
+        }
     },
     "name":{
         type: DataTypes.STRING,
@@ -202,14 +210,20 @@ reservation.init({
         allowNull: false
     },
     "carId":{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        references:{
+            model: cars,
+            key:'id'
+        }
     },
     "personId":{
         type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        references:{
+            model: user,
+            key:'id'
+        }
     },
     "start":{
         type: DataTypes.DATE,

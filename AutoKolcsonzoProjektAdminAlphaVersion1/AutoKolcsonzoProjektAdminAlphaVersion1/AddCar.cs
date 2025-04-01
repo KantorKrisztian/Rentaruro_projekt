@@ -71,7 +71,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             Start();
         }
 
-        public void Start()
+        public async void Start()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             CarPictureBox.Click += (sender, e) =>
@@ -81,13 +81,24 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 CarPictureBox.ImageLocation = path.ToString();
             };
             CarPanel.AutoScroll = Enabled;
-            
             AddCarBtn.Click += AddOneCar;
-            
-            AddCarBtn.Click += (s, e) => CarList();
+            List<jsonCars> AllCars = await httpRequests.ListAllCars();
+            CarList(AllCars);
+            SetComboBoxes();
         }
+        void SetComboBoxes()
+        {
+            int year = Convert.ToInt32(DateTime.Now.Year);
+            for (int i = year; i >= 1900; i--)
+            {
+                YearCB.Items.Add(i);
+            }
+            ShiftCB.Items.Add("Manuális");
+            ShiftCB.Items.Add("Autómata");
 
-        void AddOneCar(object s,EventArgs e)
+
+        }
+        async void AddOneCar(object s,EventArgs e)
         {
             jsonCars carss = new jsonCars();
             try
@@ -108,7 +119,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 carss.SixToForteen = int.Parse(SixToFourteenRentalTB.Text);
                 carss.OverForteen = int.Parse(FromFifteenRentalTB.Text);
                 carss.Deposit = int.Parse(DepositTB.Text);
-                httpRequests.CreateCar(carss);
+                List<jsonCars> AllCars=await httpRequests.CreateCar(carss);
+                CarList(AllCars);
                 CarPictureBox.Image = null;
                 BrandTB.Text = "";
                 TypeTB.Text = "";
@@ -132,9 +144,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             
         }
-        public async void CarList()
+        public void CarList(List<jsonCars> AllCars)
         {
-            List<jsonCars> AllCars=await httpRequests.ListAllCars();
+            
             CarPanel.Controls.Clear();
             int count = 0;
             foreach (jsonCars item in AllCars)
