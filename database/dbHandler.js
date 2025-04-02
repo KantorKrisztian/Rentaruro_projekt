@@ -241,5 +241,14 @@ reservation.init({
     sequelize:dbHandler, modelName: 'reservation'
 })
 
+
 exports.reservationTable = reservation
 
+reservation.hasOne(cars,{
+    foreignKey:'id',
+    sourceKey:'carId'
+})
+reservation.hasOne(user,{
+    foreignKey:'id',
+    sourceKey:'personId'
+})
