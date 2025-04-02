@@ -47,6 +47,57 @@ function authorization() {
     }
 }
 
+
+server.get("/ListCars",async (req,res)=>{
+    const cars = await dbHandler.carsTable.findAll()
+    res.json(cars)
+})
+
+server.get("/ListAllReservetions",async (req,res)=>{
+    const reservations = await dbHandler.reservationTable.findAll()
+    const cars = await dbHandler.carsTable.findAll()
+    const users = await dbHandler.userTable.findAll()
+    reservations.forEach((reservation)=>{
+        const car = cars.find((car)=>car.id==reservation.carId)
+        const user = users.find((user)=>user.id==reservation.userId)
+        reservation.car=car
+        reservation.user=user
+    })
+    res.json(reservations)
+})
+
+
+
+server.post("/AddCar",async (req,res)=>{
+    try {
+        await dbHandler.carsTable.create({
+            picture:req.body.picture,
+            brand:req.body.brand,
+            type:req.body.type,
+            year:req.body.year,
+            drive:req.body.drive,
+            gearShift:req.body.gearShift,
+            fuel:req.body.fuel,
+            airCondition:req.body.airCondition,
+            radar:req.body.radar,
+            cruiseControl:req.body.cruiseControl,
+            info:req.body.info,
+            location:req.body.location,
+            OneToFive:req.body.OneToFive,
+            SixToForteen:req.body.SixToForteen,
+            OverForteen:req.body.OverForteen,
+            Deposit:req.body.Deposit
+        })
+    } catch (error) {
+        res.json({'message':"error"})
+        res.end()
+        return
+    }
+    res.status(201)
+    res.json({"message":"Sikeres hozzáadás!"})
+    res.end()
+})
+
 server.post("/AdminRegistration",async (req,res)=>{
     let oneUser
     try {
@@ -84,38 +135,6 @@ server.post("/AdminRegistration",async (req,res)=>{
     res.end()
 })
 
-
-
-server.post("/AddCar",async (req,res)=>{
-    try {
-        await dbHandler.carsTable.create({
-            picture:req.body.picture,
-            brand:req.body.brand,
-            type:req.body.type,
-            year:req.body.year,
-            drive:req.body.drive,
-            gearShift:req.body.gearShift,
-            fuel:req.body.fuel,
-            airCondition:req.body.airCondition,
-            radar:req.body.radar,
-            cruiseControl:req.body.cruiseControl,
-            info:req.body.info,
-            location:req.body.location,
-            OneToFive:req.body.OneToFive,
-            SixToForteen:req.body.SixToForteen,
-            OverForteen:req.body.OverForteen,
-            Deposit:req.body.Deposit
-        })
-    } catch (error) {
-        res.json({'message':"error"})
-        res.end()
-        return
-    }
-    res.status(201)
-    res.json({"message":"Sikeres hozzáadás!"})
-    res.end()
-})
-
 server.post("/AdminLogin",async (req,res)=>{
     let oneUser
     try {
@@ -133,7 +152,7 @@ server.post("/AdminLogin",async (req,res)=>{
 
     if (oneUser) {
         try {
-            const token=await JWT.sign({"username":oneUser.nev,'id':oneUser.id},SUPERSECRET,{expiresIn:'1h'})
+            const token=await JWT.sign({"username":oneUser.nev,'id':oneUser.id},SUPERSECRET,{expiresIn:timeLimit})
             res.json({'message':'Sikeres bejelentkezés','token':token})
             res.end()
             return
@@ -151,9 +170,6 @@ server.post("/AdminLogin",async (req,res)=>{
 
 
 
-server.get("/ListCars",async (req,res)=>{
-    const cars = await dbHandler.carsTable.findAll()
-    res.json(cars)
-})
+
 
 server.listen(PORT)

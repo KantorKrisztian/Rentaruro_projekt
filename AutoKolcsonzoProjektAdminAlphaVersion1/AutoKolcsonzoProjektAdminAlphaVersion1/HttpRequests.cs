@@ -14,7 +14,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
     {
         HttpClient client = new HttpClient();
         string serverUrl = "http://127.1.1.1:3000/";
-        public async void CreateCar(jsonCars Cars)
+        public async Task<List<jsonCars>> CreateCar(jsonCars Cars)
         {
             try
             {
@@ -23,10 +23,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
                 response.EnsureSuccessStatusCode();
+                return await ListAllCars();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
+                return null;
             }
             
         }
@@ -35,6 +37,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             List<jsonCars> cars = new List<jsonCars>();
             try
             {
+                /*client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",Token.token);*/
                 string serverUrl = this.serverUrl + "ListCars";
                 string response = await client.GetStringAsync(serverUrl);
                 cars = JsonConvert.DeserializeObject<List<jsonCars>>(response);
@@ -76,7 +79,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         public async Task<bool> Login(string username, string password)
         {
             string serverUrl = this.serverUrl + "AdminLogin";
-            string message;
+            
             try
             {
                 var jsonData = new
@@ -89,17 +92,16 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
                 
                 string stringResult = await response.Content.ReadAsStringAsync();
-                message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
                 MessageBox.Show(message);
-                string status = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).status;
-                
                 
 
                 Token.token = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).token;
                 response.EnsureSuccessStatusCode();
+                
                 return response.IsSuccessStatusCode;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
