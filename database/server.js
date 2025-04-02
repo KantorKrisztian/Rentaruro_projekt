@@ -19,26 +19,26 @@ dbHandler.userTable.sync({alter:true})
 dbHandler.carsTable.sync({alter:true})
 dbHandler.reservationTable.sync({alter:true})
 
-function authorization() {
+function auth() {
     return (req,res,next)=>{
-        const auth=req.headers.authorization
-        if (typeof(auth)=='undefined') {
+        const authenticate=req.headers.authorization
+        if (typeof(authenticate)=='undefined') {
             res.status(401)
             res.json({"message":"Nem létező token"})
             res.end()
             return
         }
-        if (!auth.startsWith("Bearer")) {
+        if (!authenticate.startsWith("Bearer")) {
             res.status(401)
             res.json({"message":"Hibás token"})
             res.end()
             return
         }
-        const encodedToken=auth.split(' ')[1]
+        const encodedToken=authenticate.split(' ')[1]
         try {
-            const decodedToken=jwt.verify(encodedToken,SUPERSECRET)
-            req.userName=decodedToken.nev
-            req.userId=decodedToken.id
+            const decodedToken=JWT.verify(encodedToken,SUPERSECRET)
+            req.username=decodedToken.username
+            req.id=decodedToken.id
             next()
         } catch (error) {
             res.json({"message":error})
@@ -66,9 +66,43 @@ server.get("/ListAllReservetions",async (req,res)=>{
     res.json(reservations)
 })
 
+server.delete('/DeleteCar:id',async (req,res)=>{
+    let oneCar
+    try {
+        oneCar=await dbHandler.carsTable.findOne({
+            where:{
+                id:req.params.id
+            }
+        })
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
+        return
+    }
+
+    if (oneCar) {
+        try {
+            await dbHandler.carsTable.destroy({
+                where: {
+                    id:req.params.id
+                }
+            })
+            res.json({"message":"Sikeres törlés!"})
+            res.end()
+            return
+        } catch (error) {
+            res.json({'message':error})
+            res.end()
+            return
+        }
+    }
+    res.status(405)
+    res.json({"message":"Nem létezik ezzel az id-val autó!"})
+    res.end()
+})
 
 
-server.post("/AddCar",authorization(),async (req,res)=>{
+server.post("/AddCar",auth(),async (req,res)=>{
     try {
         await dbHandler.carsTable.create({
             picture:req.body.picture,
@@ -152,7 +186,7 @@ server.post("/AdminLogin",async (req,res)=>{
 
     if (oneUser) {
         try {
-            const token=await JWT.sign({"username":oneUser.nev,'id':oneUser.id},SUPERSECRET,{expiresIn:timeLimit})
+            const token=await JWT.sign({"username":oneUser.username,'id':oneUser.id},SUPERSECRET,{expiresIn:timeLimit})
             res.json({'message':'Sikeres bejelentkezés','token':token})
             res.end()
             return

@@ -149,29 +149,33 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             
             CarPanel.Controls.Clear();
             int count = 0;
-            foreach (jsonCars item in AllCars)
+            if ( AllCars.Count() !=0)
             {
-                count++;
-                OneCar auto = new OneCar();
-                auto.IDLabel.Text = item.id.ToString();
-                auto.BrandLabel.Text = item.brand;
-                auto.TypeLabel.Text = item.type;
-                auto.YearLabel.Text = item.year;
-                auto.DriveLabel.Text = item.drive;
-                auto.ShiftLabel.Text = item.gearShift;
-                auto.FuelLabel.Text = item.fuel;
-                auto.AirCondLabel.Text = item.airCondition;
-                auto.RadarLabel.Text = item.radar;
-                auto.CruiseControlLabel.Text = item.cruiseControl;
-                auto.OneToFiveLabel.Text = item.OneToFive.ToString();
-                auto.SixToFourteenLabel.Text = item.SixToForteen.ToString();
-                auto.FromFifteenLabel.Text = item.OverForteen.ToString();
-                auto.DepositLabel.Text = item.Deposit.ToString();
-                auto.LocationLabel.Text = item.location;
-                CarPanel.Controls.Add(auto);
-                auto.Top = (count-1) * auto.Height;
+                foreach (jsonCars item in AllCars)
+                {
+                    count++;
+                    OneCar auto = new OneCar();
+                    auto.IDLabel.Text = item.id.ToString();
+                    auto.BrandLabel.Text = item.brand;
+                    auto.TypeLabel.Text = item.type;
+                    auto.YearLabel.Text = item.year;
+                    auto.DriveLabel.Text = item.drive;
+                    auto.ShiftLabel.Text = item.gearShift;
+                    auto.FuelLabel.Text = item.fuel;
+                    auto.AirCondLabel.Text = item.airCondition;
+                    auto.RadarLabel.Text = item.radar;
+                    auto.CruiseControlLabel.Text = item.cruiseControl;
+                    auto.OneToFiveLabel.Text = item.OneToFive.ToString();
+                    auto.SixToFourteenLabel.Text = item.SixToForteen.ToString();
+                    auto.FromFifteenLabel.Text = item.OverForteen.ToString();
+                    auto.DepositLabel.Text = item.Deposit.ToString();
+                    auto.LocationLabel.Text = item.location;
+                    CarPanel.Controls.Add(auto);
+                    auto.Top = (count - 1) * auto.Height;
+                }
+                count = 0;
             }
-            count = 0;
+            
         }
         private void InitializeComponent()
         {

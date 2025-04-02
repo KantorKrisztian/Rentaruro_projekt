@@ -30,15 +30,19 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         public OneCar()
         {
             InitializeComponent();
-
+            Start();
         }
 
         void Start()
         {
-            
+            DeleteBtn.Click +=(object s,EventArgs e)=> deleteCar();
         }
 
-
+        async void deleteCar()
+        {
+            HttpRequests httpRequests = new HttpRequests();
+            httpRequests.DeleteCar(int.Parse(IDLabel.Text));
+        }
         private void InitializeComponent()
         {
             this.IDLabel = new System.Windows.Forms.Label();
@@ -67,7 +71,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.IDLabel.Name = "IDLabel";
             this.IDLabel.Size = new System.Drawing.Size(35, 25);
             this.IDLabel.TabIndex = 0;
-            this.IDLabel.Text = "9999";
+            this.IDLabel.Text = "1";
             this.IDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BrandLabel

@@ -41,7 +41,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             List<jsonCars> cars = new List<jsonCars>();
             try
             {
-                /*client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",Token.token);*/
                 string serverUrl = this.serverUrl + "ListCars";
                 string response = await client.GetStringAsync(serverUrl);
                 cars = JsonConvert.DeserializeObject<List<jsonCars>>(response);
@@ -53,6 +52,26 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return null;
             }
             
+        }
+
+        public async void DeleteCar(int id)
+        {
+            try
+            {
+                string serverUrl = this.serverUrl + "DeleteCar"+id;
+                
+                HttpResponseMessage response = await client.DeleteAsync(serverUrl);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
+                response.EnsureSuccessStatusCode();
+                /*return await ListAllCars();*/
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                /*return null;*/
+            }
         }
         public async void Registration(string username, string password)
         {
@@ -99,7 +118,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
                 MessageBox.Show(message);
                 
-
                 Token.token = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).token;
                 response.EnsureSuccessStatusCode();
                 
