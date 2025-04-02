@@ -19,9 +19,13 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             try
             {
                 string serverUrl = this.serverUrl + "AddCar";
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.token);
                 string jsonString = JsonConvert.SerializeObject(Cars);
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
                 response.EnsureSuccessStatusCode();
                 return await ListAllCars();
             }

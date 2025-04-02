@@ -95,4 +95,4 @@ E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjekt
 C:\Users\kantor.krisztian\Desktop\projekt\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\Newtonsoft.Json.dll
 C:\Users\kantor.krisztian\Desktop\projekt\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\Newtonsoft.Json.xml
 C:\Users\kantor.krisztian\Desktop\projekt\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.OneRent.resources
-C:\Users\kantor.krisztian\Desktop\projekt\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.csproj.CopyComplete
+C:\Users\kantor.krisztian\Desktop\projekt\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolc.0ADAFBBE.Up2Date

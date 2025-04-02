@@ -68,7 +68,7 @@ server.get("/ListAllReservetions",async (req,res)=>{
 
 
 
-server.post("/AddCar",async (req,res)=>{
+server.post("/AddCar",authorization(),async (req,res)=>{
     try {
         await dbHandler.carsTable.create({
             picture:req.body.picture,
