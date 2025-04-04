@@ -1,4 +1,4 @@
-const {Sequelize, DataTypes} = require('sequelize')
+const {Sequelize, Model,DataTypes} = require('sequelize')
 require('dotenv').config()
 const DBNAME = process.env.DBNAME
 const USERNAME = 'root'
@@ -135,11 +135,7 @@ cars.init({
         allowNull: false
     },
     "year":{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    "drive":{
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     "drive":{
@@ -169,6 +165,26 @@ cars.init({
     "info":{
         type: DataTypes.STRING,
         allowNull: false
+    },
+    "location":{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    "OneToFive":{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    "SixToForteen":{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    "OverForteen":{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    "Deposit":{
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 },{
     sequelize:dbHandler, modelName: 'cars'
@@ -180,18 +196,18 @@ class reservation extends Model {}
 
 reservation.init({
     "id":{
-        type: DataTypes.INTIGER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
     },
     "carId":{
-        type: DataTypes.INTIGER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false
     },
     "personId":{
-        type: DataTypes.INTIGER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false
     },
