@@ -12,7 +12,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 {
     public partial class LoginForm : Form
     {
-        Form1 carForm = new Form1();
+        
         public LoginForm()
         {
             InitializeComponent();
@@ -20,28 +20,42 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         void Start()
         {
-            LoginBtn.Click += formShow;
-            carForm.FormClosing += closeForm;
-            carForm.ExitLabel.Click += exitForm;
-            carForm.ExitLabel.MouseHover += hover;
-        }
-        void hover(object s, EventArgs e)
-        {
+            LoginBtn.Click += (object s, EventArgs e)=> formShow();
             
+            button1.Click += register;
         }
         void closeForm(object s, EventArgs e)
         {
             Application.Exit();
         }
-        void formShow(object s, EventArgs e)
+        HttpRequests httpRequests = new HttpRequests();
+        async void formShow()
         {
-            carForm.Show();
-            this.Hide();
+            
+            bool loginSuccess = await httpRequests.Login(LoginUserTb.Text, LoginPassTb.Text);
+            if (loginSuccess)
+            {
+                Form1 carForm = new Form1();
+                this.Hide();
+                carForm.Show();
+                carForm.FormClosing += closeForm;
+                carForm.ExitLabel.Click += exitForm;
+                LoginUserTb.Text = "";
+                LoginPassTb.Text = "";
+                void exitForm(object s, EventArgs e)
+                {
+                    this.Show();
+                    carForm.Hide();
+                }
+            }
+
+            
+
         }
-        void exitForm(object s, EventArgs e)
+        void register(object s, EventArgs e)
         {
-            this.Show();
-            carForm.Hide();
+            httpRequests.Registration(LoginUserTb.Text, LoginPassTb.Text);
         }
+        
     }
 }

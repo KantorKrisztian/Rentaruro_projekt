@@ -48,6 +48,14 @@ personalInfo.init({
         autoIncrement: true,
         allowNull: false
     },
+    "userId":{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references:{
+            model: admin,
+            key:'id'
+        }
+    },
     "name":{
         type: DataTypes.STRING,
         allowNull: false
@@ -202,14 +210,20 @@ reservation.init({
         allowNull: false
     },
     "carId":{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        references:{
+            model: cars,
+            key:'id'
+        }
     },
     "personId":{
         type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        references:{
+            model: user,
+            key:'id'
+        }
     },
     "start":{
         type: DataTypes.DATE,
@@ -227,5 +241,14 @@ reservation.init({
     sequelize:dbHandler, modelName: 'reservation'
 })
 
+
 exports.reservationTable = reservation
 
+reservation.hasOne(cars,{
+    foreignKey:'id',
+    sourceKey:'carId'
+})
+reservation.hasOne(user,{
+    foreignKey:'id',
+    sourceKey:'personId'
+})

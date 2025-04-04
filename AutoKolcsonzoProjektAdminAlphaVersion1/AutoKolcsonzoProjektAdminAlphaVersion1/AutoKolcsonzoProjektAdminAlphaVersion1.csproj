@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="HttpRequests.cs" />
     <Compile Include="jsonCars.cs" />
+    <Compile Include="jsonResponesData.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +81,7 @@
     <Compile Include="RentCar.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Token.cs" />
     <EmbeddedResource Include="AddCar.resx">
       <DependentUpon>AddCar.cs</DependentUpon>
     </EmbeddedResource>
