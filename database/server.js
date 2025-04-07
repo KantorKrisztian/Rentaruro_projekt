@@ -48,12 +48,7 @@ function auth() {
 }
 
 
-server.get("/ListCars",async (req,res)=>{
-    const cars = await dbHandler.carsTable.findAll()
-    res.json(cars)
-})
-
-server.get("/ListAllReservetions",async (req,res)=>{
+server.get("/ListAllReservetions",auth(),async (req,res)=>{
     const reservations = await dbHandler.reservationTable.findAll()
     const cars = await dbHandler.carsTable.findAll()
     const users = await dbHandler.userTable.findAll()
@@ -66,7 +61,44 @@ server.get("/ListAllReservetions",async (req,res)=>{
     res.json(reservations)
 })
 
-server.delete('/DeleteCar:id',async (req,res)=>{
+
+
+server.post("/AddCar",auth(),async (req,res)=>{
+    try {
+        await dbHandler.carsTable.create({
+            picture:req.body.picture,
+            brand:req.body.brand,
+            type:req.body.type,
+            year:req.body.year,
+            drive:req.body.drive,
+            gearShift:req.body.gearShift,
+            fuel:req.body.fuel,
+            airCondition:req.body.airCondition,
+            radar:req.body.radar,
+            cruiseControl:req.body.cruiseControl,
+            info:req.body.info,
+            location:req.body.location,
+            OneToFive:req.body.OneToFive,
+            SixToForteen:req.body.SixToForteen,
+            OverForteen:req.body.OverForteen,
+            Deposit:req.body.Deposit
+        })
+    } catch (error) {
+        res.json({'message':"error"})
+        res.end()
+        return
+    }
+    res.status(201)
+    res.json({"message":"Sikeres hozzáadás!"})
+    res.end()
+})
+
+server.get("/ListCars",async (req,res)=>{
+    const cars = await dbHandler.carsTable.findAll()
+    res.json(cars)
+})
+
+server.delete('/DeleteCar/:id',auth(),async (req,res)=>{
     let oneCar
     try {
         oneCar=await dbHandler.carsTable.findOne({
@@ -101,35 +133,36 @@ server.delete('/DeleteCar:id',async (req,res)=>{
     res.end()
 })
 
-
-server.post("/AddCar",auth(),async (req,res)=>{
+server.put("/UpdateCar/:id",auth(),async (req,res)=>{
     try {
-        await dbHandler.carsTable.create({
-            picture:req.body.picture,
-            brand:req.body.brand,
-            type:req.body.type,
-            year:req.body.year,
-            drive:req.body.drive,
-            gearShift:req.body.gearShift,
-            fuel:req.body.fuel,
-            airCondition:req.body.airCondition,
-            radar:req.body.radar,
-            cruiseControl:req.body.cruiseControl,
-            info:req.body.info,
-            location:req.body.location,
-            OneToFive:req.body.OneToFive,
-            SixToForteen:req.body.SixToForteen,
-            OverForteen:req.body.OverForteen,
-            Deposit:req.body.Deposit
+        await dbHandler.carsTable.update({
+            licensePlate:req.body.newLicensePlate,
+            picture:req.body.newPicture,
+            brand:req.body.newBrand,
+            type:req.body.newType,
+            year:req.body.newYear,
+            drive:req.body.newDrive,
+            gearShift:req.body.newGearShift,
+            fuel:req.body.newNuel,
+            airCondition:req.body.newAirCondition,
+            radar:req.body.newRadar,
+            cruiseControl:req.body.newCruiseControl,
+            info:req.body.newInfo,
+            location:req.body.newLocation,
+            OneToFive:req.body.newOneToFive,
+            SixToForteen:req.body.newSixToForteen,
+            OverForteen:req.body.newOverForteen,
+            Deposit:req.body.newDeposit
+        },{
+            where:{
+                id:req.params.id
+            }
         })
     } catch (error) {
-        res.json({'message':"error"})
+        res.json({'message':error})
         res.end()
         return
     }
-    res.status(201)
-    res.json({"message":"Sikeres hozzáadás!"})
-    res.end()
 })
 
 server.post("/AdminRegistration",async (req,res)=>{

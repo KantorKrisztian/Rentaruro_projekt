@@ -130,6 +130,10 @@ cars.init({
         autoIncrement: true,
         allowNull: false
     },
+    "licensePlate":{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     "picture":{
         type: DataTypes.STRING,
         allowNull: false
