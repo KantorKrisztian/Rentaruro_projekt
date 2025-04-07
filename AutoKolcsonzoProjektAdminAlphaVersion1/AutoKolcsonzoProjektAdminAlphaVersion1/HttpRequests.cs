@@ -119,7 +119,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 MessageBox.Show(message);
                 
                 Token.token = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).token;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer ", Token.token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.token);
                 response.EnsureSuccessStatusCode();
                 
                 return response.IsSuccessStatusCode;
