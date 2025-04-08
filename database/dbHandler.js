@@ -132,7 +132,7 @@ cars.init({
     },
     "licensePlate":{
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     "picture":{
         type: DataTypes.STRING,
@@ -245,6 +245,15 @@ reservation.init({
     sequelize:dbHandler, modelName: 'reservation'
 })
 
+
+reservation.hasOne(user, {
+    foreignKey: 'personId',
+    targetKey: 'id'
+})
+reservation.hasOne(cars, {
+    foreignKey: 'carId',
+    targetKey: 'id'
+})
 
 exports.reservationTable = reservation
 

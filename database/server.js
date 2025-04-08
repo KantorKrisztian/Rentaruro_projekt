@@ -48,7 +48,12 @@ function auth() {
 }
 
 
-server.get("/ListAllReservetions",auth(),async (req,res)=>{
+server.get("/ListCars",async (req,res)=>{
+    const cars = await dbHandler.carsTable.findAll()
+    res.json(cars)
+})
+
+server.get("/ListAllReservetions",async (req,res)=>{
     const reservations = await dbHandler.reservationTable.findAll()
     const cars = await dbHandler.carsTable.findAll()
     const users = await dbHandler.userTable.findAll()
@@ -61,44 +66,54 @@ server.get("/ListAllReservetions",auth(),async (req,res)=>{
     res.json(reservations)
 })
 
-
-
-server.post("/AddCar",auth(),async (req,res)=>{
+server.post("/NewReservation",auth(),async (req,res)=>{
+    let oneReservation
     try {
-        await dbHandler.carsTable.create({
-            picture:req.body.picture,
-            brand:req.body.brand,
-            type:req.body.type,
-            year:req.body.year,
-            drive:req.body.drive,
-            gearShift:req.body.gearShift,
-            fuel:req.body.fuel,
-            airCondition:req.body.airCondition,
-            radar:req.body.radar,
-            cruiseControl:req.body.cruiseControl,
-            info:req.body.info,
-            location:req.body.location,
-            OneToFive:req.body.OneToFive,
-            SixToForteen:req.body.SixToForteen,
-            OverForteen:req.body.OverForteen,
-            Deposit:req.body.Deposit
+        oneReservation=await dbHandler.reservationTable.findOne({
+            where:{
+                carId:req.body.carId,
+                [dbHandler.Sequelize.Op.or]: [
+                    {
+                        start: {
+                            [dbHandler.Sequelize.Op.between]: [req.body.start, req.body.end]
+                        }
+                    },
+                    {
+                        end: {
+                            [dbHandler.Sequelize.Op.between]: [req.body.start, req.body.end]
+                        }
+                    },
+                    {
+                        [dbHandler.Sequelize.Op.and]: [
+                            { start: { [dbHandler.Sequelize.Op.lte]: req.body.start } },
+                            { end: { [dbHandler.Sequelize.Op.gte]: req.body.end } }
+                        ]
+                    }
+                ]
+            }
+            
         })
-    } catch (error) {
-        res.json({'message':"error"})
+        if (oneReservation) {
+            res.status(409).json({ message: "Ebben az időben már foglalt ez az autó." });
+            return;
+        }
+        await dbHandler.reservationTable.create({
+            carId:req.body.carId,
+            userId:req.id,
+            start:req.body.start,
+            end:req.body.end,
+            other:req.body.other
+        });
+        res.status(201).json({ message: "Sikeres foglalás!" });
         res.end()
         return
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
     }
-    res.status(201)
-    res.json({"message":"Sikeres hozzáadás!"})
-    res.end()
 })
 
-server.get("/ListCars",async (req,res)=>{
-    const cars = await dbHandler.carsTable.findAll()
-    res.json(cars)
-})
-
-server.delete('/DeleteCar/:id',auth(),async (req,res)=>{
+server.delete('/DeleteCar:id',async (req,res)=>{
     let oneCar
     try {
         oneCar=await dbHandler.carsTable.findOne({
@@ -133,29 +148,13 @@ server.delete('/DeleteCar/:id',auth(),async (req,res)=>{
     res.end()
 })
 
-server.put("/UpdateCar/:id",auth(),async (req,res)=>{
+
+server.post("/AddCar",auth(),async (req,res)=>{
+    let oneCar
     try {
-        await dbHandler.carsTable.update({
-            licensePlate:req.body.newLicensePlate,
-            picture:req.body.newPicture,
-            brand:req.body.newBrand,
-            type:req.body.newType,
-            year:req.body.newYear,
-            drive:req.body.newDrive,
-            gearShift:req.body.newGearShift,
-            fuel:req.body.newNuel,
-            airCondition:req.body.newAirCondition,
-            radar:req.body.newRadar,
-            cruiseControl:req.body.newCruiseControl,
-            info:req.body.newInfo,
-            location:req.body.newLocation,
-            OneToFive:req.body.newOneToFive,
-            SixToForteen:req.body.newSixToForteen,
-            OverForteen:req.body.newOverForteen,
-            Deposit:req.body.newDeposit
-        },{
+        oneCar=await dbHandler.carsTable.findOne({
             where:{
-                id:req.params.id
+                licensePlate:req.body.licensePlate
             }
         })
     } catch (error) {
@@ -163,6 +162,40 @@ server.put("/UpdateCar/:id",auth(),async (req,res)=>{
         res.end()
         return
     }
+    if (oneCar) {
+        res.status(409)
+        res.json({"message":"Már létezik ezzel a rendszámmal autó!"})
+        res.end()
+        return
+    }
+    try {
+        await dbHandler.carsTable.create({
+            picture:req.body.picture,
+            licensePlate:req.body.licensePlate,
+            brand:req.body.brand,
+            type:req.body.type,
+            year:req.body.year,
+            drive:req.body.drive,
+            gearShift:req.body.gearShift,
+            fuel:req.body.fuel,
+            airCondition:req.body.airCondition,
+            radar:req.body.radar,
+            cruiseControl:req.body.cruiseControl,
+            info:req.body.info,
+            location:req.body.location,
+            OneToFive:req.body.OneToFive,
+            SixToForteen:req.body.SixToForteen,
+            OverForteen:req.body.OverForteen,
+            Deposit:req.body.Deposit
+        })
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
+        return
+    }
+    res.status(201)
+    res.json({"message":"Sikeres hozzáadás!"})
+    res.end()
 })
 
 server.post("/AdminRegistration",async (req,res)=>{
