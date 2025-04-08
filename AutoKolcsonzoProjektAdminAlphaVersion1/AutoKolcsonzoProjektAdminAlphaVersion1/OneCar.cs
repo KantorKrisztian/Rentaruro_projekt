@@ -30,18 +30,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         public OneCar()
         {
             InitializeComponent();
-            Start();
-        }
-
-        void Start()
-        {
-            DeleteBtn.Click +=(object s,EventArgs e)=> deleteCar();
-        }
-
-        async void deleteCar()
-        {
-            HttpRequests httpRequests = new HttpRequests();
-            httpRequests.DeleteCar(int.Parse(IDLabel.Text));
         }
         private void InitializeComponent()
         {

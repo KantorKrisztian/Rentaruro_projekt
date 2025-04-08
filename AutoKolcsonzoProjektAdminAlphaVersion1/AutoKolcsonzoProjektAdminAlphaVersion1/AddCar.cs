@@ -121,7 +121,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 carss.Deposit = int.Parse(DepositTB.Text);
                 List<jsonCars> AllCars=await httpRequests.CreateCar(carss);
                 CarList(AllCars);
-                CarPictureBox.Image = null;
+                /*CarPictureBox.Image = null;
                 BrandTB.Text = "";
                 TypeTB.Text = "";
                 YearCB.Text = "";
@@ -136,7 +136,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 OneToFiveRentalTB.Text = "";
                 SixToFourteenRentalTB.Text = "";
                 FromFifteenRentalTB.Text = "";
-                DepositTB.Text = "";
+                DepositTB.Text = "";*/
             }
             catch (Exception error)
             {
@@ -146,13 +146,19 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         public void CarList(List<jsonCars> AllCars)
         {
-            
-            CarPanel.Controls.Clear();
-            int count = 0;
-            if ( AllCars.Count() !=0)
+            try
             {
+                if (AllCars == null)
+                {
+                    MessageBox.Show("Nincs autó a rendszerben");
+                    return;
+                }
+                int count = 0;
+                CarPanel.Controls.Clear();
                 foreach (jsonCars item in AllCars)
                 {
+                    
+                    
                     count++;
                     OneCar auto = new OneCar();
                     auto.IDLabel.Text = item.id.ToString();
@@ -170,10 +176,20 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     auto.FromFifteenLabel.Text = item.OverForteen.ToString();
                     auto.DepositLabel.Text = item.Deposit.ToString();
                     auto.LocationLabel.Text = item.location;
+
                     CarPanel.Controls.Add(auto);
+                    auto.DeleteBtn.Click += async (s, e) =>
+                    {
+                        List<jsonCars> deleted = await httpRequests.DeleteCar(item.id);
+                        CarList(deleted);
+                    };
                     auto.Top = (count - 1) * auto.Height;
                 }
                 count = 0;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
             
         }

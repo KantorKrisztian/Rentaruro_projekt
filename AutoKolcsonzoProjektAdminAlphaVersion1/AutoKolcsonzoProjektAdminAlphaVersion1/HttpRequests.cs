@@ -14,6 +14,18 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
     {
         HttpClient client = new HttpClient();
         string serverUrl = "http://127.1.1.1:3000/";
+        
+        public HttpRequests()
+        {
+            try
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.token);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
         public async Task<List<jsonCars>> CreateCar(jsonCars Cars)
         {
             try
@@ -54,23 +66,23 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             
         }
 
-        public async void DeleteCar(int id)
+        public async Task<List<jsonCars>> DeleteCar(int id)
         {
             try
             {
-                string serverUrl = this.serverUrl + "DeleteCar"+id;
+                string serverUrl = this.serverUrl + "DeleteCar/"+id;
                 
                 HttpResponseMessage response = await client.DeleteAsync(serverUrl);
                 string stringResult = await response.Content.ReadAsStringAsync();
                 string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
                 MessageBox.Show(message);
                 response.EnsureSuccessStatusCode();
-                /*return await ListAllCars();*/
+                return await ListAllCars();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                /*return null;*/
+                return null;
             }
         }
         public async void Registration(string username, string password)
@@ -119,7 +131,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 MessageBox.Show(message);
                 
                 Token.token = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).token;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer ", Token.token);
+
                 response.EnsureSuccessStatusCode();
                 
                 return response.IsSuccessStatusCode;
