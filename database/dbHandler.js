@@ -142,10 +142,6 @@ cars.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    "drive":{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     "gearShift":{
         type: DataTypes.STRING,
         allowNull: false
