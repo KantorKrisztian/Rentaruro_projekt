@@ -9,43 +9,35 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 {
     class OneCar:UserControl
     {
-        private Label IDLabel;
-        private Label BrandLabel;
-        private Label TypeLabel;
-        private Label YearLabel;
-        private Label DirveLabel;
-        private Label ShiftLabel;
-        private Label FuelLabel;
-        private Label AirCondLabel;
-        private Label RadarLabel;
-        private Label CruiseControlLabel;
-        private Label OneToFiveLabel;
-        private Label FromFifteenLabel;
-        private Label DepositLabel;
-        private Button UpdateBtn;
-        private Button DeleteBtn;
-        private Label LocationLabel;
-        private Label SixToFourteenLabel;
+        public Label IDLabel;
+        public Label BrandLabel;
+        public Label TypeLabel;
+        public Label YearLabel;
+        public Label DriveLabel;
+        public Label ShiftLabel;
+        public Label FuelLabel;
+        public Label AirCondLabel;
+        public Label RadarLabel;
+        public Label CruiseControlLabel;
+        public Label OneToFiveLabel;
+        public Label FromFifteenLabel;
+        public Label DepositLabel;
+        public Button UpdateBtn;
+        public Button DeleteBtn;
+        public Label LocationLabel;
+        public Label SixToFourteenLabel;
 
         public OneCar()
         {
             InitializeComponent();
-
         }
-
-        void Start()
-        {
-            
-        }
-
-
         private void InitializeComponent()
         {
             this.IDLabel = new System.Windows.Forms.Label();
             this.BrandLabel = new System.Windows.Forms.Label();
             this.TypeLabel = new System.Windows.Forms.Label();
             this.YearLabel = new System.Windows.Forms.Label();
-            this.DirveLabel = new System.Windows.Forms.Label();
+            this.DriveLabel = new System.Windows.Forms.Label();
             this.ShiftLabel = new System.Windows.Forms.Label();
             this.FuelLabel = new System.Windows.Forms.Label();
             this.AirCondLabel = new System.Windows.Forms.Label();
@@ -67,7 +59,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.IDLabel.Name = "IDLabel";
             this.IDLabel.Size = new System.Drawing.Size(35, 25);
             this.IDLabel.TabIndex = 0;
-            this.IDLabel.Text = "9999";
+            this.IDLabel.Text = "1";
             this.IDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BrandLabel
@@ -101,15 +93,15 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.YearLabel.Text = "2025";
             this.YearLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // DirveLabel
+            // DriveLabel
             // 
-            this.DirveLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.DirveLabel.Location = new System.Drawing.Point(209, 0);
-            this.DirveLabel.Name = "DirveLabel";
-            this.DirveLabel.Size = new System.Drawing.Size(42, 25);
-            this.DirveLabel.TabIndex = 4;
-            this.DirveLabel.Text = "4WD";
-            this.DirveLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.DriveLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.DriveLabel.Location = new System.Drawing.Point(209, 0);
+            this.DriveLabel.Name = "DriveLabel";
+            this.DriveLabel.Size = new System.Drawing.Size(42, 25);
+            this.DriveLabel.TabIndex = 4;
+            this.DriveLabel.Text = "4WD";
+            this.DriveLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ShiftLabel
             // 
@@ -257,7 +249,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.Controls.Add(this.AirCondLabel);
             this.Controls.Add(this.FuelLabel);
             this.Controls.Add(this.ShiftLabel);
-            this.Controls.Add(this.DirveLabel);
+            this.Controls.Add(this.DriveLabel);
             this.Controls.Add(this.YearLabel);
             this.Controls.Add(this.TypeLabel);
             this.Controls.Add(this.BrandLabel);

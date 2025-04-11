@@ -1,4 +1,4 @@
-const {Sequelize, DataTypes} = require('sequelize')
+const {Sequelize, Model,DataTypes} = require('sequelize')
 require('dotenv').config()
 const DBNAME = process.env.DBNAME
 const USERNAME = 'root'
@@ -47,6 +47,14 @@ personalInfo.init({
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
+    },
+    "userId":{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references:{
+            model: admin,
+            key:'id'
+        }
     },
     "name":{
         type: DataTypes.STRING,
@@ -122,6 +130,10 @@ cars.init({
         autoIncrement: true,
         allowNull: false
     },
+    "licensePlate":{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     "picture":{
         type: DataTypes.STRING,
         allowNull: false
@@ -135,11 +147,7 @@ cars.init({
         allowNull: false
     },
     "year":{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    "drive":{
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     "gearShift":{
@@ -169,6 +177,22 @@ cars.init({
     "location":{
         type: DataTypes.STRING,
         allowNull: false
+    },
+    "OneToFive":{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    "SixToForteen":{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    "OverForteen":{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    "Deposit":{
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 },{
     sequelize:dbHandler, modelName: 'cars'
@@ -180,20 +204,26 @@ class reservation extends Model {}
 
 reservation.init({
     "id":{
-        type: DataTypes.INTIGER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
     },
     "carId":{
-        type: DataTypes.INTIGER,
-        primaryKey: true,
-        allowNull: false
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        references:{
+            model: cars,
+            key:'id'
+        }
     },
     "personId":{
-        type: DataTypes.INTIGER,
-        primaryKey: true,
-        allowNull: false
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references:{
+            model: user,
+            key:'id'
+        }
     },
     "start":{
         type: DataTypes.DATE,
@@ -211,5 +241,23 @@ reservation.init({
     sequelize:dbHandler, modelName: 'reservation'
 })
 
+
+reservation.hasOne(user, {
+    foreignKey: 'personId',
+    targetKey: 'id'
+})
+reservation.hasOne(cars, {
+    foreignKey: 'carId',
+    targetKey: 'id'
+})
+
 exports.reservationTable = reservation
 
+reservation.hasOne(cars,{
+    foreignKey:'id',
+    sourceKey:'carId'
+})
+reservation.hasOne(user,{
+    foreignKey:'id',
+    sourceKey:'personId'
+})

@@ -34,6 +34,7 @@
             this.LoginPassLabel = new System.Windows.Forms.Label();
             this.LoginPassTb = new System.Windows.Forms.TextBox();
             this.LoginBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LoginLabel
@@ -92,11 +93,21 @@
             this.LoginBtn.Text = "Bejelentkezés";
             this.LoginBtn.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(90, 296);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 331);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.LoginBtn);
             this.Controls.Add(this.LoginPassTb);
             this.Controls.Add(this.LoginPassLabel);
@@ -121,5 +132,6 @@
         private System.Windows.Forms.Label LoginPassLabel;
         private System.Windows.Forms.TextBox LoginPassTb;
         public System.Windows.Forms.Button LoginBtn;
+        private System.Windows.Forms.Button button1;
     }
 }
