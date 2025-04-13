@@ -10,6 +10,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
     {
         public int id { get; set; }
         public string picture { get; set; }
+        public string licensePlate { get; set; }
         public string brand { get; set; }
         public string type { get; set; }
         public string year { get; set; }

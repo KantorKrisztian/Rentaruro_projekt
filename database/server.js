@@ -15,13 +15,14 @@ const SUPERSECRET = process.env.SECRETKEY
 const dbHandler = require('./dbHandler')
 dbHandler.adminTable.sync({alter:true})
 dbHandler.personalTable.sync({alter:true})
-dbHandler.userTable.sync({alter:true})
 dbHandler.carsTable.sync({alter:true})
+dbHandler.userTable.sync({alter:true})
 dbHandler.reservationTable.sync({alter:true})
 
 function auth() {
     return (req,res,next)=>{
         const authenticate=req.headers.authorization
+        console.log(authenticate)
         if (typeof(authenticate)=='undefined') {
             res.status(401)
             res.json({"message":"Nem létező token"})
@@ -34,7 +35,9 @@ function auth() {
             res.end()
             return
         }
-        const encodedToken=authenticate.split(' ')[1]
+        
+        
+        const encodedToken=authenticate.split('__')[1]
         try {
             const decodedToken=JWT.verify(encodedToken,SUPERSECRET)
             req.username=decodedToken.username
@@ -48,22 +51,75 @@ function auth() {
 }
 
 
+server.post("/AdminLogin",async (req,res)=>{
+    let oneUser
+    try {
+        oneUser=await dbHandler.adminTable.findOne({
+            where:{
+                username:req.body.loginNev,
+                password:req.body.loginPassword
+            }
+        })
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
+        return
+    }
+
+    if (oneUser) {
+        try {
+            const token=await JWT.sign({"username":oneUser.username,'id':oneUser.id},SUPERSECRET,{expiresIn:timeLimit})
+            res.json({'message':'Sikeres bejelentkezés','token':token})
+            res.end()
+            return
+        } catch (error) {
+            res.json({'message':error})
+            res.end()
+            return
+        }
+    }
+
+    res.status(409)
+    res.json({"message":"Hibás felhasználónév, vagy jelszó"})
+    res.end()
+})
+
 server.get("/ListCars",async (req,res)=>{
     const cars = await dbHandler.carsTable.findAll()
-    res.json(cars)
+    res.json(cars).end()
 })
 
 server.get("/ListAllReservetions",async (req,res)=>{
-    const reservations = await dbHandler.reservationTable.findAll()
-    const cars = await dbHandler.carsTable.findAll()
-    const users = await dbHandler.userTable.findAll()
-    reservations.forEach((reservation)=>{
-        const car = cars.find((car)=>car.id==reservation.carId)
-        const user = users.find((user)=>user.id==reservation.userId)
-        reservation.car=car
-        reservation.user=user
-    })
-    res.json(reservations)
+    try {
+        const reservations = await dbHandler.reservationTable.findAll()
+        const cars = await dbHandler.carsTable.findAll()
+        const asd = await dbHandler.userTable.findAll()
+
+        const detailedReservations = reservations.map((reservation) => {
+            const car = cars.find((car) => car.id === reservation.carId)
+            const user = asd.find((user) => user.id === reservation.personId)
+
+            return {
+                id: reservation.id,
+                start: reservation.start,
+                end: reservation.end,
+                other: reservation.other,
+                carId: reservation.carId,
+                licensePlate: car?.licensePlate,
+                brand: car?.brand,
+                type: car?.type,
+                personId: user?.id,
+                username: user?.username,
+                name: user?.name,
+                email: user?.email,
+                phone: user?.phone,
+            }
+        })
+
+        res.json(detailedReservations).end()
+    } catch (error) {
+        res.status(500).json({ message: error.message }).end()
+    }
 })
 
 server.post("/NewReservation",auth(),async (req,res)=>{
@@ -113,7 +169,7 @@ server.post("/NewReservation",auth(),async (req,res)=>{
     }
 })
 
-server.delete('/DeleteCar:id',async (req,res)=>{
+server.delete('/DeleteCar/:id',async (req,res)=>{
     let oneCar
     try {
         oneCar=await dbHandler.carsTable.findOne({
@@ -143,7 +199,7 @@ server.delete('/DeleteCar:id',async (req,res)=>{
             return
         }
     }
-    res.status(405)
+    res.status(404)
     res.json({"message":"Nem létezik ezzel az id-val autó!"})
     res.end()
 })
@@ -198,6 +254,52 @@ server.post("/AddCar",auth(),async (req,res)=>{
     res.end()
 })
 
+server.put("/UpdateCar/:id",auth(),async (req,res)=>{
+    
+    let oneCar
+    try {
+        oneCar=await dbHandler.carsTable.findOne({
+            where:{
+                id:req.params.id
+            }
+        })
+        if (!oneCar) {
+            res.status(404)
+            res.json({"message":"Nincs ilyen autó!"})
+            res.end()
+            return
+        }
+        await dbHandler.carsTable.update({
+            picture:req.body.picture,
+            licensePlate:req.body.licensePlate,
+            brand:req.body.brand,
+            type:req.body.type,
+            year:req.body.year,
+            drive:req.body.drive,
+            gearShift:req.body.gearShift,
+            fuel:req.body.fuel,
+            airCondition:req.body.airCondition,
+            radar:req.body.radar,
+            cruiseControl:req.body.cruiseControl,
+            info:req.body.info,
+            location:req.body.location,
+            OneToFive:req.body.OneToFive,
+            SixToForteen:req.body.SixToForteen,
+            OverForteen:req.body.OverForteen,
+            Deposit:req.body.Deposit
+        },{
+            where:{
+                id:req.params.id
+            }
+        })
+        res.status(200).json({"message":"Sikeres módosítás"}).end()
+        return
+    } catch (error) {
+        res.status(400).json({"message":error}).end()
+    }
+})
+
+
 server.post("/AdminRegistration",async (req,res)=>{
     let oneUser
     try {
@@ -235,38 +337,6 @@ server.post("/AdminRegistration",async (req,res)=>{
     res.end()
 })
 
-server.post("/AdminLogin",async (req,res)=>{
-    let oneUser
-    try {
-        oneUser=await dbHandler.adminTable.findOne({
-            where:{
-                username:req.body.loginNev,
-                password:req.body.loginPassword
-            }
-        })
-    } catch (error) {
-        res.json({'message':error})
-        res.end()
-        return
-    }
-
-    if (oneUser) {
-        try {
-            const token=await JWT.sign({"username":oneUser.username,'id':oneUser.id},SUPERSECRET,{expiresIn:timeLimit})
-            res.json({'message':'Sikeres bejelentkezés','token':token})
-            res.end()
-            return
-        } catch (error) {
-            res.json({'message':error})
-            res.end()
-            return
-        }
-    }
-
-    res.status(409)
-    res.json({"message":"Hibás felhasználónév, vagy jelszó"})
-    res.end()
-})
 
 
 

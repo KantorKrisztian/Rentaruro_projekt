@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="HttpRequests.cs" />
     <Compile Include="jsonCars.cs" />
+    <Compile Include="jsonRents.cs" />
     <Compile Include="jsonResponesData.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>

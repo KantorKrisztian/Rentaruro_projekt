@@ -42,7 +42,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private CheckBox RadarChB;
         private CheckBox CruiseControlChB;
         private DataGridView HeaderDGV;
-        private Label IDHeaderLabel;
+        private Label LicensePlateHeaderLabel;
         private Label BrandHeaderLabel;
         private Label TypeHeaderLabel;
         private Label YearHeaderLabel;
@@ -63,8 +63,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private Label YearLabel;
         private ComboBox YearCB;
         private Label CarsLabel;
-
+        private Label LicensePlateLabel;
+        private TextBox LicensePlateTB;
         HttpRequests httpRequests = new HttpRequests();
+        public List<jsonCars> AllCars = new List<jsonCars>();
         public AddCar()
         {
             InitializeComponent();
@@ -73,6 +75,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 
         public async void Start()
         {
+            
+            AllCars = await httpRequests.ListAllCars();
+            CarList();
+            
             OpenFileDialog ofd = new OpenFileDialog();
             CarPictureBox.Click += (sender, e) =>
             {
@@ -80,10 +86,28 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 object path = ofd.FileName;
                 CarPictureBox.ImageLocation = path.ToString();
             };
-            CarPanel.AutoScroll = Enabled;
-            AddCarBtn.Click += AddOneCar;
-            List<jsonCars> AllCars = await httpRequests.ListAllCars();
-            CarList(AllCars);
+            CarPanel.AutoScroll = true;
+            
+            AddCarBtn.Click += (s, e) => {
+                if (AddCarBtn.Text=="Hozzáadás")
+                {
+                    AddOneCar();
+                }
+                else
+                {
+                    UpdateCar();
+                    LicensePlateTB.Enabled = true;
+                }
+                
+            };
+
+            foreach (OneCar item in CarPanel.Controls)
+            {
+                item.UpdateBtn.Click += (s, e) =>
+                {
+                    AddCarBtn.Text = "Módosítás";
+                };
+            }
             SetComboBoxes();
         }
         void SetComboBoxes()
@@ -98,12 +122,22 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 
 
         }
-        async void AddOneCar(object s,EventArgs e)
+        async void UpdateCar()
         {
-            jsonCars carss = new jsonCars();
             try
             {
+                AllCars = await httpRequests.ListAllCars();
+                jsonCars carss = new jsonCars();
+                foreach (jsonCars item in AllCars)
+                {
+                    if (item.licensePlate == LicensePlateTB.Text)
+                    {
+                        carss = item;
+                    }
+                }
+
                 carss.picture = CarPictureBox.ImageLocation;
+                carss.licensePlate = LicensePlateTB.Text;
                 carss.brand = BrandTB.Text;
                 carss.type = TypeTB.Text;
                 carss.year = YearCB.Text;
@@ -119,8 +153,41 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 carss.SixToForteen = int.Parse(SixToFourteenRentalTB.Text);
                 carss.OverForteen = int.Parse(FromFifteenRentalTB.Text);
                 carss.Deposit = int.Parse(DepositTB.Text);
-                List<jsonCars> AllCars=await httpRequests.CreateCar(carss);
-                CarList(AllCars);
+                AllCars = await httpRequests.UpdateCar(carss);
+                CarList();
+                AddCarBtn.Text = "Hozzáadás";
+                return;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            
+        }
+        async void AddOneCar()
+        {
+            try
+            {
+                jsonCars carss = new jsonCars();
+                carss.picture = CarPictureBox.ImageLocation;
+                carss.licensePlate = LicensePlateTB.Text;
+                carss.brand = BrandTB.Text;
+                carss.type = TypeTB.Text;
+                carss.year = YearCB.Text;
+                carss.drive = DriveCB.Text;
+                carss.gearShift = ShiftCB.Text;
+                carss.fuel = FuelCB.Text;
+                carss.airCondition = AirCondChB.Checked.ToString();
+                carss.radar = RadarChB.Checked.ToString();
+                carss.cruiseControl = CruiseControlChB.Checked.ToString();
+                carss.info = textBox5.Text;
+                carss.location = LocationCB.Text;
+                carss.OneToFive = int.Parse(OneToFiveRentalTB.Text);
+                carss.SixToForteen = int.Parse(SixToFourteenRentalTB.Text);
+                carss.OverForteen = int.Parse(FromFifteenRentalTB.Text);
+                carss.Deposit = int.Parse(DepositTB.Text);
+                AllCars = await httpRequests.CreateCar(carss);
+                CarList();
                 /*CarPictureBox.Image = null;
                 BrandTB.Text = "";
                 TypeTB.Text = "";
@@ -137,14 +204,15 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 SixToFourteenRentalTB.Text = "";
                 FromFifteenRentalTB.Text = "";
                 DepositTB.Text = "";*/
+                return;
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message);
+                return;
             }
-            
         }
-        public void CarList(List<jsonCars> AllCars)
+        public void CarList()
         {
             try
             {
@@ -157,11 +225,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 CarPanel.Controls.Clear();
                 foreach (jsonCars item in AllCars)
                 {
-                    
-                    
                     count++;
                     OneCar auto = new OneCar();
-                    auto.IDLabel.Text = item.id.ToString();
+                    auto.LicensePlateLabel.Text = item.licensePlate;
                     auto.BrandLabel.Text = item.brand;
                     auto.TypeLabel.Text = item.type;
                     auto.YearLabel.Text = item.year;
@@ -176,16 +242,47 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     auto.FromFifteenLabel.Text = item.OverForteen.ToString();
                     auto.DepositLabel.Text = item.Deposit.ToString();
                     auto.LocationLabel.Text = item.location;
-
+                    
                     CarPanel.Controls.Add(auto);
                     auto.DeleteBtn.Click += async (s, e) =>
                     {
-                        List<jsonCars> deleted = await httpRequests.DeleteCar(item.id);
-                        CarList(deleted);
+                        AllCars= await httpRequests.DeleteCar(item.id);
+                        CarList();
+                    };
+                    auto.UpdateBtn.Click += (s, e) =>
+                    {
+                        LicensePlateTB.Enabled = false;
+                        CarPictureBox.ImageLocation = item.picture;
+                        LicensePlateTB.Text = item.licensePlate;
+                        BrandTB.Text = item.brand;
+                        TypeTB.Text = item.type;
+                        YearCB.Text = item.year;
+                        DriveCB.Text = item.drive;
+                        ShiftCB.Text = item.gearShift;
+                        FuelCB.Text = item.fuel;
+                        AirCondChB.Checked = Convert.ToBoolean(item.airCondition);
+                        RadarChB.Checked = Convert.ToBoolean(item.radar);
+                        CruiseControlChB.Checked = Convert.ToBoolean(item.cruiseControl);
+                        textBox5.Text = item.info;
+                        LocationCB.Text = item.location;
+                        OneToFiveRentalTB.Text = item.OneToFive.ToString();
+                        SixToFourteenRentalTB.Text = item.SixToForteen.ToString();
+                        FromFifteenRentalTB.Text = item.OverForteen.ToString();
+                        DepositTB.Text = item.Deposit.ToString();
+
+                        
+                        
                     };
                     auto.Top = (count - 1) * auto.Height;
                 }
                 count = 0;
+                foreach (OneCar item in CarPanel.Controls)
+                {
+                    item.UpdateBtn.Click += (s, e) =>
+                    {
+                        AddCarBtn.Text = "Módosítás";
+                    };
+                }
             }
             catch (Exception e)
             {
@@ -227,7 +324,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.RadarChB = new System.Windows.Forms.CheckBox();
             this.CruiseControlChB = new System.Windows.Forms.CheckBox();
             this.HeaderDGV = new System.Windows.Forms.DataGridView();
-            this.IDHeaderLabel = new System.Windows.Forms.Label();
+            this.LicensePlateHeaderLabel = new System.Windows.Forms.Label();
             this.BrandHeaderLabel = new System.Windows.Forms.Label();
             this.TypeHeaderLabel = new System.Windows.Forms.Label();
             this.YearHeaderLabel = new System.Windows.Forms.Label();
@@ -247,6 +344,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.LocationCB = new System.Windows.Forms.ComboBox();
             this.YearLabel = new System.Windows.Forms.Label();
             this.YearCB = new System.Windows.Forms.ComboBox();
+            this.LicensePlateLabel = new System.Windows.Forms.Label();
+            this.LicensePlateTB = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.CarPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).BeginInit();
@@ -309,7 +408,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.ShiftLabel.AutoSize = true;
             this.ShiftLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ShiftLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ShiftLabel.Location = new System.Drawing.Point(480, 88);
+            this.ShiftLabel.Location = new System.Drawing.Point(467, 112);
             this.ShiftLabel.Name = "ShiftLabel";
             this.ShiftLabel.Size = new System.Drawing.Size(45, 18);
             this.ShiftLabel.TabIndex = 6;
@@ -331,7 +430,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.TypeLabel.AutoSize = true;
             this.TypeLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.TypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TypeLabel.Location = new System.Drawing.Point(480, 64);
+            this.TypeLabel.Location = new System.Drawing.Point(467, 88);
             this.TypeLabel.Name = "TypeLabel";
             this.TypeLabel.Size = new System.Drawing.Size(48, 18);
             this.TypeLabel.TabIndex = 8;
@@ -342,7 +441,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.AirCondLabel.AutoSize = true;
             this.AirCondLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.AirCondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.AirCondLabel.Location = new System.Drawing.Point(674, 67);
+            this.AirCondLabel.Location = new System.Drawing.Point(667, 67);
             this.AirCondLabel.Name = "AirCondLabel";
             this.AirCondLabel.Size = new System.Drawing.Size(49, 18);
             this.AirCondLabel.TabIndex = 9;
@@ -353,7 +452,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.RadarLabel.AutoSize = true;
             this.RadarLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.RadarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RadarLabel.Location = new System.Drawing.Point(674, 92);
+            this.RadarLabel.Location = new System.Drawing.Point(666, 92);
             this.RadarLabel.Name = "RadarLabel";
             this.RadarLabel.Size = new System.Drawing.Size(88, 18);
             this.RadarLabel.TabIndex = 10;
@@ -364,7 +463,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.CruiseControlLabel.AutoSize = true;
             this.CruiseControlLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.CruiseControlLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CruiseControlLabel.Location = new System.Drawing.Point(480, 136);
+            this.CruiseControlLabel.Location = new System.Drawing.Point(666, 116);
             this.CruiseControlLabel.Name = "CruiseControlLabel";
             this.CruiseControlLabel.Size = new System.Drawing.Size(84, 18);
             this.CruiseControlLabel.TabIndex = 11;
@@ -486,7 +585,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             // TypeTB
             // 
-            this.TypeTB.Location = new System.Drawing.Point(534, 64);
+            this.TypeTB.Location = new System.Drawing.Point(546, 88);
             this.TypeTB.Name = "TypeTB";
             this.TypeTB.Size = new System.Drawing.Size(100, 20);
             this.TypeTB.TabIndex = 27;
@@ -502,7 +601,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // ShiftCB
             // 
             this.ShiftCB.FormattingEnabled = true;
-            this.ShiftCB.Location = new System.Drawing.Point(534, 89);
+            this.ShiftCB.Location = new System.Drawing.Point(546, 113);
             this.ShiftCB.Name = "ShiftCB";
             this.ShiftCB.Size = new System.Drawing.Size(121, 21);
             this.ShiftCB.TabIndex = 29;
@@ -529,7 +628,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.AirCondChB.AutoSize = true;
             this.AirCondChB.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.AirCondChB.Location = new System.Drawing.Point(729, 71);
+            this.AirCondChB.Location = new System.Drawing.Point(758, 71);
             this.AirCondChB.Name = "AirCondChB";
             this.AirCondChB.Size = new System.Drawing.Size(15, 14);
             this.AirCondChB.TabIndex = 32;
@@ -549,7 +648,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.CruiseControlChB.AutoSize = true;
             this.CruiseControlChB.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.CruiseControlChB.Location = new System.Drawing.Point(572, 140);
+            this.CruiseControlChB.Location = new System.Drawing.Point(758, 120);
             this.CruiseControlChB.Name = "CruiseControlChB";
             this.CruiseControlChB.Size = new System.Drawing.Size(15, 14);
             this.CruiseControlChB.TabIndex = 34;
@@ -563,21 +662,21 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.HeaderDGV.Size = new System.Drawing.Size(785, 17);
             this.HeaderDGV.TabIndex = 35;
             // 
-            // IDHeaderLabel
+            // LicensePlateHeaderLabel
             // 
-            this.IDHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.IDHeaderLabel.Location = new System.Drawing.Point(1, 269);
-            this.IDHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.IDHeaderLabel.Name = "IDHeaderLabel";
-            this.IDHeaderLabel.Size = new System.Drawing.Size(30, 15);
-            this.IDHeaderLabel.TabIndex = 36;
-            this.IDHeaderLabel.Text = "ID";
-            this.IDHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LicensePlateHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LicensePlateHeaderLabel.Location = new System.Drawing.Point(1, 269);
+            this.LicensePlateHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.LicensePlateHeaderLabel.Name = "LicensePlateHeaderLabel";
+            this.LicensePlateHeaderLabel.Size = new System.Drawing.Size(69, 15);
+            this.LicensePlateHeaderLabel.TabIndex = 36;
+            this.LicensePlateHeaderLabel.Text = "Rendszám";
+            this.LicensePlateHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BrandHeaderLabel
             // 
             this.BrandHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BrandHeaderLabel.Location = new System.Drawing.Point(32, 269);
+            this.BrandHeaderLabel.Location = new System.Drawing.Point(71, 269);
             this.BrandHeaderLabel.Name = "BrandHeaderLabel";
             this.BrandHeaderLabel.Size = new System.Drawing.Size(73, 15);
             this.BrandHeaderLabel.TabIndex = 37;
@@ -587,7 +686,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // TypeHeaderLabel
             // 
             this.TypeHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TypeHeaderLabel.Location = new System.Drawing.Point(106, 269);
+            this.TypeHeaderLabel.Location = new System.Drawing.Point(145, 269);
             this.TypeHeaderLabel.Name = "TypeHeaderLabel";
             this.TypeHeaderLabel.Size = new System.Drawing.Size(66, 15);
             this.TypeHeaderLabel.TabIndex = 38;
@@ -597,7 +696,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // YearHeaderLabel
             // 
             this.YearHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.YearHeaderLabel.Location = new System.Drawing.Point(173, 269);
+            this.YearHeaderLabel.Location = new System.Drawing.Point(212, 269);
             this.YearHeaderLabel.Name = "YearHeaderLabel";
             this.YearHeaderLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.YearHeaderLabel.Size = new System.Drawing.Size(35, 15);
@@ -608,7 +707,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.DriveHeaderLabel.AutoSize = true;
             this.DriveHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.DriveHeaderLabel.Location = new System.Drawing.Point(209, 269);
+            this.DriveHeaderLabel.Location = new System.Drawing.Point(248, 269);
             this.DriveHeaderLabel.Name = "DriveHeaderLabel";
             this.DriveHeaderLabel.Size = new System.Drawing.Size(42, 15);
             this.DriveHeaderLabel.TabIndex = 40;
@@ -618,32 +717,33 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // ShiftHeaderLabel
             // 
             this.ShiftHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ShiftHeaderLabel.Location = new System.Drawing.Point(252, 269);
+            this.ShiftHeaderLabel.Location = new System.Drawing.Point(291, 269);
             this.ShiftHeaderLabel.Name = "ShiftHeaderLabel";
-            this.ShiftHeaderLabel.Size = new System.Drawing.Size(59, 15);
+            this.ShiftHeaderLabel.Size = new System.Drawing.Size(34, 15);
             this.ShiftHeaderLabel.TabIndex = 41;
             this.ShiftHeaderLabel.Text = "Váltó";
             this.ShiftHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FuelHeaderLabel
             // 
-            this.FuelHeaderLabel.AutoSize = true;
             this.FuelHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FuelHeaderLabel.Location = new System.Drawing.Point(312, 269);
+            this.FuelHeaderLabel.Location = new System.Drawing.Point(326, 269);
             this.FuelHeaderLabel.Name = "FuelHeaderLabel";
             this.FuelHeaderLabel.Size = new System.Drawing.Size(73, 15);
             this.FuelHeaderLabel.TabIndex = 42;
             this.FuelHeaderLabel.Text = "Üzemanyag";
+            this.FuelHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AirCondHeaderLabel
             // 
-            this.AirCondHeaderLabel.AutoSize = true;
             this.AirCondHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.AirCondHeaderLabel.Location = new System.Drawing.Point(386, 269);
+            this.AirCondHeaderLabel.Location = new System.Drawing.Point(400, 269);
+            this.AirCondHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
             this.AirCondHeaderLabel.Name = "AirCondHeaderLabel";
             this.AirCondHeaderLabel.Size = new System.Drawing.Size(39, 15);
             this.AirCondHeaderLabel.TabIndex = 43;
             this.AirCondHeaderLabel.Text = "Klíma";
+            this.AirCondHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RadarHeaderLabel
             // 
@@ -651,7 +751,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RadarHeaderLabel.AutoSize = true;
             this.RadarHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RadarHeaderLabel.Location = new System.Drawing.Point(426, 269);
+            this.RadarHeaderLabel.Location = new System.Drawing.Point(440, 269);
             this.RadarHeaderLabel.Name = "RadarHeaderLabel";
             this.RadarHeaderLabel.Size = new System.Drawing.Size(41, 15);
             this.RadarHeaderLabel.TabIndex = 44;
@@ -661,7 +761,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // CruiseControlHeaderLabel
             // 
             this.CruiseControlHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CruiseControlHeaderLabel.Location = new System.Drawing.Point(468, 269);
+            this.CruiseControlHeaderLabel.Location = new System.Drawing.Point(482, 269);
             this.CruiseControlHeaderLabel.Name = "CruiseControlHeaderLabel";
             this.CruiseControlHeaderLabel.Size = new System.Drawing.Size(28, 15);
             this.CruiseControlHeaderLabel.TabIndex = 45;
@@ -671,7 +771,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // OneToFiveHeaderLabel
             // 
             this.OneToFiveHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.OneToFiveHeaderLabel.Location = new System.Drawing.Point(497, 269);
+            this.OneToFiveHeaderLabel.Location = new System.Drawing.Point(511, 269);
             this.OneToFiveHeaderLabel.Name = "OneToFiveHeaderLabel";
             this.OneToFiveHeaderLabel.Size = new System.Drawing.Size(42, 15);
             this.OneToFiveHeaderLabel.TabIndex = 47;
@@ -681,9 +781,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // SixToFourteenHeaderLabel
             // 
             this.SixToFourteenHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.SixToFourteenHeaderLabel.Location = new System.Drawing.Point(540, 269);
+            this.SixToFourteenHeaderLabel.Location = new System.Drawing.Point(554, 269);
             this.SixToFourteenHeaderLabel.Name = "SixToFourteenHeaderLabel";
-            this.SixToFourteenHeaderLabel.Size = new System.Drawing.Size(49, 15);
+            this.SixToFourteenHeaderLabel.Size = new System.Drawing.Size(48, 15);
             this.SixToFourteenHeaderLabel.TabIndex = 48;
             this.SixToFourteenHeaderLabel.Text = "6-14";
             this.SixToFourteenHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -691,9 +791,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // FromFifteenHeaderLabel
             // 
             this.FromFifteenHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FromFifteenHeaderLabel.Location = new System.Drawing.Point(590, 269);
+            this.FromFifteenHeaderLabel.Location = new System.Drawing.Point(603, 269);
             this.FromFifteenHeaderLabel.Name = "FromFifteenHeaderLabel";
-            this.FromFifteenHeaderLabel.Size = new System.Drawing.Size(49, 15);
+            this.FromFifteenHeaderLabel.Size = new System.Drawing.Size(48, 15);
             this.FromFifteenHeaderLabel.TabIndex = 49;
             this.FromFifteenHeaderLabel.Text = "15<";
             this.FromFifteenHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -701,9 +801,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // DepositeHeaderLabel
             // 
             this.DepositeHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.DepositeHeaderLabel.Location = new System.Drawing.Point(640, 269);
+            this.DepositeHeaderLabel.Location = new System.Drawing.Point(652, 269);
+            this.DepositeHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
             this.DepositeHeaderLabel.Name = "DepositeHeaderLabel";
-            this.DepositeHeaderLabel.Size = new System.Drawing.Size(49, 15);
+            this.DepositeHeaderLabel.Size = new System.Drawing.Size(45, 15);
             this.DepositeHeaderLabel.TabIndex = 50;
             this.DepositeHeaderLabel.Text = "Kaució";
             this.DepositeHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -718,7 +819,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // LocationHeaderLabel
             // 
             this.LocationHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LocationHeaderLabel.Location = new System.Drawing.Point(690, 269);
+            this.LocationHeaderLabel.Location = new System.Drawing.Point(698, 269);
             this.LocationHeaderLabel.Name = "LocationHeaderLabel";
             this.LocationHeaderLabel.Size = new System.Drawing.Size(31, 15);
             this.LocationHeaderLabel.TabIndex = 52;
@@ -730,7 +831,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.LocationLabel.AutoSize = true;
             this.LocationLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.LocationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LocationLabel.Location = new System.Drawing.Point(480, 111);
+            this.LocationLabel.Location = new System.Drawing.Point(467, 135);
             this.LocationLabel.Name = "LocationLabel";
             this.LocationLabel.Size = new System.Drawing.Size(41, 18);
             this.LocationLabel.TabIndex = 53;
@@ -739,7 +840,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // LocationCB
             // 
             this.LocationCB.FormattingEnabled = true;
-            this.LocationCB.Location = new System.Drawing.Point(534, 113);
+            this.LocationCB.Location = new System.Drawing.Point(546, 137);
             this.LocationCB.Name = "LocationCB";
             this.LocationCB.Size = new System.Drawing.Size(121, 21);
             this.LocationCB.TabIndex = 54;
@@ -763,8 +864,28 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.YearCB.Size = new System.Drawing.Size(121, 21);
             this.YearCB.TabIndex = 56;
             // 
+            // LicensePlateLabel
+            // 
+            this.LicensePlateLabel.AutoSize = true;
+            this.LicensePlateLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.LicensePlateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LicensePlateLabel.Location = new System.Drawing.Point(467, 64);
+            this.LicensePlateLabel.Name = "LicensePlateLabel";
+            this.LicensePlateLabel.Size = new System.Drawing.Size(84, 18);
+            this.LicensePlateLabel.TabIndex = 57;
+            this.LicensePlateLabel.Text = "Rendszám:";
+            // 
+            // LicensePlateTB
+            // 
+            this.LicensePlateTB.Location = new System.Drawing.Point(546, 64);
+            this.LicensePlateTB.Name = "LicensePlateTB";
+            this.LicensePlateTB.Size = new System.Drawing.Size(100, 20);
+            this.LicensePlateTB.TabIndex = 58;
+            // 
             // AddCar
             // 
+            this.Controls.Add(this.LicensePlateTB);
+            this.Controls.Add(this.LicensePlateLabel);
             this.Controls.Add(this.YearCB);
             this.Controls.Add(this.YearLabel);
             this.Controls.Add(this.LocationCB);
@@ -784,7 +905,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.Controls.Add(this.YearHeaderLabel);
             this.Controls.Add(this.TypeHeaderLabel);
             this.Controls.Add(this.BrandHeaderLabel);
-            this.Controls.Add(this.IDHeaderLabel);
+            this.Controls.Add(this.LicensePlateHeaderLabel);
             this.Controls.Add(this.HeaderDGV);
             this.Controls.Add(this.CruiseControlChB);
             this.Controls.Add(this.RadarChB);

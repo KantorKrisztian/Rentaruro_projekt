@@ -245,16 +245,6 @@ reservation.init({
     sequelize:dbHandler, modelName: 'reservation'
 })
 
-
-reservation.hasOne(user, {
-    foreignKey: 'personId',
-    targetKey: 'id'
-})
-reservation.hasOne(cars, {
-    foreignKey: 'carId',
-    targetKey: 'id'
-})
-
 exports.reservationTable = reservation
 
 reservation.hasOne(cars,{

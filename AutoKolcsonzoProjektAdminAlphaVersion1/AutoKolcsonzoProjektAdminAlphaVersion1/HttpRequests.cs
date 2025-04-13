@@ -19,7 +19,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         {
             try
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer__"+Token.token);
             }
             catch (Exception e)
             {
@@ -66,17 +66,56 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             
         }
 
+        public async Task<List<jsonRents>> ListAllRents()
+        {
+            List<jsonRents> rents = new List<jsonRents>();
+            try
+            {
+                string serverUrl = this.serverUrl + "ListAllReservetions";
+                string response = await client.GetStringAsync(serverUrl);
+                rents = JsonConvert.DeserializeObject<List<jsonRents>>(response);
+                MessageBox.Show(response);
+                return rents;
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+
         public async Task<List<jsonCars>> DeleteCar(int id)
         {
             try
             {
                 string serverUrl = this.serverUrl + "DeleteCar/"+id;
                 
+
                 HttpResponseMessage response = await client.DeleteAsync(serverUrl);
                 string stringResult = await response.Content.ReadAsStringAsync();
                 string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
                 MessageBox.Show(message);
                 response.EnsureSuccessStatusCode();
+                return await ListAllCars();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+        public async Task<List<jsonCars>> UpdateCar(jsonCars Cars)
+        {
+            try
+            {
+                string serverUrl = this.serverUrl + "UpdateCar/"+Cars.id;
+                string jsonString = JsonConvert.SerializeObject(Cars);
+                HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
+                HttpResponseMessage response= await client.PutAsync(serverUrl,sendThis);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
                 return await ListAllCars();
             }
             catch (Exception e)
@@ -131,11 +170,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 MessageBox.Show(message);
                 
                 Token.token = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).token;
-<<<<<<< HEAD
-
-=======
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.token);
->>>>>>> 6d8c457b7681ad5a4f84cbcce9249bee62a890b4
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer__"+ Token.token);
                 response.EnsureSuccessStatusCode();
                 
                 return response.IsSuccessStatusCode;
