@@ -150,10 +150,6 @@ cars.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    "drive":{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     "gearShift":{
         type: DataTypes.STRING,
         allowNull: false
