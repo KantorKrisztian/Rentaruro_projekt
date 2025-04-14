@@ -94,6 +94,11 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     rent.PhoneLabel.Text = item.phone;
                     RentPanel.Controls.Add(rent);
                     rent.Top = (count - 1) * rent.Height;
+                    rent.DeleteBtn.Click +=async (s, e) =>
+                    {
+                        AllRents = await httpRequests.DeleteRent(item.id);
+                        RentList();
+                    };
                 }
                 count = 0;
                 

@@ -69,7 +69,7 @@ server.post("/AdminLogin",async (req,res)=>{
     if (oneUser) {
         try {
             const token=await JWT.sign({"username":oneUser.username,'id':oneUser.id},SUPERSECRET,{expiresIn:timeLimit})
-            res.json({'message':'Sikeres bejelentkezés','token':token})
+            res.json({'message':'Sikeres bejelentkezés','token':token,'role':oneUser.role})
             res.end()
             return
         } catch (error) {
@@ -89,7 +89,7 @@ server.get("/ListCars",async (req,res)=>{
     res.json(cars).end()
 })
 
-server.get("/ListAllReservetions",async (req,res)=>{
+server.get("/ListAllRents",async (req,res)=>{
     try {
         const reservations = await dbHandler.reservationTable.findAll()
         const cars = await dbHandler.carsTable.findAll()
@@ -122,10 +122,10 @@ server.get("/ListAllReservetions",async (req,res)=>{
     }
 })
 
-server.post("/NewReservation",auth(),async (req,res)=>{
-    let oneReservation
+server.post("/NewRent",auth(),async (req,res)=>{
+    let oneRent
     try {
-        oneReservation=await dbHandler.reservationTable.findOne({
+        oneRent=await dbHandler.reservationTable.findOne({
             where:{
                 carId:req.body.carId,
                 [dbHandler.Sequelize.Op.or]: [
@@ -149,9 +149,9 @@ server.post("/NewReservation",auth(),async (req,res)=>{
             }
             
         })
-        if (oneReservation) {
-            res.status(409).json({ message: "Ebben az időben már foglalt ez az autó." });
-            return;
+        if (oneRent) {
+            res.status(409).json({ message: "Ebben az időben már foglalt ez az autó." })
+            return
         }
         await dbHandler.reservationTable.create({
             carId:req.body.carId,
@@ -169,7 +169,80 @@ server.post("/NewReservation",auth(),async (req,res)=>{
     }
 })
 
-server.delete('/DeleteCar/:id',async (req,res)=>{
+server.put("/UpdateRent/:id",auth(),async (req,res)=>{
+    let oneRent
+    try {
+        oneRent=await dbHandler.reservationTable.findOne({
+            where:{
+                id:req.params.id
+            }
+        })
+        if (!oneRent) {
+            res.status(404).json({"message":"Nem található ilyen foglalás!"}).end()
+            return
+        }
+        oneRent=await dbHandler.reservationTable.findOne({
+            where:{
+                carId:req.body.carId,
+                [dbHandler.Sequelize.Op.or]: [
+                    {
+                        start: {
+                            [dbHandler.Sequelize.Op.between]: [req.body.start, req.body.end]
+                        }
+                    },
+                    {
+                        end: {
+                            [dbHandler.Sequelize.Op.between]: [req.body.start, req.body.end]
+                        }
+                    },
+                    {
+                        [dbHandler.Sequelize.Op.and]: [
+                            { start: { [dbHandler.Sequelize.Op.lte]: req.body.start } },
+                            { end: { [dbHandler.Sequelize.Op.gte]: req.body.end } }
+                        ]
+                    }
+                ]
+            }
+        })
+        if (oneRent) {
+            res.status(409).json({ message: "Ebben az időben már foglalt ez az autó." })
+            return
+        }
+        await dbHandler.reservationTable.update({
+            start:req.body.start,
+            end:req.body.end,
+            other:req.body.other
+        })
+    } catch (error) {
+        res.json({"message":error}).end()
+    }
+})
+
+server.delete("/DeleteRent/:id",auth(),async (req,res)=>{
+    let oneRent
+    try {
+        oneRent=await dbHandler.reservationTable.findOne({
+            where:{
+                id:req.params.id
+            }
+        })
+        if (!oneRent) {
+            res.status(404).json({"message":"Nem található ilyen foglalás!"}).end()
+            return
+        }
+        dbHandler.reservationTable.destroy({
+            where:{
+                id:req.params.id
+            }
+        })
+        res.status(200).json({"message":"Sikeres törlés!"}).end()
+        return
+    } catch (error) {
+        res.json({"message":error}).end()
+    }
+})
+
+server.delete('/DeleteCar/:id',auth(),async (req,res)=>{
     let oneCar
     try {
         oneCar=await dbHandler.carsTable.findOne({
@@ -178,8 +251,7 @@ server.delete('/DeleteCar/:id',async (req,res)=>{
             }
         })
     } catch (error) {
-        res.json({'message':error})
-        res.end()
+        res.status(200).json({'message':error}).end()
         return
     }
 

@@ -75,7 +75,46 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 
         public async void Start()
         {
-            
+            MessageBox.Show(Token.role);
+            if (Token.role=="dolgozo")
+            {
+                CarPanel.Location = new Point(0,74);
+                CarPanel.Size = new Size(785, 600);
+                CarPanel.BringToFront();
+                HeaderDGV.Location = new Point(0, 57);
+                HeaderDGV.BringToFront();
+                LicensePlateHeaderLabel.Location =new Point(1,58);
+                BrandHeaderLabel.Location = new Point(71, 58);
+                TypeHeaderLabel.Location = new Point(145, 58);
+                YearHeaderLabel.Location = new Point(212, 58);
+                DriveHeaderLabel.Location = new Point(248, 58);
+                ShiftHeaderLabel.Location = new Point(291, 58);
+                FuelHeaderLabel.Location = new Point(326, 58);
+                AirCondHeaderLabel.Location = new Point(400, 58);
+                RadarHeaderLabel.Location = new Point(440, 58);
+                CruiseControlHeaderLabel.Location = new Point(482, 58);
+                OneToFiveHeaderLabel.Location = new Point(511, 58);
+                SixToFourteenHeaderLabel.Location = new Point(554, 58);
+                FromFifteenHeaderLabel.Location = new Point(603, 58);
+                DepositeHeaderLabel.Location = new Point(652, 58);
+                LocationHeaderLabel.Location = new Point(698, 58);
+
+                LicensePlateHeaderLabel.BringToFront();
+                BrandHeaderLabel.BringToFront();
+                TypeHeaderLabel.BringToFront();
+                YearHeaderLabel.BringToFront();
+                DriveHeaderLabel.BringToFront();
+                ShiftHeaderLabel.BringToFront();
+                FuelHeaderLabel.BringToFront();
+                AirCondHeaderLabel.BringToFront();
+                RadarHeaderLabel.BringToFront();
+                CruiseControlHeaderLabel.BringToFront();
+                OneToFiveHeaderLabel.BringToFront();
+                SixToFourteenHeaderLabel.BringToFront();
+                FromFifteenHeaderLabel.BringToFront();
+                DepositeHeaderLabel.BringToFront();
+                LocationHeaderLabel.BringToFront();
+            }
             AllCars = await httpRequests.ListAllCars();
             CarList();
             

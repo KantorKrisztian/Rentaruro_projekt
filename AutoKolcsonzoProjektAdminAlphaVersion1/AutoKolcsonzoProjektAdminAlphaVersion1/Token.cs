@@ -9,5 +9,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
     class Token
     {
         public static string token { get; set; }
+        public static string role { get; set; }
     }
 }

@@ -10,5 +10,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
     {
         public string token { get; set; }
         public string message { get; set; }
+        public string role { get; set; }
     }
 }

@@ -71,10 +71,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             List<jsonRents> rents = new List<jsonRents>();
             try
             {
-                string serverUrl = this.serverUrl + "ListAllReservetions";
+                string serverUrl = this.serverUrl + "ListAllRents";
                 string response = await client.GetStringAsync(serverUrl);
                 rents = JsonConvert.DeserializeObject<List<jsonRents>>(response);
-                MessageBox.Show(response);
                 return rents;
             }
             catch (Exception e)
@@ -85,6 +84,31 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
         }
 
+        /*public async Task<List<jsonRents>> UpdateRent()
+        {
+
+        }*/
+
+        public async Task<List<jsonRents>> DeleteRent(int id)
+        {
+            try
+            {
+                string serverUrl = this.serverUrl + "DeleteRent/" + id;
+
+
+                HttpResponseMessage response = await client.DeleteAsync(serverUrl);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
+                response.EnsureSuccessStatusCode();
+                return await ListAllRents();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
         public async Task<List<jsonCars>> DeleteCar(int id)
         {
             try
@@ -132,7 +156,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 var jsonData = new
                 {
                     registerNev = username,
-                    registerPassword = password
+                    registerPassword = Encoding.ASCII.GetBytes(password)
                 };
                 string jsonString = JsonConvert.SerializeObject(jsonData);
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
@@ -159,7 +183,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 var jsonData = new
                 {
                     loginNev = username,
-                    loginPassword = password
+                    loginPassword = Encoding.ASCII.GetBytes(password)
                 };
                 string jsonString = JsonConvert.SerializeObject(jsonData);
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
@@ -168,7 +192,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 string stringResult = await response.Content.ReadAsStringAsync();
                 string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
                 MessageBox.Show(message);
+
+                Token.role= JsonConvert.DeserializeObject<jsonResponesData>(stringResult).role;
                 
+
                 Token.token = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).token;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer__"+ Token.token);
                 response.EnsureSuccessStatusCode();
