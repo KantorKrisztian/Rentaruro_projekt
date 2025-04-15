@@ -84,10 +84,25 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
         }
 
-        /*public async Task<List<jsonRents>> UpdateRent()
+        public async Task<List<jsonRents>> UpdateRent(jsonRents rents)
         {
-
-        }*/
+            try
+            {
+                string serverUrl = this.serverUrl + "UpdateRent/" + rents.id;
+                string jsonString = JsonConvert.SerializeObject(rents);
+                HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
+                HttpResponseMessage response = await client.PutAsync(serverUrl, sendThis);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
+                return await ListAllRents();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
 
         public async Task<List<jsonRents>> DeleteRent(int id)
         {
@@ -173,7 +188,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 Console.WriteLine(e.Message);
             }
         }
-        
         public async Task<bool> Login(string username, string password)
         {
             string serverUrl = this.serverUrl + "AdminLogin";

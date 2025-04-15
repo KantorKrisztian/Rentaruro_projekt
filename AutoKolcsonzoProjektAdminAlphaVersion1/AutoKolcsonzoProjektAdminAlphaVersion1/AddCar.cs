@@ -75,7 +75,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 
         public async void Start()
         {
-            MessageBox.Show(Token.role);
             if (Token.role=="dolgozo")
             {
                 CarPanel.Location = new Point(0,74);

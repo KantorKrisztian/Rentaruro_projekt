@@ -46,6 +46,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 {
                     this.Show();
                     carForm.Hide();
+                    Token.token = "";
+                    Token.role = "";
                 }
             }
 
