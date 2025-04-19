@@ -89,7 +89,35 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             try
             {
                 string serverUrl = this.serverUrl + "UpdateRent/" + rents.id;
-                string jsonString = JsonConvert.SerializeObject(rents);
+                string startString = rents.start.ToString();
+                string[] StartSplit = startString.Split(' ');
+                string endString=rents.end.ToString();
+                string[] EndSplit = endString.Split(' ');
+                var jsonData = new
+                {
+                    start = StartSplit[0]+ StartSplit[1]+ StartSplit[2]+"02:02:02",
+                    end = EndSplit[0] + EndSplit[1] + EndSplit[2] + "02:02:02",
+                    other = rents.other,
+                    carId=rents.carId
+                };
+                List<jsonRents> checkRents = await ListAllRents();
+                foreach (jsonRents item in checkRents)
+                {
+                    if (item.carId == rents.carId && item.id != rents.id)
+                    {
+                        if ((item.start.DayOfYear <= rents.start.DayOfYear && item.end.DayOfYear >= rents.start.DayOfYear) || (item.start.DayOfYear <= rents.end.DayOfYear && item.end.DayOfYear >= rents.end.DayOfYear))
+                        {
+                            MessageBox.Show("Ez az autó már foglalt ebben az időpontban!");
+                            return await ListAllRents();
+                        }
+                        if (item.start.DayOfYear >= rents.start.DayOfYear && item.end.DayOfYear <= rents.end.DayOfYear)
+                        {
+                            MessageBox.Show("Ez az autó már foglalt ebben az időpontban!");
+                            return await ListAllRents();
+                        }
+                    }
+                }
+                string jsonString = JsonConvert.SerializeObject(jsonData);
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
                 HttpResponseMessage response = await client.PutAsync(serverUrl, sendThis);
                 string stringResult = await response.Content.ReadAsStringAsync();
@@ -100,7 +128,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return null;
+                return await ListAllRents();
             }
         }
 

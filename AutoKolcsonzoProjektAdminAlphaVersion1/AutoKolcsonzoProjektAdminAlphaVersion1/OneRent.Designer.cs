@@ -45,10 +45,11 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             // StartLabel
             // 
+            this.StartLabel.AutoEllipsis = true;
             this.StartLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.StartLabel.Location = new System.Drawing.Point(-1, 0);
+            this.StartLabel.Location = new System.Drawing.Point(-3, 0);
             this.StartLabel.Name = "StartLabel";
-            this.StartLabel.Size = new System.Drawing.Size(70, 25);
+            this.StartLabel.Size = new System.Drawing.Size(73, 25);
             this.StartLabel.TabIndex = 2;
             this.StartLabel.Text = "2025.05.30";
             this.StartLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -65,10 +66,11 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             // EndLabel
             // 
+            this.EndLabel.AutoEllipsis = true;
             this.EndLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.EndLabel.Location = new System.Drawing.Point(64, 0);
+            this.EndLabel.Location = new System.Drawing.Point(63, 0);
             this.EndLabel.Name = "EndLabel";
-            this.EndLabel.Size = new System.Drawing.Size(70, 25);
+            this.EndLabel.Size = new System.Drawing.Size(75, 25);
             this.EndLabel.TabIndex = 5;
             this.EndLabel.Text = "2025.05.30";
             this.EndLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

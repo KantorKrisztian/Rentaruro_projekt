@@ -118,7 +118,7 @@ server.get("/ListAllRents",async (req,res)=>{
 
         res.json(detailedReservations).end()
     } catch (error) {
-        res.status(500).json({ message: error.message }).end()
+        res.status(500).json({ "message": error }).end()
     }
 })
 
@@ -181,41 +181,20 @@ server.put("/UpdateRent/:id",auth(),async (req,res)=>{
             res.status(404).json({"message":"Nem található ilyen foglalás!"}).end()
             return
         }
-        oneRent=await dbHandler.reservationTable.findOne({
-            where:{
-                carId:req.body.carId,
-                [dbHandler.Sequelize.Op.or]: [
-                    {
-                        start: {
-                            [dbHandler.Sequelize.Op.between]: [req.body.start, req.body.end]
-                        }
-                    },
-                    {
-                        end: {
-                            [dbHandler.Sequelize.Op.between]: [req.body.start, req.body.end]
-                        }
-                    },
-                    {
-                        [dbHandler.Sequelize.Op.and]: [
-                            { start: { [dbHandler.Sequelize.Op.lte]: req.body.start } },
-                            { end: { [dbHandler.Sequelize.Op.gte]: req.body.end } }
-                        ]
-                    }
-                ]
-            }
-        })
-        if (oneRent) {
-            res.status(409).json({ message: "Ebben az időben már foglalt ez az autó." })
-            return
-        }
-        await dbHandler.reservationTable.update({
-            start:req.body.start,
-            end:req.body.end,
-            other:req.body.other
-        })
     } catch (error) {
         res.json({"message":error}).end()
+        return
     }
+    await dbHandler.reservationTable.update({
+        start:req.body.start,
+        end:req.body.end,
+        other:req.body.other
+    },{
+        where:{
+            id:req.params.id
+        }
+    })
+    res.status(200).json({"message":"Sikeres frissítés!"})
 })
 
 server.delete("/DeleteRent/:id",auth(),async (req,res)=>{
