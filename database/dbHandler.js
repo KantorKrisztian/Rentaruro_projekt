@@ -32,31 +32,8 @@ admin.init({
     "role":{
         type: DataTypes.STRING,
         allowNull: false
-    }
-},{
-    sequelize:dbHandler, modelName:'admin'
-})
-
-exports.adminTable = admin
-
-class personalInfo extends Model {}
-
-personalInfo.init({
-    "id":{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
     },
-    "userId":{
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references:{
-            model: admin,
-            key:'id'
-        }
-    },
-    "name":{
+    "realName":{
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -73,7 +50,7 @@ personalInfo.init({
         allowNull: false
     },
     "birth":{
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false
     },
     "tax":{
@@ -81,10 +58,10 @@ personalInfo.init({
         allowNull: false
     }
 },{
-    sequelize:dbHandler, modelName:'personalInfo'
+    sequelize:dbHandler, modelName:'admin'
 })
 
-exports.personalTable = personalInfo
+exports.adminTable = admin
 
 class user extends Model {}
 
@@ -251,3 +228,4 @@ reservation.hasOne(user,{
     foreignKey:'id',
     sourceKey:'personId'
 })
+

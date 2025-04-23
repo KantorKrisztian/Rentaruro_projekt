@@ -14,7 +14,6 @@ const SUPERSECRET = process.env.SECRETKEY
 
 const dbHandler = require('./dbHandler')
 dbHandler.adminTable.sync({alter:true})
-dbHandler.personalTable.sync({alter:true})
 dbHandler.carsTable.sync({alter:true})
 dbHandler.userTable.sync({alter:true})
 dbHandler.reservationTable.sync({alter:true})
@@ -351,12 +350,12 @@ server.put("/UpdateCar/:id",auth(),async (req,res)=>{
 })
 
 
-server.post("/AdminRegistration",async (req,res)=>{
+server.post("/AdminRegistration",auth(),async (req,res)=>{
     let oneUser
     try {
         oneUser=await dbHandler.adminTable.findOne({
             where:{
-                username:req.body.registerNev
+                username:req.body.username
             }
         })
     } catch (error) {
@@ -373,12 +372,18 @@ server.post("/AdminRegistration",async (req,res)=>{
     }
     try {
         await dbHandler.adminTable.create({
-            username:req.body.registerNev,
-            password:req.body.registerPassword,
-            role:"dolgozo"
+            username:req.body.username,
+            password:req.body.password,
+            role:req.body.role,
+            realName:req.body.realName,
+            address:req.body.address,
+            email:req.body.email,
+            phone:req.body.phone,
+            birth:req.body.birth,
+            tax:req.body.tax
         })
     } catch (error) {
-        res.json({'message':error})
+        res.json({'message':"error"})
         res.end()
         return
     }
@@ -388,9 +393,112 @@ server.post("/AdminRegistration",async (req,res)=>{
     res.end()
 })
 
+server.get("/ListAllWorkers",auth(),async (req,res)=>{
+    let workers
+    try {
+        workers=await dbHandler.adminTable.findAll()
+    } catch (error) {
+        res.status(500).json({"message":error}).end()
+        return
+    }
+    res.status(200).json(workers).end()
+})
 
+server.delete("/DeleteWorker/:id",auth(),async (req,res)=>{
+    try {
+        const worker=await dbHandler.adminTable.findOne({
+            where:{
+                id:req.params.id
+            }
+        })
+        if (!worker) {
+            res.status(404).json({"message":"Nincs ilyen dolgozó!"}).end()
+            return
+        }
+        await dbHandler.adminTable.destroy({
+            where:{
+                id:req.params.id
+            }
+        })
+        res.status(200).json({"message":"Sikeres törlés!"}).end()
+    } catch (error) {
+        
+    }
+})
 
+server.put("/UpdateWorker/:id",auth(),async (req,res)=>{
+    let oneWorker
+    try {
+        oneWorker=await dbHandler.adminTable.findOne({
+            where:{
+                id:req.params.id
+            }
+        })
+        if (!oneWorker) {
+            res.status(404).json({"message":"Nincs ilyen dolgozó!"}).end()
+            return
+        }
+        await dbHandler.adminTable.update({
+            username:req.body.username,
+            password:req.body.password,
+            role:req.body.role,
+            realName:req.body.realName,
+            address:req.body.address,
+            email:req.body.email,
+            phone:req.body.phone,
+            birth:req.body.birth,
+            tax:req.body.tax
+        },{
+            where:{
+                id:req.params.id
+            }
+        })
+        res.status(200).json({"message":"Sikeres módosítás!"}).end()
+    } catch (error) {
+        res.status(500).json({"message":error}).end()
+    }
+})
 
+function createAdmin() {
+    let admin
+    try {
+        admin = dbHandler.adminTable.findOne({
+            where: {
+                username: "admin"
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        return
+    }
+    if (admin) {
+        console.log("Admin már létezik")
+        return
+    }
+    try {
+        dbHandler.adminTable.create({
+            username:"admin",
+            password:encodePassword("admin"),
+            role:"admin",
+            realName:"Admin Admin",
+            address:"admin utca 1",
+            email:"admin",
+            birth:"2000-01-01",
+            phone:"admin",
+            tax:"admin"
+        })
+    } catch (error) {
+        console.log(error)
+        return
+        
+    }
+    
+}
 
+createAdmin()
 
+function encodePassword(password) {
+    const buffer = Buffer.from(password, 'utf-8');
+    return buffer.toString('base64');
+}
 server.listen(PORT)
