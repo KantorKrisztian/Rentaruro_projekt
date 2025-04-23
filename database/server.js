@@ -501,4 +501,8 @@ function encodePassword(password) {
     const buffer = Buffer.from(password, 'utf-8');
     return buffer.toString('base64');
 }
+function decodePassword(encodedPassword) {
+    const buffer = Buffer.from(encodedPassword, 'base64');
+    return buffer.toString('utf-8');
+}
 server.listen(PORT)
