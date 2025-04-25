@@ -71,20 +71,20 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // LicensePlateLabel
             // 
             this.LicensePlateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LicensePlateLabel.Location = new System.Drawing.Point(-4, 0);
+            this.LicensePlateLabel.Location = new System.Drawing.Point(1, 0);
             this.LicensePlateLabel.Name = "LicensePlateLabel";
-            this.LicensePlateLabel.Size = new System.Drawing.Size(72, 25);
+            this.LicensePlateLabel.Size = new System.Drawing.Size(66, 46);
             this.LicensePlateLabel.TabIndex = 0;
-            this.LicensePlateLabel.Text = "WWW-999";
+            this.LicensePlateLabel.Text = "AA AA-999";
             this.LicensePlateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BrandLabel
             // 
             this.BrandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BrandLabel.Location = new System.Drawing.Point(71, 0);
+            this.BrandLabel.Location = new System.Drawing.Point(69, 0);
             this.BrandLabel.Margin = new System.Windows.Forms.Padding(0);
             this.BrandLabel.Name = "BrandLabel";
-            this.BrandLabel.Size = new System.Drawing.Size(73, 25);
+            this.BrandLabel.Size = new System.Drawing.Size(75, 23);
             this.BrandLabel.TabIndex = 1;
             this.BrandLabel.Text = "Koenigsegg";
             this.BrandLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -92,9 +92,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // TypeLabel
             // 
             this.TypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TypeLabel.Location = new System.Drawing.Point(145, 0);
+            this.TypeLabel.Location = new System.Drawing.Point(69, 23);
+            this.TypeLabel.Margin = new System.Windows.Forms.Padding(0);
             this.TypeLabel.Name = "TypeLabel";
-            this.TypeLabel.Size = new System.Drawing.Size(66, 25);
+            this.TypeLabel.Size = new System.Drawing.Size(75, 23);
             this.TypeLabel.TabIndex = 2;
             this.TypeLabel.Text = "Angelholm";
             this.TypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -102,9 +103,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // YearLabel
             // 
             this.YearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.YearLabel.Location = new System.Drawing.Point(212, 0);
+            this.YearLabel.Location = new System.Drawing.Point(145, 0);
+            this.YearLabel.Margin = new System.Windows.Forms.Padding(0);
             this.YearLabel.Name = "YearLabel";
-            this.YearLabel.Size = new System.Drawing.Size(35, 25);
+            this.YearLabel.Size = new System.Drawing.Size(35, 46);
             this.YearLabel.TabIndex = 3;
             this.YearLabel.Text = "2025";
             this.YearLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -112,9 +114,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // DriveLabel
             // 
             this.DriveLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.DriveLabel.Location = new System.Drawing.Point(248, 0);
+            this.DriveLabel.Location = new System.Drawing.Point(181, 0);
             this.DriveLabel.Name = "DriveLabel";
-            this.DriveLabel.Size = new System.Drawing.Size(42, 25);
+            this.DriveLabel.Size = new System.Drawing.Size(65, 46);
             this.DriveLabel.TabIndex = 4;
             this.DriveLabel.Text = "4WD";
             this.DriveLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -122,9 +124,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // ShiftLabel
             // 
             this.ShiftLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ShiftLabel.Location = new System.Drawing.Point(291, 0);
+            this.ShiftLabel.Location = new System.Drawing.Point(247, 0);
             this.ShiftLabel.Name = "ShiftLabel";
-            this.ShiftLabel.Size = new System.Drawing.Size(34, 25);
+            this.ShiftLabel.Size = new System.Drawing.Size(34, 46);
             this.ShiftLabel.TabIndex = 5;
             this.ShiftLabel.Text = "A";
             this.ShiftLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -132,9 +134,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // FuelLabel
             // 
             this.FuelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FuelLabel.Location = new System.Drawing.Point(326, 0);
+            this.FuelLabel.Location = new System.Drawing.Point(282, 0);
             this.FuelLabel.Name = "FuelLabel";
-            this.FuelLabel.Size = new System.Drawing.Size(73, 25);
+            this.FuelLabel.Size = new System.Drawing.Size(73, 46);
             this.FuelLabel.TabIndex = 6;
             this.FuelLabel.Text = "Benzin";
             this.FuelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -142,9 +144,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // AirCondLabel
             // 
             this.AirCondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.AirCondLabel.Location = new System.Drawing.Point(400, 0);
+            this.AirCondLabel.Location = new System.Drawing.Point(356, 0);
             this.AirCondLabel.Name = "AirCondLabel";
-            this.AirCondLabel.Size = new System.Drawing.Size(39, 25);
+            this.AirCondLabel.Size = new System.Drawing.Size(39, 46);
             this.AirCondLabel.TabIndex = 7;
             this.AirCondLabel.Text = "✔";
             this.AirCondLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -152,9 +154,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // RadarLabel
             // 
             this.RadarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RadarLabel.Location = new System.Drawing.Point(440, 0);
+            this.RadarLabel.Location = new System.Drawing.Point(396, 0);
             this.RadarLabel.Name = "RadarLabel";
-            this.RadarLabel.Size = new System.Drawing.Size(41, 25);
+            this.RadarLabel.Size = new System.Drawing.Size(41, 46);
             this.RadarLabel.TabIndex = 8;
             this.RadarLabel.Text = "✔";
             this.RadarLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -162,9 +164,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // CruiseControlLabel
             // 
             this.CruiseControlLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CruiseControlLabel.Location = new System.Drawing.Point(482, 0);
+            this.CruiseControlLabel.Location = new System.Drawing.Point(438, 0);
             this.CruiseControlLabel.Name = "CruiseControlLabel";
-            this.CruiseControlLabel.Size = new System.Drawing.Size(28, 25);
+            this.CruiseControlLabel.Size = new System.Drawing.Size(67, 46);
             this.CruiseControlLabel.TabIndex = 9;
             this.CruiseControlLabel.Text = "✖";
             this.CruiseControlLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -172,10 +174,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // OneToFiveLabel
             // 
             this.OneToFiveLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.OneToFiveLabel.Location = new System.Drawing.Point(512, 0);
+            this.OneToFiveLabel.Location = new System.Drawing.Point(506, 0);
             this.OneToFiveLabel.Margin = new System.Windows.Forms.Padding(0);
             this.OneToFiveLabel.Name = "OneToFiveLabel";
-            this.OneToFiveLabel.Size = new System.Drawing.Size(42, 25);
+            this.OneToFiveLabel.Size = new System.Drawing.Size(48, 46);
             this.OneToFiveLabel.TabIndex = 11;
             this.OneToFiveLabel.Text = "50000";
             this.OneToFiveLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -183,10 +185,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // SixToFourteenLabel
             // 
             this.SixToFourteenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.SixToFourteenLabel.Location = new System.Drawing.Point(553, 0);
+            this.SixToFourteenLabel.Location = new System.Drawing.Point(555, 0);
             this.SixToFourteenLabel.Margin = new System.Windows.Forms.Padding(0);
             this.SixToFourteenLabel.Name = "SixToFourteenLabel";
-            this.SixToFourteenLabel.Size = new System.Drawing.Size(49, 25);
+            this.SixToFourteenLabel.Size = new System.Drawing.Size(49, 46);
             this.SixToFourteenLabel.TabIndex = 12;
             this.SixToFourteenLabel.Text = "100000";
             this.SixToFourteenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -194,10 +196,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // FromFifteenLabel
             // 
             this.FromFifteenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FromFifteenLabel.Location = new System.Drawing.Point(601, 0);
+            this.FromFifteenLabel.Location = new System.Drawing.Point(604, 0);
             this.FromFifteenLabel.Margin = new System.Windows.Forms.Padding(0);
             this.FromFifteenLabel.Name = "FromFifteenLabel";
-            this.FromFifteenLabel.Size = new System.Drawing.Size(49, 25);
+            this.FromFifteenLabel.Size = new System.Drawing.Size(49, 46);
             this.FromFifteenLabel.TabIndex = 13;
             this.FromFifteenLabel.Text = "100000";
             this.FromFifteenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -205,10 +207,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // DepositLabel
             // 
             this.DepositLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.DepositLabel.Location = new System.Drawing.Point(650, 0);
+            this.DepositLabel.Location = new System.Drawing.Point(653, 0);
             this.DepositLabel.Margin = new System.Windows.Forms.Padding(0);
             this.DepositLabel.Name = "DepositLabel";
-            this.DepositLabel.Size = new System.Drawing.Size(49, 25);
+            this.DepositLabel.Size = new System.Drawing.Size(49, 46);
             this.DepositLabel.TabIndex = 14;
             this.DepositLabel.Text = "100000";
             this.DepositLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -217,10 +219,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.UpdateBtn.BackColor = System.Drawing.Color.Transparent;
             this.UpdateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.UpdateBtn.Location = new System.Drawing.Point(728, 0);
+            this.UpdateBtn.Location = new System.Drawing.Point(732, 0);
             this.UpdateBtn.Margin = new System.Windows.Forms.Padding(0);
             this.UpdateBtn.Name = "UpdateBtn";
-            this.UpdateBtn.Size = new System.Drawing.Size(22, 25);
+            this.UpdateBtn.Size = new System.Drawing.Size(36, 24);
             this.UpdateBtn.TabIndex = 15;
             this.UpdateBtn.Text = "🔧";
             this.UpdateBtn.UseVisualStyleBackColor = false;
@@ -229,10 +231,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             this.DeleteBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.DeleteBtn.ForeColor = System.Drawing.Color.Red;
-            this.DeleteBtn.Location = new System.Drawing.Point(749, 0);
+            this.DeleteBtn.Location = new System.Drawing.Point(732, 23);
             this.DeleteBtn.Margin = new System.Windows.Forms.Padding(0);
             this.DeleteBtn.Name = "DeleteBtn";
-            this.DeleteBtn.Size = new System.Drawing.Size(19, 25);
+            this.DeleteBtn.Size = new System.Drawing.Size(36, 23);
             this.DeleteBtn.TabIndex = 17;
             this.DeleteBtn.Text = "✖";
             this.DeleteBtn.UseVisualStyleBackColor = true;
@@ -240,10 +242,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // LocationLabel
             // 
             this.LocationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LocationLabel.Location = new System.Drawing.Point(697, 0);
+            this.LocationLabel.Location = new System.Drawing.Point(699, 0);
             this.LocationLabel.Margin = new System.Windows.Forms.Padding(0);
             this.LocationLabel.Name = "LocationLabel";
-            this.LocationLabel.Size = new System.Drawing.Size(33, 25);
+            this.LocationLabel.Size = new System.Drawing.Size(33, 46);
             this.LocationLabel.TabIndex = 18;
             this.LocationLabel.Text = "BUD";
             this.LocationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -270,7 +272,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.Controls.Add(this.BrandLabel);
             this.Controls.Add(this.LicensePlateLabel);
             this.Name = "OneCar";
-            this.Size = new System.Drawing.Size(768, 25);
+            this.Size = new System.Drawing.Size(768, 46);
             this.ResumeLayout(false);
 
         }

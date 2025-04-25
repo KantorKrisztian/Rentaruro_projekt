@@ -17,9 +17,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         public string drive { get; set; }
         public string gearShift { get; set; }
         public string fuel { get; set; }
-        public string airCondition { get; set; }
-        public string radar { get; set; }
-        public string cruiseControl { get; set; }
+        public bool airCondition { get; set; }
+        public bool radar { get; set; }
+        public bool cruiseControl { get; set; }
         public string info { get; set; }
         public string location { get; set; }
         public int OneToFive { get; set; }

@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace AutoKolcsonzoProjektAdminAlphaVersion1
 {
+    
+        
     public class HttpRequests
     {
         HttpClient client = new HttpClient();
         string serverUrl = "http://127.1.1.1:3000/";
-        
         public HttpRequests()
         {
             try
@@ -25,6 +26,16 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             {
                 MessageBox.Show(e.Message);
             }
+        }
+        public string EncodePassword(string password)
+        {
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+            return Convert.ToBase64String(passwordBytes);
+        }
+        public string DecodePassword(string encodedPassword)
+        {
+            byte[] passwordBytes = Convert.FromBase64String(encodedPassword);
+            return Encoding.UTF8.GetString(passwordBytes);
         }
         public async Task<List<jsonCars>> CreateCar(jsonCars Cars)
         {
@@ -65,7 +76,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             
         }
-
         public async Task<List<jsonRents>> ListAllRents()
         {
             List<jsonRents> rents = new List<jsonRents>();
@@ -83,7 +93,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return null;
             }
         }
-
         public async Task<List<jsonRents>> UpdateRent(jsonRents rents)
         {
             try
@@ -131,7 +140,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return await ListAllRents();
             }
         }
-
         public async Task<List<jsonRents>> DeleteRent(int id)
         {
             try
@@ -157,20 +165,17 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             try
             {
                 string serverUrl = this.serverUrl + "DeleteCar/"+id;
-                
-
                 HttpResponseMessage response = await client.DeleteAsync(serverUrl);
                 string stringResult = await response.Content.ReadAsStringAsync();
                 string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
                 MessageBox.Show(message);
                 response.EnsureSuccessStatusCode();
-                return await ListAllCars();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return null;
             }
+            return await ListAllCars();
         }
         public async Task<List<jsonCars>> UpdateCar(jsonCars Cars)
         {
@@ -191,17 +196,13 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return null;
             }
         }
-        public async void Registration(string username, string password)
+        public async Task<List<PersonalInfo>> Registration(PersonalInfo personalInfo)
         {
             string serverUrl = this.serverUrl + "AdminRegistration";
             try
             {
-                var jsonData = new
-                {
-                    registerNev = username,
-                    registerPassword = Encoding.ASCII.GetBytes(password)
-                };
-                string jsonString = JsonConvert.SerializeObject(jsonData);
+                personalInfo.password = EncodePassword(personalInfo.password);
+                string jsonString = JsonConvert.SerializeObject(personalInfo);
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
                 HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
                 string stringResult = await response.Content.ReadAsStringAsync();
@@ -209,12 +210,63 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 MessageBox.Show(message);
                 response.EnsureSuccessStatusCode();
 
-
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                MessageBox.Show(e.Message);
             }
+            return await ListAllWorkers();
+        }
+        public async Task<List<PersonalInfo>> ListAllWorkers()
+        {
+            List<PersonalInfo> workers = new List<PersonalInfo>();
+            try
+            {
+                string serverUrl = this.serverUrl + "ListAllWorkers";
+                string response = await client.GetStringAsync(serverUrl);
+                workers = JsonConvert.DeserializeObject<List<PersonalInfo>>(response);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return workers;
+        }
+        public async Task<List<PersonalInfo>> DeleteWorker(int id)
+        {
+            try
+            {
+                string serverUrl = this.serverUrl + "DeleteWorker/" + id;
+                HttpResponseMessage response = await client.DeleteAsync(serverUrl);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return await ListAllWorkers();
+        }
+        public async Task<List<PersonalInfo>> UpdateWorker(PersonalInfo personalInfo)
+        {
+            try
+            {
+                string serverUrl = this.serverUrl + "UpdateWorker/" + personalInfo.id;
+                personalInfo.password = EncodePassword(personalInfo.password);
+                string jsonString = JsonConvert.SerializeObject(personalInfo);
+                HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
+                HttpResponseMessage response = await client.PutAsync(serverUrl, sendThis);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return await ListAllWorkers();
         }
         public async Task<bool> Login(string username, string password)
         {
@@ -225,7 +277,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 var jsonData = new
                 {
                     loginNev = username,
-                    loginPassword = Encoding.ASCII.GetBytes(password)
+                    loginPassword = EncodePassword(password)
                 };
                 string jsonString = JsonConvert.SerializeObject(jsonData);
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");

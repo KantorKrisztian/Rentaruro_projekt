@@ -19,19 +19,29 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         void Start()
         {
+            personalInfos1.Hide();
             rentCar1.Hide();
             RentLabel.Click += showRentedCars;
             CarsLabel.Click += showCars;
+            WorkersLabel.Click += showWorkers;
         }
         void showRentedCars(object s, EventArgs e)
         {
             rentCar1.Show();
             addCar1.Hide();
+            personalInfos1.Hide();
         }
         void showCars(object s, EventArgs e)
         {
             rentCar1.Hide();
+            personalInfos1.Hide();
             addCar1.Show();
+        }
+        void showWorkers(object s, EventArgs e)
+        {
+            rentCar1.Hide();
+            addCar1.Hide();
+            personalInfos1.Show();
         }
     }
 }

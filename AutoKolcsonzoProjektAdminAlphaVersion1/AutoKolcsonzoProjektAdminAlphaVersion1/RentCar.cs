@@ -15,12 +15,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private Label OtherInfoLabel;
         private TextBox OtherInfoLabelTB;
         private Button UpdateRentBtn;
-        private Label StartHeaderLabel;
-        private Label EndHeaderLabel;
+        private Label TimeHeaderLabel;
         private Label LicensePlateHeaderLabel;
-        private Label BrandHeaderLabel;
-        private Label TypeHeaderLabel;
-        private Label UseHeaderLabel;
+        private Label CarHeaderLabel;
+        private Label UserHeaderLabel;
         private Label NameHeaderLabel;
         private Label EmailHeaderLabel;
         private Label PhoneHeaderLabel;
@@ -28,27 +26,20 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 
         public List<jsonRents> AllRents = new List<jsonRents>();
         private MonthCalendar StartEndCalendar;
+        private Label InfoHeaderLabel;
         HttpRequests httpRequests = new HttpRequests();
         public RentCar()
         {
             InitializeComponent();
             Start();
-
-            UpdateRentBtn.Click += (s,e)=> { UpdateRent();};
-            
         }
         public async void Start()
         {
+            UpdateRentBtn.Click += (s, e) => { UpdateRent(); };
             StartEndCalendar.MaxSelectionCount=int.MaxValue;
             RentPanel.AutoScroll = Enabled;
             AllRents = await httpRequests.ListAllRents();
-            for (int i = 0; i < 20; i++)
-            {
-                OneRent rent = new OneRent();
-                rent.Top = i * rent.Height;
-                RentPanel.Controls.Add(rent);
-
-            }
+            OrderList();
             RentList();
         }
         public async void UpdateRent()
@@ -81,7 +72,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 MessageBox.Show(e.Message);
             }
         }
-        public async void RentList()
+        async void RentList()
         {
             
             try
@@ -97,10 +88,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 {
                     count++;
                     OneRent rent = new OneRent();
-                    string[] asd = item.start.ToString().Split(' ');
-                    string[] asd2 = item.end.ToString().Split(' ');
-                    rent.StartLabel.Text = asd[0]+ asd[1]+ asd[2];
-                    rent.EndLabel.Text = asd2[0] + asd2[1] + asd2[2];
+                    rent.StartLabel.Text = item.start.ToShortDateString();
+                    rent.EndLabel.Text = item.end.ToShortDateString();
                     rent.LicensePlateLabel.Text = item.licensePlate;
                     rent.BrandLabel.Text = item.brand;
                     rent.TypeLabel.Text = item.type;
@@ -108,6 +97,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     rent.NameLabel.Text = item.name;
                     rent.EmailLabel.Text = item.email;
                     rent.PhoneLabel.Text = item.phone;
+                    rent.InfoLabel.Text = item.other;
                     RentPanel.Controls.Add(rent);
                     rent.Top = (count - 1) * rent.Height;
                     rent.DeleteBtn.Click +=async (s, e) =>
@@ -132,6 +122,121 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
 
         }
+        private void OrderList()
+        {
+            bool isAscT = true;
+            TimeHeaderLabel.Click += async (s, e) =>
+            {
+                AllRents = await httpRequests.ListAllRents();
+                if (isAscT)
+                {
+                    AllRents = AllRents.OrderBy(x => x.start).ToList();
+                    isAscT = false;
+                }
+                else
+                {
+                    AllRents = AllRents.OrderByDescending(x => x.start).ToList();
+                    isAscT = true;
+                }
+                RentList();
+            };
+            bool isAscL = true;
+            LicensePlateHeaderLabel.Click += async (s, e) =>
+            {
+                AllRents = await httpRequests.ListAllRents();
+                if (isAscL)
+                {
+                    AllRents = AllRents.OrderBy(x => x.licensePlate).ToList();
+                    isAscL = false;
+                }
+                else
+                {
+                    AllRents = AllRents.OrderByDescending(x => x.licensePlate).ToList();
+                    isAscL = true;
+                }
+                RentList();
+            };
+            bool isAscC = true;
+            CarHeaderLabel.Click += async (s, e) =>
+            {
+                AllRents = await httpRequests.ListAllRents();
+                if (isAscC)
+                {
+                    AllRents = AllRents.OrderBy(x => x.brand).ToList();
+                    isAscC = false;
+                }
+                else
+                {
+                    AllRents = AllRents.OrderByDescending(x => x.brand).ToList();
+                    isAscC = true;
+                }
+                RentList();
+            };
+            bool isAscU = true;
+            UserHeaderLabel.Click += async (s, e) =>
+            {
+                AllRents = await httpRequests.ListAllRents();
+                if (isAscU)
+                {
+                    AllRents = AllRents.OrderBy(x => x.username).ToList();
+                    isAscU = false;
+                }
+                else
+                {
+                    AllRents = AllRents.OrderByDescending(x => x.username).ToList();
+                    isAscU = true;
+                }
+                RentList();
+            };
+            bool isAscN = true;
+            NameHeaderLabel.Click += async (s, e) =>
+            {
+                AllRents = await httpRequests.ListAllRents();
+                if (isAscN)
+                {
+                    AllRents = AllRents.OrderBy(x => x.name).ToList();
+                    isAscN = false;
+                }
+                else
+                {
+                    AllRents = AllRents.OrderByDescending(x => x.name).ToList();
+                    isAscN = true;
+                }
+                RentList();
+            };
+            bool isAscE = true;
+            EmailHeaderLabel.Click += async (s, e) =>
+            {
+                AllRents = await httpRequests.ListAllRents();
+                if (isAscE)
+                {
+                    AllRents = AllRents.OrderBy(x => x.email).ToList();
+                    isAscE = false;
+                }
+                else
+                {
+                    AllRents = AllRents.OrderByDescending(x => x.email).ToList();
+                    isAscE = true;
+                }
+                RentList();
+            };
+            bool isAscP = true;
+            PhoneHeaderLabel.Click += async (s, e) =>
+            {
+                AllRents = await httpRequests.ListAllRents();
+                if (isAscP)
+                {
+                    AllRents = AllRents.OrderBy(x => x.phone).ToList();
+                    isAscP = false;
+                }
+                else
+                {
+                    AllRents = AllRents.OrderByDescending(x => x.phone).ToList();
+                    isAscP = true;
+                };
+                RentList();
+            };
+        }
         private void InitializeComponent()
         {
             this.RentLabel = new System.Windows.Forms.Label();
@@ -141,16 +246,15 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.OtherInfoLabel = new System.Windows.Forms.Label();
             this.OtherInfoLabelTB = new System.Windows.Forms.TextBox();
             this.UpdateRentBtn = new System.Windows.Forms.Button();
-            this.StartHeaderLabel = new System.Windows.Forms.Label();
-            this.EndHeaderLabel = new System.Windows.Forms.Label();
+            this.TimeHeaderLabel = new System.Windows.Forms.Label();
             this.LicensePlateHeaderLabel = new System.Windows.Forms.Label();
-            this.BrandHeaderLabel = new System.Windows.Forms.Label();
-            this.TypeHeaderLabel = new System.Windows.Forms.Label();
-            this.UseHeaderLabel = new System.Windows.Forms.Label();
+            this.CarHeaderLabel = new System.Windows.Forms.Label();
+            this.UserHeaderLabel = new System.Windows.Forms.Label();
             this.NameHeaderLabel = new System.Windows.Forms.Label();
             this.EmailHeaderLabel = new System.Windows.Forms.Label();
             this.PhoneHeaderLabel = new System.Windows.Forms.Label();
             this.StartEndCalendar = new System.Windows.Forms.MonthCalendar();
+            this.InfoHeaderLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).BeginInit();
             this.SuspendLayout();
@@ -171,20 +275,20 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.InfoDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.InfoDGV.Location = new System.Drawing.Point(0, 57);
             this.InfoDGV.Name = "InfoDGV";
-            this.InfoDGV.Size = new System.Drawing.Size(785, 175);
+            this.InfoDGV.Size = new System.Drawing.Size(785, 168);
             this.InfoDGV.TabIndex = 4;
             // 
             // RentPanel
             // 
-            this.RentPanel.Location = new System.Drawing.Point(0, 248);
+            this.RentPanel.Location = new System.Drawing.Point(0, 241);
             this.RentPanel.Name = "RentPanel";
-            this.RentPanel.Size = new System.Drawing.Size(785, 282);
+            this.RentPanel.Size = new System.Drawing.Size(785, 289);
             this.RentPanel.TabIndex = 5;
             // 
             // HeaderDGV
             // 
             this.HeaderDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.HeaderDGV.Location = new System.Drawing.Point(0, 231);
+            this.HeaderDGV.Location = new System.Drawing.Point(0, 224);
             this.HeaderDGV.Name = "HeaderDGV";
             this.HeaderDGV.Size = new System.Drawing.Size(785, 17);
             this.HeaderDGV.TabIndex = 36;
@@ -194,7 +298,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.OtherInfoLabel.AutoSize = true;
             this.OtherInfoLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.OtherInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.OtherInfoLabel.Location = new System.Drawing.Point(328, 110);
+            this.OtherInfoLabel.Location = new System.Drawing.Point(328, 64);
             this.OtherInfoLabel.Name = "OtherInfoLabel";
             this.OtherInfoLabel.Size = new System.Drawing.Size(127, 18);
             this.OtherInfoLabel.TabIndex = 39;
@@ -202,7 +306,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             // OtherInfoLabelTB
             // 
-            this.OtherInfoLabelTB.Location = new System.Drawing.Point(331, 131);
+            this.OtherInfoLabelTB.Location = new System.Drawing.Point(331, 85);
             this.OtherInfoLabelTB.Multiline = true;
             this.OtherInfoLabelTB.Name = "OtherInfoLabelTB";
             this.OtherInfoLabelTB.Size = new System.Drawing.Size(451, 71);
@@ -211,39 +315,28 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // UpdateRentBtn
             // 
             this.UpdateRentBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.UpdateRentBtn.Location = new System.Drawing.Point(695, 208);
+            this.UpdateRentBtn.Location = new System.Drawing.Point(693, 200);
             this.UpdateRentBtn.Name = "UpdateRentBtn";
             this.UpdateRentBtn.Size = new System.Drawing.Size(89, 23);
             this.UpdateRentBtn.TabIndex = 55;
             this.UpdateRentBtn.Text = "Módosítás";
             this.UpdateRentBtn.UseVisualStyleBackColor = true;
             // 
-            // StartHeaderLabel
+            // TimeHeaderLabel
             // 
-            this.StartHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.StartHeaderLabel.Location = new System.Drawing.Point(1, 232);
-            this.StartHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.StartHeaderLabel.Name = "StartHeaderLabel";
-            this.StartHeaderLabel.Size = new System.Drawing.Size(64, 15);
-            this.StartHeaderLabel.TabIndex = 57;
-            this.StartHeaderLabel.Text = "Kezdete";
-            this.StartHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // EndHeaderLabel
-            // 
-            this.EndHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.EndHeaderLabel.Location = new System.Drawing.Point(66, 232);
-            this.EndHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.EndHeaderLabel.Name = "EndHeaderLabel";
-            this.EndHeaderLabel.Size = new System.Drawing.Size(64, 15);
-            this.EndHeaderLabel.TabIndex = 58;
-            this.EndHeaderLabel.Text = "Vége";
-            this.EndHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TimeHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TimeHeaderLabel.Location = new System.Drawing.Point(1, 225);
+            this.TimeHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.TimeHeaderLabel.Name = "TimeHeaderLabel";
+            this.TimeHeaderLabel.Size = new System.Drawing.Size(80, 15);
+            this.TimeHeaderLabel.TabIndex = 57;
+            this.TimeHeaderLabel.Text = "Foglalás";
+            this.TimeHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LicensePlateHeaderLabel
             // 
             this.LicensePlateHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LicensePlateHeaderLabel.Location = new System.Drawing.Point(131, 232);
+            this.LicensePlateHeaderLabel.Location = new System.Drawing.Point(82, 225);
             this.LicensePlateHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
             this.LicensePlateHeaderLabel.Name = "LicensePlateHeaderLabel";
             this.LicensePlateHeaderLabel.Size = new System.Drawing.Size(69, 15);
@@ -251,45 +344,35 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.LicensePlateHeaderLabel.Text = "Rendszám";
             this.LicensePlateHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // BrandHeaderLabel
+            // CarHeaderLabel
             // 
-            this.BrandHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BrandHeaderLabel.Location = new System.Drawing.Point(201, 232);
-            this.BrandHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.BrandHeaderLabel.Name = "BrandHeaderLabel";
-            this.BrandHeaderLabel.Size = new System.Drawing.Size(66, 15);
-            this.BrandHeaderLabel.TabIndex = 60;
-            this.BrandHeaderLabel.Text = "Márka";
-            this.BrandHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CarHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.CarHeaderLabel.Location = new System.Drawing.Point(152, 225);
+            this.CarHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.CarHeaderLabel.Name = "CarHeaderLabel";
+            this.CarHeaderLabel.Size = new System.Drawing.Size(100, 15);
+            this.CarHeaderLabel.TabIndex = 60;
+            this.CarHeaderLabel.Text = "Autó";
+            this.CarHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // TypeHeaderLabel
+            // UserHeaderLabel
             // 
-            this.TypeHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TypeHeaderLabel.Location = new System.Drawing.Point(268, 232);
-            this.TypeHeaderLabel.Name = "TypeHeaderLabel";
-            this.TypeHeaderLabel.Size = new System.Drawing.Size(66, 15);
-            this.TypeHeaderLabel.TabIndex = 61;
-            this.TypeHeaderLabel.Text = "Típus";
-            this.TypeHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // UseHeaderLabel
-            // 
-            this.UseHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.UseHeaderLabel.Location = new System.Drawing.Point(335, 232);
-            this.UseHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.UseHeaderLabel.Name = "UseHeaderLabel";
-            this.UseHeaderLabel.Size = new System.Drawing.Size(100, 15);
-            this.UseHeaderLabel.TabIndex = 63;
-            this.UseHeaderLabel.Text = "Felhasználónév";
-            this.UseHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.UserHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.UserHeaderLabel.Location = new System.Drawing.Point(253, 225);
+            this.UserHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.UserHeaderLabel.Name = "UserHeaderLabel";
+            this.UserHeaderLabel.Size = new System.Drawing.Size(103, 15);
+            this.UserHeaderLabel.TabIndex = 63;
+            this.UserHeaderLabel.Text = "Felhasználónév";
+            this.UserHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // NameHeaderLabel
             // 
             this.NameHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.NameHeaderLabel.Location = new System.Drawing.Point(436, 232);
+            this.NameHeaderLabel.Location = new System.Drawing.Point(357, 225);
             this.NameHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
             this.NameHeaderLabel.Name = "NameHeaderLabel";
-            this.NameHeaderLabel.Size = new System.Drawing.Size(95, 15);
+            this.NameHeaderLabel.Size = new System.Drawing.Size(100, 15);
             this.NameHeaderLabel.TabIndex = 64;
             this.NameHeaderLabel.Text = "Név";
             this.NameHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -297,10 +380,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // EmailHeaderLabel
             // 
             this.EmailHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.EmailHeaderLabel.Location = new System.Drawing.Point(532, 232);
+            this.EmailHeaderLabel.Location = new System.Drawing.Point(458, 225);
             this.EmailHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
             this.EmailHeaderLabel.Name = "EmailHeaderLabel";
-            this.EmailHeaderLabel.Size = new System.Drawing.Size(95, 15);
+            this.EmailHeaderLabel.Size = new System.Drawing.Size(90, 15);
             this.EmailHeaderLabel.TabIndex = 65;
             this.EmailHeaderLabel.Text = "Email";
             this.EmailHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -308,33 +391,43 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // PhoneHeaderLabel
             // 
             this.PhoneHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.PhoneHeaderLabel.Location = new System.Drawing.Point(628, 232);
+            this.PhoneHeaderLabel.Location = new System.Drawing.Point(549, 225);
             this.PhoneHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
             this.PhoneHeaderLabel.Name = "PhoneHeaderLabel";
-            this.PhoneHeaderLabel.Size = new System.Drawing.Size(90, 15);
+            this.PhoneHeaderLabel.Size = new System.Drawing.Size(94, 15);
             this.PhoneHeaderLabel.TabIndex = 66;
             this.PhoneHeaderLabel.Text = "Telefonszám";
             this.PhoneHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // StartEndCalendar
             // 
-            this.StartEndCalendar.Location = new System.Drawing.Point(9, 61);
+            this.StartEndCalendar.Location = new System.Drawing.Point(4, 60);
             this.StartEndCalendar.MinDate = new System.DateTime(2024, 1, 1, 0, 0, 0, 0);
             this.StartEndCalendar.Name = "StartEndCalendar";
             this.StartEndCalendar.TabIndex = 67;
             // 
+            // InfoHeaderLabel
+            // 
+            this.InfoHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.InfoHeaderLabel.Location = new System.Drawing.Point(644, 225);
+            this.InfoHeaderLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.InfoHeaderLabel.Name = "InfoHeaderLabel";
+            this.InfoHeaderLabel.Size = new System.Drawing.Size(100, 15);
+            this.InfoHeaderLabel.TabIndex = 68;
+            this.InfoHeaderLabel.Text = "Információ";
+            this.InfoHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // RentCar
             // 
+            this.Controls.Add(this.InfoHeaderLabel);
             this.Controls.Add(this.StartEndCalendar);
             this.Controls.Add(this.PhoneHeaderLabel);
             this.Controls.Add(this.EmailHeaderLabel);
             this.Controls.Add(this.NameHeaderLabel);
-            this.Controls.Add(this.UseHeaderLabel);
-            this.Controls.Add(this.TypeHeaderLabel);
-            this.Controls.Add(this.BrandHeaderLabel);
+            this.Controls.Add(this.UserHeaderLabel);
+            this.Controls.Add(this.CarHeaderLabel);
             this.Controls.Add(this.LicensePlateHeaderLabel);
-            this.Controls.Add(this.EndHeaderLabel);
-            this.Controls.Add(this.StartHeaderLabel);
+            this.Controls.Add(this.TimeHeaderLabel);
             this.Controls.Add(this.UpdateRentBtn);
             this.Controls.Add(this.OtherInfoLabelTB);
             this.Controls.Add(this.OtherInfoLabel);

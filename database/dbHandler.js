@@ -127,6 +127,10 @@ cars.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    "drive":{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     "gearShift":{
         type: DataTypes.STRING,
         allowNull: false
@@ -136,15 +140,15 @@ cars.init({
         allowNull: false
     },
     "airCondition":{
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: false
     },
     "radar":{
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: false
     },
     "cruiseControl":{
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: false
     },
     "info":{

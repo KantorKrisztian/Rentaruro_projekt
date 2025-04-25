@@ -22,7 +22,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         {
             LoginBtn.Click += (object s, EventArgs e)=> formShow();
             
-            button1.Click += register;
+            
         }
         void closeForm(object s, EventArgs e)
         {
@@ -54,10 +54,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             
 
         }
-        void register(object s, EventArgs e)
-        {
-            httpRequests.Registration(LoginUserTb.Text, LoginPassTb.Text);
-        }
+        
         
     }
 }

@@ -40,6 +40,7 @@
             this.ExitLabel = new System.Windows.Forms.Label();
             this.addCar1 = new AutoKolcsonzoProjektAdminAlphaVersion1.AddCar();
             this.rentCar1 = new AutoKolcsonzoProjektAdminAlphaVersion1.RentCar();
+            this.personalInfos1 = new AutoKolcsonzoProjektAdminAlphaVersion1.PersonalInfos();
             this.HeaderFLP.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -156,11 +157,19 @@
             this.rentCar1.Size = new System.Drawing.Size(785, 532);
             this.rentCar1.TabIndex = 0;
             // 
+            // personalInfos1
+            // 
+            this.personalInfos1.Location = new System.Drawing.Point(0, 30);
+            this.personalInfos1.Name = "personalInfos1";
+            this.personalInfos1.Size = new System.Drawing.Size(785, 532);
+            this.personalInfos1.TabIndex = 2;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.personalInfos1);
             this.Controls.Add(this.rentCar1);
             this.Controls.Add(this.addCar1);
             this.Controls.Add(this.HeaderFLP);
@@ -189,6 +198,7 @@
         public System.Windows.Forms.Label ExitLabel;
         private AddCar addCar1;
         private RentCar rentCar1;
+        private PersonalInfos personalInfos1;
     }
 }
 
