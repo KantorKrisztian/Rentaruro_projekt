@@ -24,6 +24,14 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             RentLabel.Click += showRentedCars;
             CarsLabel.Click += showCars;
             WorkersLabel.Click += showWorkers;
+            if (Token.role == "admin")
+            {
+                WorkersLabel.Visible = true;
+            }
+            else
+            {
+                WorkersLabel.Visible = false;
+            }
         }
         void showRentedCars(object s, EventArgs e)
         {

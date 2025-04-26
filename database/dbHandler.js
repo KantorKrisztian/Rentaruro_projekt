@@ -155,7 +155,7 @@ cars.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    "location":{
+    "category":{
         type: DataTypes.STRING,
         allowNull: false
     },

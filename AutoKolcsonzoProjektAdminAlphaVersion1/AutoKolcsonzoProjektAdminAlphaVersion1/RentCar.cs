@@ -79,7 +79,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             {
                 if (AllRents == null)
                 {
-                    MessageBox.Show("Nincs autó a rendszerben");
                     return;
                 }
                 int count = 0;

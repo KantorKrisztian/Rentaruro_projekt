@@ -21,7 +21,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         public bool radar { get; set; }
         public bool cruiseControl { get; set; }
         public string info { get; set; }
-        public string location { get; set; }
+        public string category { get; set; }
         public int OneToFive { get; set; }
         public int SixToForteen { get; set; }
         public int OverForteen { get; set; }

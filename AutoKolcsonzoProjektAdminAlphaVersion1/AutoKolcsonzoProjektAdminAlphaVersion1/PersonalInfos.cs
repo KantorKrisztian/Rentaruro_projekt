@@ -10,7 +10,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
     public class PersonalInfos:UserControl
     {
         private DataGridView InfoDGV;
-        private TextBox NameTB;
+        private TextBox RealNameTB;
         private Label NameLabel;
         private Label BirthLabel;
         private MonthCalendar monthCalendar1;
@@ -40,11 +40,13 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private Label EmailHeaderLabel;
         private Label UserNameHeaderLabel;
         private Label PersonalILabel;
-        private Label AdminLabel;
         private ComboBox RoleCB;
-        HttpRequests httpRequests = new HttpRequests();
+        private Label AdminLabel;
         private Button CancleBtn;
-        List<PersonalInfo> workers = new List<PersonalInfo>();
+        private PictureBox ShowPassPB;
+        private PictureBox ShowPassAgainPB;
+        List<jsonPersonalInfo> workers = new List<jsonPersonalInfo>();
+        HttpRequests httpRequests = new HttpRequests();
         public PersonalInfos()
         {
             InitializeComponent();
@@ -73,18 +75,41 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             workers =await httpRequests.ListAllWorkers();
             ListWorkers();
             OrderList();
+            PasswordTB.PasswordChar = '*';
+            PasswordAgainTB.PasswordChar = '*';
+            ShowPassPB.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\eye.png";
+            ShowPassAgainPB.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\eye.png";
+            ShowPassPB.Click += (s, e) => ShowPass(ShowPassPB,PasswordTB);
+            ShowPassAgainPB.Click += (s, e) => ShowPass(ShowPassAgainPB, PasswordAgainTB);
+        }
+        void ShowPass(PictureBox picture,TextBox text)
+        {
+            if (text.PasswordChar == '*')
+            {
+                text.PasswordChar = '\0';
+                picture.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\hidden.png";
+            }
+            else
+            {
+                text.PasswordChar = '*';
+                picture.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\eye.png";
+            }
         }
         async void Register()
         {
+            if (CheckEmpty())
+            {
+                return;
+            }
             if (!CheckPassword(PasswordTB.Text, PasswordAgainTB.Text))
             {
                 return;
             }
-            PersonalInfo personalInfo = new PersonalInfo();
+            jsonPersonalInfo personalInfo = new jsonPersonalInfo();
             personalInfo.username = UserTB.Text;
             personalInfo.password = PasswordTB.Text;
             personalInfo.role = RoleCB.Text;
-            personalInfo.realName = NameTB.Text;
+            personalInfo.realName = RealNameTB.Text;
             personalInfo.address = AdressTB.Text;
             personalInfo.email = EmailTB.Text;
             personalInfo.phone = PhoneTB.Text;
@@ -94,17 +119,21 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             ListWorkers();
             Clear();
         }
-        async void Update()
+        private async void Update()
         {
+            if (CheckEmpty())
+            {
+                return;
+            }
             if (!CheckPassword(PasswordTB.Text, PasswordAgainTB.Text))
             {
                 return;
             }
-            PersonalInfo personalInfo = new PersonalInfo();
+            jsonPersonalInfo personalInfo = new jsonPersonalInfo();
             personalInfo.username = UserTB.Text;
             personalInfo.password = PasswordTB.Text;
             personalInfo.role = RoleCB.Text;
-            personalInfo.realName = NameTB.Text;
+            personalInfo.realName = RealNameTB.Text;
             personalInfo.address = AdressTB.Text;
             personalInfo.email = EmailTB.Text;
             personalInfo.phone = PhoneTB.Text;
@@ -117,16 +146,16 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             Clear();
             CancleBtn.Hide();
         }
-        async void ListWorkers()
+        void ListWorkers()
         {
             try
             {
                 int count = 0;
                 PersonalInfosPanel.Controls.Clear();
-                foreach (PersonalInfo item in workers)
+                foreach (jsonPersonalInfo item in workers)
                 {
                     OnePersonalInfo inf = new OnePersonalInfo();
-                    inf.NameLabel.Text = item.realName;
+                    inf.RealNameLabel.Text = item.realName;
                     inf.AdressLabel.Text = item.address;
                     inf.TaxLabel.Text = item.tax;
                     inf.BirthLabel.Text = item.birth.ToString();
@@ -143,7 +172,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     inf.UpdateBtn.Click += (s, e) =>
                     {
                         CancleBtn.Show();
-                        NameTB.Text = item.realName;
+                        RealNameTB.Text = item.realName;
                         AdressTB.Text = item.address;
                         EmailTB.Text = item.email;
                         PhoneTB.Text = item.phone;
@@ -167,7 +196,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         private void Clear()
         {
-            NameTB.Text = "";
+            RealNameTB.Text = "";
             AdressTB.Text = "";
             EmailTB.Text = "";
             PhoneTB.Text = "";
@@ -329,11 +358,21 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             };
             
         }
+        private bool CheckEmpty()
+        {
+            if (RealNameTB.Text == "" || AdressTB.Text == "" || EmailTB.Text == "" || PhoneTB.Text == "" || TaxTB.Text == "" || UserTB.Text == "" || PasswordTB.Text == "" || PasswordAgainTB.Text == "")
+            {
+                MessageBox.Show("Kérem töltse ki az összes mezőt!");
+                return true;
+            }
+            return false;
+        }
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PersonalInfos));
             this.PersonalILabel = new System.Windows.Forms.Label();
             this.InfoDGV = new System.Windows.Forms.DataGridView();
-            this.NameTB = new System.Windows.Forms.TextBox();
+            this.RealNameTB = new System.Windows.Forms.TextBox();
             this.NameLabel = new System.Windows.Forms.Label();
             this.BirthLabel = new System.Windows.Forms.Label();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
@@ -365,8 +404,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.AdminLabel = new System.Windows.Forms.Label();
             this.RoleCB = new System.Windows.Forms.ComboBox();
             this.CancleBtn = new System.Windows.Forms.Button();
+            this.ShowPassPB = new System.Windows.Forms.PictureBox();
+            this.ShowPassAgainPB = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShowPassPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShowPassAgainPB)).BeginInit();
             this.SuspendLayout();
             // 
             // PersonalILabel
@@ -388,12 +431,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.InfoDGV.Size = new System.Drawing.Size(785, 192);
             this.InfoDGV.TabIndex = 4;
             // 
-            // NameTB
+            // RealNameTB
             // 
-            this.NameTB.Location = new System.Drawing.Point(581, 158);
-            this.NameTB.Name = "NameTB";
-            this.NameTB.Size = new System.Drawing.Size(190, 20);
-            this.NameTB.TabIndex = 20;
+            this.RealNameTB.Location = new System.Drawing.Point(581, 158);
+            this.RealNameTB.Name = "RealNameTB";
+            this.RealNameTB.Size = new System.Drawing.Size(190, 20);
+            this.RealNameTB.TabIndex = 20;
             // 
             // NameLabel
             // 
@@ -688,8 +731,30 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.CancleBtn.Text = "Mégse";
             this.CancleBtn.UseVisualStyleBackColor = true;
             // 
+            // ShowPassPB
+            // 
+            this.ShowPassPB.InitialImage = ((System.Drawing.Image)(resources.GetObject("ShowPassPB.InitialImage")));
+            this.ShowPassPB.Location = new System.Drawing.Point(287, 95);
+            this.ShowPassPB.Name = "ShowPassPB";
+            this.ShowPassPB.Size = new System.Drawing.Size(20, 20);
+            this.ShowPassPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ShowPassPB.TabIndex = 87;
+            this.ShowPassPB.TabStop = false;
+            // 
+            // ShowPassAgainPB
+            // 
+            this.ShowPassAgainPB.InitialImage = ((System.Drawing.Image)(resources.GetObject("ShowPassAgainPB.InitialImage")));
+            this.ShowPassAgainPB.Location = new System.Drawing.Point(287, 125);
+            this.ShowPassAgainPB.Name = "ShowPassAgainPB";
+            this.ShowPassAgainPB.Size = new System.Drawing.Size(20, 20);
+            this.ShowPassAgainPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ShowPassAgainPB.TabIndex = 88;
+            this.ShowPassAgainPB.TabStop = false;
+            // 
             // PersonalInfos
             // 
+            this.Controls.Add(this.ShowPassAgainPB);
+            this.Controls.Add(this.ShowPassPB);
             this.Controls.Add(this.CancleBtn);
             this.Controls.Add(this.RoleCB);
             this.Controls.Add(this.AdminHeaderLabel);
@@ -720,7 +785,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.Controls.Add(this.AdressLabel);
             this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.BirthLabel);
-            this.Controls.Add(this.NameTB);
+            this.Controls.Add(this.RealNameTB);
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.InfoDGV);
             this.Controls.Add(this.PersonalILabel);
@@ -728,11 +793,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.Size = new System.Drawing.Size(785, 530);
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShowPassPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShowPassAgainPB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
-        
     }
 }

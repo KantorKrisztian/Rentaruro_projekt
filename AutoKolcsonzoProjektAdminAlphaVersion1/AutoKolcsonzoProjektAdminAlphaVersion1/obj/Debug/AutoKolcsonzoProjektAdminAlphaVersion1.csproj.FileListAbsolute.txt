@@ -127,3 +127,13 @@ M:\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1
 C:\Users\kantor.krisztian\Desktop\projekt\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.csproj.CopyComplete
 E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.PersonalInfos.resources
 E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\obj\Debug\AutoKolcsonzoProjektAdminAlphaVersion1.OnePersonalInfo.resources
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\System.Threading.Tasks.Extensions.dll
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\xunit.abstractions.dll
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\xunit.assert.dll
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\xunit.core.dll
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\System.Threading.Tasks.Extensions.xml
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\xunit.abstractions.xml
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\xunit.assert.xml
+E:\git\13\13-projekt\AutoKolcsonzoProjektAdminAlphaVersion1\AutoKolcsonzoProjektAdminAlphaVersion1\bin\Debug\xunit.core.xml

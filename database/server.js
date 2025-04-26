@@ -21,7 +21,6 @@ dbHandler.reservationTable.sync({alter:true})
 function auth() {
     return (req,res,next)=>{
         const authenticate=req.headers.authorization
-        console.log(authenticate)
         if (typeof(authenticate)=='undefined') {
             res.status(401)
             res.json({"message":"Nem létező token"})
@@ -34,7 +33,6 @@ function auth() {
             res.end()
             return
         }
-        
         
         const encodedToken=authenticate.split('__')[1]
         try {
@@ -50,54 +48,16 @@ function auth() {
 }
 
 
-server.post("/AdminLogin",async (req,res)=>{
-    let oneUser
-    try {
-        oneUser=await dbHandler.adminTable.findOne({
-            where:{
-                username:req.body.loginNev,
-                password:req.body.loginPassword
-            }
-        })
-    } catch (error) {
-        res.json({'message':error})
-        res.end()
-        return
-    }
-
-    if (oneUser) {
-        try {
-            const token=await JWT.sign({"username":oneUser.username,'id':oneUser.id},SUPERSECRET,{expiresIn:timeLimit})
-            res.json({'message':'Sikeres bejelentkezés','token':token,'role':oneUser.role})
-            res.end()
-            return
-        } catch (error) {
-            res.json({'message':error})
-            res.end()
-            return
-        }
-    }
-
-    res.status(409)
-    res.json({"message":"Hibás felhasználónév, vagy jelszó"})
-    res.end()
-})
-
-server.get("/ListCars",async (req,res)=>{
-    const cars = await dbHandler.carsTable.findAll()
-    res.json(cars).end()
-})
-
 server.get("/ListAllRents",async (req,res)=>{
     try {
         const reservations = await dbHandler.reservationTable.findAll()
         const cars = await dbHandler.carsTable.findAll()
         const asd = await dbHandler.userTable.findAll()
-
+        
         const detailedReservations = reservations.map((reservation) => {
             const car = cars.find((car) => car.id === reservation.carId)
             const user = asd.find((user) => user.id === reservation.personId)
-
+            
             return {
                 id: reservation.id,
                 start: reservation.start,
@@ -219,6 +179,10 @@ server.delete("/DeleteRent/:id",auth(),async (req,res)=>{
         res.json({"message":error}).end()
     }
 })
+server.get("/ListCars",async (req,res)=>{
+    const cars = await dbHandler.carsTable.findAll()
+    res.json(cars).end()
+})
 
 server.delete('/DeleteCar/:id',auth(),async (req,res)=>{
     let oneCar
@@ -288,7 +252,7 @@ server.post("/AddCar",auth(),async (req,res)=>{
             radar:req.body.radar,
             cruiseControl:req.body.cruiseControl,
             info:req.body.info,
-            location:req.body.location,
+            category:req.body.category,
             OneToFive:req.body.OneToFive,
             SixToForteen:req.body.SixToForteen,
             OverForteen:req.body.OverForteen,
@@ -332,7 +296,7 @@ server.put("/UpdateCar/:id",auth(),async (req,res)=>{
             radar:req.body.radar,
             cruiseControl:req.body.cruiseControl,
             info:req.body.info,
-            location:req.body.location,
+            category:req.body.category,
             OneToFive:req.body.OneToFive,
             SixToForteen:req.body.SixToForteen,
             OverForteen:req.body.OverForteen,
@@ -361,7 +325,6 @@ server.post("/AdminRegistration",auth(),async (req,res)=>{
     } catch (error) {
         res.json({'message':error})
         res.end()
-        console.log(error)
         return
     }
     if (oneUser) {
@@ -393,14 +356,41 @@ server.post("/AdminRegistration",auth(),async (req,res)=>{
     res.end()
 })
 
-server.get("/ListAllWorkers",auth(),async (req,res)=>{
-    let workers
+server.post("/AdminLogin",async (req,res)=>{
+    let oneUser
     try {
-        workers=await dbHandler.adminTable.findAll()
+        oneUser=await dbHandler.adminTable.findOne({
+            where:{
+                username:req.body.loginNev,
+                password:req.body.loginPassword
+            }
+        })
     } catch (error) {
-        res.status(500).json({"message":error}).end()
+        res.json({'message':error})
+        res.end()
         return
     }
+
+    if (oneUser) {
+        try {
+            const token=await JWT.sign({"username":oneUser.username,'id':oneUser.id},SUPERSECRET,{expiresIn:timeLimit})
+            res.json({'message':'Sikeres bejelentkezés','token':token,'role':oneUser.role})
+            res.end()
+            return
+        } catch (error) {
+            res.json({'message':error})
+            res.end()
+            return
+        }
+    }
+
+    res.status(409)
+    res.json({"message":"Hibás felhasználónév, vagy jelszó"})
+    res.end()
+})
+
+server.get("/ListAllWorkers",auth(),async (req,res)=>{
+    const workers=await dbHandler.adminTable.findAll()
     res.status(200).json(workers).end()
 })
 

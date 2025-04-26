@@ -55,7 +55,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return null;
+                return await ListAllCars();
             }
             
         }
@@ -76,6 +76,42 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             
         }
+        public async Task<List<jsonCars>> UpdateCar(jsonCars Cars)
+        {
+            try
+            {
+                string serverUrl = this.serverUrl + "UpdateCar/"+Cars.id;
+                string jsonString = JsonConvert.SerializeObject(Cars);
+                HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
+                HttpResponseMessage response= await client.PutAsync(serverUrl,sendThis);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
+                return await ListAllCars();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return await ListAllCars();
+            }
+        }
+        public async Task<List<jsonCars>> DeleteCar(int id)
+        {
+            try
+            {
+                string serverUrl = this.serverUrl + "DeleteCar/"+id;
+                HttpResponseMessage response = await client.DeleteAsync(serverUrl);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
+                MessageBox.Show(message);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return await ListAllCars();
+        }
         public async Task<List<jsonRents>> ListAllRents()
         {
             List<jsonRents> rents = new List<jsonRents>();
@@ -90,7 +126,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             {
 
                 MessageBox.Show(e.Message);
-                return null;
+                return rents;
             }
         }
         public async Task<List<jsonRents>> UpdateRent(jsonRents rents)
@@ -157,46 +193,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return null;
+                return await ListAllRents();
             }
         }
-        public async Task<List<jsonCars>> DeleteCar(int id)
-        {
-            try
-            {
-                string serverUrl = this.serverUrl + "DeleteCar/"+id;
-                HttpResponseMessage response = await client.DeleteAsync(serverUrl);
-                string stringResult = await response.Content.ReadAsStringAsync();
-                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
-                MessageBox.Show(message);
-                response.EnsureSuccessStatusCode();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            return await ListAllCars();
-        }
-        public async Task<List<jsonCars>> UpdateCar(jsonCars Cars)
-        {
-            try
-            {
-                string serverUrl = this.serverUrl + "UpdateCar/"+Cars.id;
-                string jsonString = JsonConvert.SerializeObject(Cars);
-                HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "Application/JSON");
-                HttpResponseMessage response= await client.PutAsync(serverUrl,sendThis);
-                string stringResult = await response.Content.ReadAsStringAsync();
-                string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
-                MessageBox.Show(message);
-                return await ListAllCars();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return null;
-            }
-        }
-        public async Task<List<PersonalInfo>> Registration(PersonalInfo personalInfo)
+        public async Task<List<jsonPersonalInfo>> Registration(jsonPersonalInfo personalInfo)
         {
             string serverUrl = this.serverUrl + "AdminRegistration";
             try
@@ -217,22 +217,25 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return await ListAllWorkers();
         }
-        public async Task<List<PersonalInfo>> ListAllWorkers()
+        public async Task<List<jsonPersonalInfo>> ListAllWorkers()
         {
-            List<PersonalInfo> workers = new List<PersonalInfo>();
+            List<jsonPersonalInfo> workers = new List<jsonPersonalInfo>();
             try
             {
                 string serverUrl = this.serverUrl + "ListAllWorkers";
-                string response = await client.GetStringAsync(serverUrl);
-                workers = JsonConvert.DeserializeObject<List<PersonalInfo>>(response);
+                HttpResponseMessage response = await client.GetAsync(serverUrl);
+                string stringResult = await response.Content.ReadAsStringAsync();
+                workers = JsonConvert.DeserializeObject<List<jsonPersonalInfo>>(stringResult);
+                return workers;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
+                return workers;
             }
-            return workers;
+            
         }
-        public async Task<List<PersonalInfo>> DeleteWorker(int id)
+        public async Task<List<jsonPersonalInfo>> DeleteWorker(int id)
         {
             try
             {
@@ -249,7 +252,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return await ListAllWorkers();
         }
-        public async Task<List<PersonalInfo>> UpdateWorker(PersonalInfo personalInfo)
+        public async Task<List<jsonPersonalInfo>> UpdateWorker(jsonPersonalInfo personalInfo)
         {
             try
             {

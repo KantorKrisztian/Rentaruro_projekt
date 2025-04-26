@@ -12,7 +12,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 {
     public partial class LoginForm : Form
     {
-        
+
         public LoginForm()
         {
             InitializeComponent();
@@ -20,9 +20,11 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         void Start()
         {
-            LoginBtn.Click += (object s, EventArgs e)=> formShow();
-            
-            
+            LoginBtn.Click += (object s, EventArgs e) => formShow();
+            LoginPassTb.PasswordChar = '*';
+
+            ShowPB.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\eye.png";
+            ShowPB.Click += showPassword;
         }
         void closeForm(object s, EventArgs e)
         {
@@ -31,7 +33,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         HttpRequests httpRequests = new HttpRequests();
         async void formShow()
         {
-            
+
             bool loginSuccess = await httpRequests.Login(LoginUserTb.Text, LoginPassTb.Text);
             if (loginSuccess)
             {
@@ -50,11 +52,20 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     Token.role = "";
                 }
             }
-
-            
-
         }
-        
-        
+
+        void showPassword(object s, EventArgs e)
+        {
+            if (LoginPassTb.PasswordChar == '*')
+            {
+                LoginPassTb.PasswordChar = '\0';
+                ShowPB.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\hidden.png";
+            }
+            else
+            {
+                LoginPassTb.PasswordChar = '*';
+                ShowPB.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\eye.png";
+            }
+        }
     }
 }
