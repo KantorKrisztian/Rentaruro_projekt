@@ -13,11 +13,14 @@ const SUPERSECRET = process.env.SECRETKEY
 
 
 const dbHandler = require('./dbHandler')
-dbHandler.adminTable.sync({alter:true})
-dbHandler.carsTable.sync({alter:true})
-dbHandler.userTable.sync({alter:true})
-dbHandler.reservationTable.sync({alter:true})
-
+async function database(){
+    await dbHandler.adminTable.sync({alter:true})
+    await dbHandler.carsTable.sync({alter:true})
+    await dbHandler.userTable.sync({alter:true})
+    await dbHandler.reservationTable.sync({alter:true})
+    await createAdmin()
+}
+database()
 function auth() {
     return (req,res,next)=>{
         const authenticate=req.headers.authorization
@@ -449,10 +452,10 @@ server.put("/UpdateWorker/:id",auth(),async (req,res)=>{
     }
 })
 
-function createAdmin() {
+async function createAdmin() {
     let admin
     try {
-        admin = dbHandler.adminTable.findOne({
+        admin =await dbHandler.adminTable.findOne({
             where: {
                 username: "admin"
             }
@@ -466,7 +469,7 @@ function createAdmin() {
         return
     }
     try {
-        dbHandler.adminTable.create({
+        await dbHandler.adminTable.create({
             username:"admin",
             password:encodePassword("admin"),
             role:"admin",
@@ -485,7 +488,7 @@ function createAdmin() {
     
 }
 
-createAdmin()
+
 
 function encodePassword(password) {
     const buffer = Buffer.from(password, 'utf-8');

@@ -5,7 +5,7 @@ const USERNAME = 'root'
 const PASSWORD = process.env.PASSWORD
 const HOST = process.env.HOST
 
-const dbHandler = new Sequelize(DBNAME,USERNAME,PASSWORD,
+const dbHandler = new Sequelize("data",USERNAME,PASSWORD,
     {
         host: HOST,
         dialect: "mysql"
@@ -61,7 +61,7 @@ admin.init({
     sequelize:dbHandler, modelName:'admin'
 })
 
-exports.adminTable = admin
+
 
 class user extends Model {}
 
@@ -96,7 +96,7 @@ user.init({
     sequelize:dbHandler, modelName: 'user'
 })
 
-exports.userTable = user
+
 
 class cars extends Model {}
 
@@ -179,7 +179,7 @@ cars.init({
     sequelize:dbHandler, modelName: 'cars'
 })
 
-exports.carsTable = cars
+
 
 class reservation extends Model {}
 
@@ -222,14 +222,22 @@ reservation.init({
     sequelize:dbHandler, modelName: 'reservation'
 })
 
+
+
+
+
+
+reservation.belongsTo(cars,{
+    foreignKey:'carId',
+    targetKey:'id'
+})
+
+reservation.belongsTo(user,{
+    foreignKey:'personId',
+    targetKey:'id'
+})
+
+exports.adminTable = admin
+exports.userTable = user
+exports.carsTable = cars
 exports.reservationTable = reservation
-
-reservation.hasOne(cars,{
-    foreignKey:'id',
-    sourceKey:'carId'
-})
-reservation.hasOne(user,{
-    foreignKey:'id',
-    sourceKey:'personId'
-})
-
