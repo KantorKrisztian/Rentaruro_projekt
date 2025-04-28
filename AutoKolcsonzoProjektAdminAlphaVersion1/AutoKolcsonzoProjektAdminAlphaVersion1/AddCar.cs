@@ -442,7 +442,15 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return null;
             }
             string[] imageSplit = image.Split('\\');
-            if (image!= "E:\\git\\13\\13-projekt\\képek\\" + imageSplit[imageSplit.Length-1])
+            string filePath=this.GetType().Assembly.Location;
+            string[] filePathSplit = filePath.Split('\\');
+            string checkfile = "";
+            for (int i = 0; i < filePathSplit.Length - 5; i++)
+            {
+                checkfile += filePathSplit[i] + "\\";
+            }
+            checkfile += "képek\\";
+            if (image!= checkfile + imageSplit[imageSplit.Length-1])
             {
                 MessageBox.Show("Kép helye nem megfelelő!");
                 return null;
