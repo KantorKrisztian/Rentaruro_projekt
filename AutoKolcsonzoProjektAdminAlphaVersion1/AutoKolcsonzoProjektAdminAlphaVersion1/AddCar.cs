@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AutoKolcsonzoProjektAdminAlphaVersion1
 {
@@ -111,7 +112,11 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     }
                 }
 
-                carss.picture = CarPictureBox.ImageLocation;
+                carss.picture = CheckPictureBox(CarPictureBox.ImageLocation);
+                if (carss.picture == null)
+                {
+                    return;
+                }
                 carss.licensePlate = LicensePlateTB.Text;
                 carss.brand = BrandTB.Text;
                 carss.type = TypeTB.Text;
@@ -150,7 +155,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     return;
                 }
                 jsonCars carss = new jsonCars();
-                carss.picture = CarPictureBox.ImageLocation;
+                
+                carss.picture = CheckPictureBox(CarPictureBox.ImageLocation);
+                if (carss.picture==null)
+                {
+                    return;
+                }
                 carss.licensePlate = LicensePlateTB.Text;
                 carss.brand = BrandTB.Text;
                 carss.type = TypeTB.Text;
@@ -252,7 +262,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     auto.UpdateBtn.Click += (s, e) =>
                     {
                         LicensePlateTB.Enabled = false;
-                        CarPictureBox.ImageLocation = item.picture;
+                        CarPictureBox.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\"+ item.picture;
                         LicensePlateTB.Text = item.licensePlate;
                         BrandTB.Text = item.brand;
                         TypeTB.Text = item.type;
@@ -423,6 +433,21 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return true;
             }
             return false;
+        }
+        private string CheckPictureBox(string image)
+        {
+            if (image == null ||image=="")
+            {
+                MessageBox.Show("Kérem válasszon ki egy képet!");
+                return null;
+            }
+            string[] imageSplit = image.Split('\\');
+            if (image!= "E:\\git\\13\\13-projekt\\képek\\" + imageSplit[imageSplit.Length-1])
+            {
+                MessageBox.Show("Kép helye nem megfelelő!");
+                return null;
+            }
+            return imageSplit[imageSplit.Length-1];
         }
         private void InitializeComponent()
         {

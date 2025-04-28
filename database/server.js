@@ -22,7 +22,7 @@ async function database(){
 }
 database()
 function auth() {
-    return (req,res,next)=>{
+    return async (req,res,next)=>{
         const authenticate=req.headers.authorization
         if (typeof(authenticate)=='undefined') {
             res.status(401)
@@ -39,7 +39,7 @@ function auth() {
         
         const encodedToken=authenticate.split('__')[1]
         try {
-            const decodedToken=JWT.verify(encodedToken,SUPERSECRET)
+            const decodedToken=await JWT.verify(encodedToken,SUPERSECRET)
             req.username=decodedToken.username
             req.id=decodedToken.id
             next()
@@ -182,6 +182,7 @@ server.delete("/DeleteRent/:id",auth(),async (req,res)=>{
         res.json({"message":error}).end()
     }
 })
+
 server.get("/ListCars",async (req,res)=>{
     const cars = await dbHandler.carsTable.findAll()
     res.json(cars).end()
@@ -220,7 +221,6 @@ server.delete('/DeleteCar/:id',auth(),async (req,res)=>{
     res.json({"message":"Nem létezik ezzel az id-val autó!"})
     res.end()
 })
-
 
 server.post("/AddCar",auth(),async (req,res)=>{
     let oneCar
@@ -315,7 +315,6 @@ server.put("/UpdateCar/:id",auth(),async (req,res)=>{
         res.status(400).json({"message":error}).end()
     }
 })
-
 
 server.post("/AdminRegistration",auth(),async (req,res)=>{
     let oneUser
@@ -487,7 +486,6 @@ async function createAdmin() {
     }
     
 }
-
 
 
 function encodePassword(password) {
