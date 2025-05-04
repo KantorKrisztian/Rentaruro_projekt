@@ -198,18 +198,18 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // CategoryLabel
             // 
             this.CategoryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CategoryLabel.Location = new System.Drawing.Point(683, 0);
+            this.CategoryLabel.Location = new System.Drawing.Point(682, 0);
             this.CategoryLabel.Margin = new System.Windows.Forms.Padding(0);
             this.CategoryLabel.Name = "CategoryLabel";
-            this.CategoryLabel.Size = new System.Drawing.Size(63, 46);
+            this.CategoryLabel.Size = new System.Drawing.Size(65, 46);
             this.CategoryLabel.TabIndex = 18;
-            this.CategoryLabel.Text = "Ferdehátú";
+            this.CategoryLabel.Text = "7 személyes";
             this.CategoryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DepositLabel
             // 
             this.DepositLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.DepositLabel.Location = new System.Drawing.Point(638, 0);
+            this.DepositLabel.Location = new System.Drawing.Point(637, 0);
             this.DepositLabel.Margin = new System.Windows.Forms.Padding(0);
             this.DepositLabel.Name = "DepositLabel";
             this.DepositLabel.Size = new System.Drawing.Size(49, 46);

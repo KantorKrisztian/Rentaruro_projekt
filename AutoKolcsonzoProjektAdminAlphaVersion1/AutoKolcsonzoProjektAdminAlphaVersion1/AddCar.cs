@@ -92,7 +92,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 AddCarBtn.Text = "Hozzáadás";
             };
         }
-        
         async void UpdateCar()
         {
             try
@@ -251,7 +250,11 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     auto.FromFifteenLabel.Text = item.OverForteen.ToString();
                     auto.DepositLabel.Text = item.Deposit.ToString();
                     auto.CategoryLabel.Text = item.category;
-                    
+                    if (Token.role.ToLower() != "admin")
+                    {
+                        auto.UpdateBtn.Text = "ⓘ";
+                        auto.UpdateBtn.ForeColor = Color.Blue;
+                    }
                     CarPanel.Controls.Add(auto);
                     auto.DeleteBtn.Click += async (s, e) =>
                     {
@@ -262,7 +265,16 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     auto.UpdateBtn.Click += (s, e) =>
                     {
                         LicensePlateTB.Enabled = false;
-                        CarPictureBox.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\"+ item.picture;
+                        
+                        string filePath = this.GetType().Assembly.Location;
+                        string[] filePathSplit = filePath.Split('\\');
+                        string checkfile = "";
+                        for (int i = 0; i < filePathSplit.Length - 5; i++)
+                        {
+                            checkfile += filePathSplit[i] + "\\";
+                        }
+                        checkfile += "képek\\" + item.picture;
+                        CarPictureBox.ImageLocation = checkfile;
                         LicensePlateTB.Text = item.licensePlate;
                         BrandTB.Text = item.brand;
                         TypeTB.Text = item.type;
@@ -452,6 +464,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             checkfile += "képek\\";
             if (image!= checkfile + imageSplit[imageSplit.Length-1])
             {
+                
                 MessageBox.Show("Kép helye nem megfelelő!");
                 return null;
             }

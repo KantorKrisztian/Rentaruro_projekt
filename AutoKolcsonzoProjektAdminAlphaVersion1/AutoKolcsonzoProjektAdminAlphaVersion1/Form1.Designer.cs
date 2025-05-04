@@ -33,9 +33,6 @@
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
-            this.addCar1 = new AutoKolcsonzoProjektAdminAlphaVersion1.AddCar();
-            this.personalInfos1 = new AutoKolcsonzoProjektAdminAlphaVersion1.PersonalInfos();
-            this.rentCar1 = new AutoKolcsonzoProjektAdminAlphaVersion1.RentCar();
             this.ExitLabel = new System.Windows.Forms.Label();
             this.WorkersLabel = new System.Windows.Forms.Label();
             this.RentLabel = new System.Windows.Forms.Label();
@@ -79,27 +76,6 @@
             // ContentPanel
             // 
             this.ContentPanel.Size = new System.Drawing.Size(150, 150);
-            // 
-            // addCar1
-            // 
-            this.addCar1.Location = new System.Drawing.Point(0, 30);
-            this.addCar1.Name = "addCar1";
-            this.addCar1.Size = new System.Drawing.Size(785, 532);
-            this.addCar1.TabIndex = 1;
-            // 
-            // personalInfos1
-            // 
-            this.personalInfos1.Location = new System.Drawing.Point(0, 30);
-            this.personalInfos1.Name = "personalInfos1";
-            this.personalInfos1.Size = new System.Drawing.Size(785, 530);
-            this.personalInfos1.TabIndex = 2;
-            // 
-            // rentCar1
-            // 
-            this.rentCar1.Location = new System.Drawing.Point(0, 30);
-            this.rentCar1.Name = "rentCar1";
-            this.rentCar1.Size = new System.Drawing.Size(785, 530);
-            this.rentCar1.TabIndex = 3;
             // 
             // ExitLabel
             // 
@@ -171,9 +147,6 @@
             this.Controls.Add(this.RentLabel);
             this.Controls.Add(this.ExitLabel);
             this.Controls.Add(this.WorkersLabel);
-            this.Controls.Add(this.personalInfos1);
-            this.Controls.Add(this.rentCar1);
-            this.Controls.Add(this.addCar1);
             this.Controls.Add(this.InfoDGV);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximumSize = new System.Drawing.Size(800, 600);
@@ -193,9 +166,6 @@
         private System.Windows.Forms.ToolStripPanel RightToolStripPanel;
         private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
         private System.Windows.Forms.ToolStripContentPanel ContentPanel;
-        private AddCar addCar1;
-        private PersonalInfos personalInfos1;
-        private RentCar rentCar1;
         public System.Windows.Forms.Label ExitLabel;
         private System.Windows.Forms.Label WorkersLabel;
         private System.Windows.Forms.Label RentLabel;

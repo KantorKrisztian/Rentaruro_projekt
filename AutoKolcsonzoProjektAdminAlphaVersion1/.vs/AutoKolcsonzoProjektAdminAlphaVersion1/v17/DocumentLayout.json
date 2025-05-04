@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|e:\\git\\13\\13-projekt\\autokolcsonzoprojektadminalphaversion1\\autokolcsonzoprojektadminalphaversion1\\addcar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\autokolcsonzoprojektadminalphaversion1\\addcar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|solutionrelative:autokolcsonzoprojektadminalphaversion1\\addcar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\autokolcsonzoprojektadminalphaversion1\\httprequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|solutionrelative:autokolcsonzoprojektadminalphaversion1\\httprequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\autokolcsonzoprojektadminalphaversion1\\addcar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|solutionrelative:autokolcsonzoprojektadminalphaversion1\\addcar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|e:\\git\\13\\13-projekt\\autokolcsonzoprojektadminalphaversion1\\autokolcsonzoprojektadminalphaversion1\\onecar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|solutionrelative:autokolcsonzoprojektadminalphaversion1\\onecar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|e:\\git\\13\\13-projekt\\autokolcsonzoprojektadminalphaversion1\\autokolcsonzoprojektadminalphaversion1\\onerent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|solutionrelative:autokolcsonzoprojektadminalphaversion1\\onerent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\autokolcsonzoprojektadminalphaversion1\\personalinfos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|solutionrelative:autokolcsonzoprojektadminalphaversion1\\personalinfos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|e:\\git\\13\\13-projekt\\autokolcsonzoprojektadminalphaversion1\\autokolcsonzoprojektadminalphaversion1\\httprequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|solutionrelative:autokolcsonzoprojektadminalphaversion1\\httprequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{155D73B8-4586-4198-92D0-191809782DDE}|AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1.csproj|E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\autokolcsonzoprojektadminalphaversion1\\personalinfos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -30,21 +38,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 208,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "HttpRequests.cs",
               "DocumentMoniker": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\HttpRequests.cs",
               "RelativeDocumentMoniker": "AutoKolcsonzoProjektAdminAlphaVersion1\\HttpRequests.cs",
               "ToolTip": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\HttpRequests.cs",
               "RelativeToolTip": "AutoKolcsonzoProjektAdminAlphaVersion1\\HttpRequests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAqwCcAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-24T06:38:04.802Z",
               "IsPinned": true,
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OneRent.cs [Design]",
+              "DocumentMoniker": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\OneRent.cs",
+              "RelativeDocumentMoniker": "AutoKolcsonzoProjektAdminAlphaVersion1\\OneRent.cs",
+              "ToolTip": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\OneRent.cs [Design]",
+              "RelativeToolTip": "AutoKolcsonzoProjektAdminAlphaVersion1\\OneRent.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-03T11:54:14.624Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OneCar.cs [Design]",
+              "DocumentMoniker": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\OneCar.cs",
+              "RelativeDocumentMoniker": "AutoKolcsonzoProjektAdminAlphaVersion1\\OneCar.cs",
+              "ToolTip": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\OneCar.cs [Design]",
+              "RelativeToolTip": "AutoKolcsonzoProjektAdminAlphaVersion1\\OneCar.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-03T11:49:20.839Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -54,44 +86,47 @@
               "RelativeDocumentMoniker": "AutoKolcsonzoProjektAdminAlphaVersion1\\AddCar.cs",
               "ToolTip": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\AddCar.cs",
               "RelativeToolTip": "AutoKolcsonzoProjektAdminAlphaVersion1\\AddCar.cs",
-              "ViewState": "AgIAAIYBAAAAAAAAAAAuwLQBAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAOsAAAAAAAAAAAAswP8AAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-27T12:03:39.056Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "AddCar.cs [Design]",
               "DocumentMoniker": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\AddCar.cs",
               "RelativeDocumentMoniker": "AutoKolcsonzoProjektAdminAlphaVersion1\\AddCar.cs",
               "ToolTip": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\AddCar.cs [Design]",
               "RelativeToolTip": "AutoKolcsonzoProjektAdminAlphaVersion1\\AddCar.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T12:03:34.687Z"
+              "WhenOpened": "2025-04-27T12:03:34.687Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "PersonalInfos.cs",
               "DocumentMoniker": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\PersonalInfos.cs",
               "RelativeDocumentMoniker": "AutoKolcsonzoProjektAdminAlphaVersion1\\PersonalInfos.cs",
               "ToolTip": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\PersonalInfos.cs",
               "RelativeToolTip": "AutoKolcsonzoProjektAdminAlphaVersion1\\PersonalInfos.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAQwDQAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAADIAAAAAAAAAAAAuwDgAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T12:00:17.298Z"
+              "WhenOpened": "2025-04-26T12:00:17.298Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "PersonalInfos.cs [Design]",
               "DocumentMoniker": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\PersonalInfos.cs",
               "RelativeDocumentMoniker": "AutoKolcsonzoProjektAdminAlphaVersion1\\PersonalInfos.cs",
               "ToolTip": "E:\\git\\13\\13-projekt\\AutoKolcsonzoProjektAdminAlphaVersion1\\AutoKolcsonzoProjektAdminAlphaVersion1\\PersonalInfos.cs [Design]",
               "RelativeToolTip": "AutoKolcsonzoProjektAdminAlphaVersion1\\PersonalInfos.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T12:00:15.476Z"
+              "WhenOpened": "2025-04-26T12:00:15.476Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }

@@ -37,7 +37,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         {
             UpdateRentBtn.Click += (s, e) => { UpdateRent(); };
             StartEndCalendar.MaxSelectionCount=int.MaxValue;
-            RentPanel.AutoScroll = Enabled;
+            RentPanel.AutoScroll = true;
             AllRents = await httpRequests.ListAllRents();
             OrderList();
             RentList();
@@ -97,6 +97,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     rent.EmailLabel.Text = item.email;
                     rent.PhoneLabel.Text = item.phone;
                     rent.InfoLabel.Text = item.other;
+                    
                     RentPanel.Controls.Add(rent);
                     rent.Top = (count - 1) * rent.Height;
                     rent.DeleteBtn.Click +=async (s, e) =>

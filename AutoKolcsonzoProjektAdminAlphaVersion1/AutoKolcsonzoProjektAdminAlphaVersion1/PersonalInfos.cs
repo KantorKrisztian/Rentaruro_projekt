@@ -54,6 +54,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         async void Start()
         {
+            PersonalInfosPanel.AutoScroll = true;
             CancleBtn.Hide();
             SetComboBox();
             RegisterBtn.Click += (s, e) => {
