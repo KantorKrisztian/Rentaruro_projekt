@@ -152,7 +152,7 @@
             this.MaximumSize = new System.Drawing.Size(800, 600);
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "Form1";
-            this.Text = "Autókölcsönző";
+            this.Text = "Rentaruro autókölcsönző";
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

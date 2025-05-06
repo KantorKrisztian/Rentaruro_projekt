@@ -47,6 +47,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private PictureBox ShowPassAgainPB;
         List<jsonPersonalInfo> workers = new List<jsonPersonalInfo>();
         HttpRequests httpRequests = new HttpRequests();
+        string file = "";
         public PersonalInfos()
         {
             InitializeComponent();
@@ -54,9 +55,14 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         async void Start()
         {
+            //Loads the workers from the database
+            ListWorkers();
+
             PersonalInfosPanel.AutoScroll = true;
             CancleBtn.Hide();
             SetComboBox();
+
+            //Sets the button click events
             RegisterBtn.Click += (s, e) => {
                 if (RegisterBtn.Text == "Regisztráció")
                 {
@@ -73,29 +79,45 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 Clear();
                 CancleBtn.Hide();
             };
-            workers =await httpRequests.ListAllWorkers();
-            ListWorkers();
+
+            //Loads the workers from the database
+            workers = await httpRequests.ListAllWorkers();
             OrderList();
+
+            //Sets the password textboxes to hide the password
             PasswordTB.PasswordChar = '*';
             PasswordAgainTB.PasswordChar = '*';
-            ShowPassPB.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\eye.png";
-            ShowPassAgainPB.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\eye.png";
+
+            //Sets the image location for the show password buttons
+            string filePath = this.GetType().Assembly.Location;
+            string[] filePathSplit = filePath.Split('\\');
+            
+            for (int i = 0; i < filePathSplit.Length - 5; i++)
+            {
+                file += filePathSplit[i] + "\\";
+            }
+            ShowPassPB.ImageLocation = file + "képek\\eye.png";
+            ShowPassAgainPB.ImageLocation = file + "képek\\eye.png";
+
+            //Sets the click events for the show password buttons
             ShowPassPB.Click += (s, e) => ShowPass(ShowPassPB,PasswordTB);
             ShowPassAgainPB.Click += (s, e) => ShowPass(ShowPassAgainPB, PasswordAgainTB);
         }
+        ///Shows the password in the textbox
         void ShowPass(PictureBox picture,TextBox text)
         {
             if (text.PasswordChar == '*')
             {
                 text.PasswordChar = '\0';
-                picture.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\hidden.png";
+                picture.ImageLocation = file + "képek\\hidden.png";
             }
             else
             {
                 text.PasswordChar = '*';
-                picture.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\eye.png";
+                picture.ImageLocation = file+ "képek\\eye.png";
             }
         }
+        ///Registers a new worker
         async void Register()
         {
             if (CheckEmpty())
@@ -120,6 +142,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             ListWorkers();
             Clear();
         }
+        //Updates a worker
         private async void Update()
         {
             if (CheckEmpty())
@@ -147,6 +170,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             Clear();
             CancleBtn.Hide();
         }
+        //Lists the workers in the panel
         void ListWorkers()
         {
             try
@@ -167,8 +191,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     inf.Top = (count)*inf.Height;
                     inf.DeleteBtn.Click += async (s, e) =>
                     {
-                        workers = await httpRequests.DeleteWorker(item.id);
-                        ListWorkers();
+                        DialogResult result = MessageBox.Show("Biztosan törölni szeretné a dolgozót?", "Törlés megerősítése", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (result==DialogResult.Yes)
+                        {
+                            workers = await httpRequests.DeleteWorker(item.id);
+                            ListWorkers();
+                        }
                     };
                     inf.UpdateBtn.Click += (s, e) =>
                     {
@@ -195,6 +223,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 MessageBox.Show(e.Message);
             }
         }
+        //Clears the textboxes
         private void Clear()
         {
             RealNameTB.Text = "";
@@ -208,6 +237,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             RoleCB.Text = "";
             monthCalendar1.SetDate(DateTime.Now);
         }
+        //Sets the combobox for the role
         private void SetComboBox()
         {
             RoleCB.Items.Add("Admin");
@@ -215,6 +245,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             RoleCB.DropDownStyle = ComboBoxStyle.DropDownList;
             RoleCB.SelectedIndex = 1;
         }
+        //Checks if the password is the same
         private bool CheckPassword(string pass, string otherPass)
         {
             if (pass==otherPass)
@@ -227,6 +258,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return false;
             }
         }
+        //Orders the list of workers by the selected header
         private void OrderList()
         {
             bool isAscU=true;
@@ -359,6 +391,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             };
             
         }
+        //Checks if the textboxes are empty
         private bool CheckEmpty()
         {
             if (RealNameTB.Text == "" || AdressTB.Text == "" || EmailTB.Text == "" || PhoneTB.Text == "" || TaxTB.Text == "" || UserTB.Text == "" || PasswordTB.Text == "" || PasswordAgainTB.Text == "")
@@ -368,6 +401,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return false;
         }
+
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PersonalInfos));

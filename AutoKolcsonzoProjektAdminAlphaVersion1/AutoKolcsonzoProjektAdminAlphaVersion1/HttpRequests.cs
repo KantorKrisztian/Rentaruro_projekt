@@ -16,6 +16,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
     {
         HttpClient client = new HttpClient();
         string serverUrl = "http://127.1.1.1:3000/";
+        //Setting the request headers authorization to the token
         public HttpRequests()
         {
             try
@@ -27,6 +28,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 MessageBox.Show(e.Message);
             }
         }
+        //Encoding and decoding the password
         public string EncodePassword(string password)
         {
             byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
@@ -37,12 +39,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             byte[] passwordBytes = Convert.FromBase64String(encodedPassword);
             return Encoding.UTF8.GetString(passwordBytes);
         }
+        //Creating a new car
         public async Task<List<jsonCars>> CreateCar(jsonCars Cars)
         {
             try
             {
                 string serverUrl = this.serverUrl + "AddCar";
-                
                 string jsonString = JsonConvert.SerializeObject(Cars);
                 HttpContent sendThis = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(serverUrl, sendThis);
@@ -59,6 +61,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             
         }
+        //Asking the server for all the cars
         public async Task<List<jsonCars>> ListAllCars()
         {
             List<jsonCars> cars = new List<jsonCars>();
@@ -76,6 +79,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             
         }
+        //Updating a cars information based on it's id
         public async Task<List<jsonCars>> UpdateCar(jsonCars Cars)
         {
             try
@@ -95,6 +99,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return await ListAllCars();
             }
         }
+        //Deleting a car based on it's id
         public async Task<List<jsonCars>> DeleteCar(int id)
         {
             try
@@ -112,6 +117,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return await ListAllCars();
         }
+        //Asking the server for all the rents
         public async Task<List<jsonRents>> ListAllRents()
         {
             List<jsonRents> rents = new List<jsonRents>();
@@ -129,6 +135,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return rents;
             }
         }
+        //Updating a rent based on it's id
         public async Task<List<jsonRents>> UpdateRent(jsonRents rents)
         {
             try
@@ -176,6 +183,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return await ListAllRents();
             }
         }
+        //Deleting a rent based on it's id
         public async Task<List<jsonRents>> DeleteRent(int id)
         {
             try
@@ -196,6 +204,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return await ListAllRents();
             }
         }
+        //Creating a new worker
         public async Task<List<jsonPersonalInfo>> Registration(jsonPersonalInfo personalInfo)
         {
             string serverUrl = this.serverUrl + "AdminRegistration";
@@ -217,6 +226,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return await ListAllWorkers();
         }
+        //Asking the server for all the workers
         public async Task<List<jsonPersonalInfo>> ListAllWorkers()
         {
             List<jsonPersonalInfo> workers = new List<jsonPersonalInfo>();
@@ -235,6 +245,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             
         }
+        //Deleting a worker based on it's id
         public async Task<List<jsonPersonalInfo>> DeleteWorker(int id)
         {
             try
@@ -252,6 +263,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return await ListAllWorkers();
         }
+        //Updating a worker based on it's id
         public async Task<List<jsonPersonalInfo>> UpdateWorker(jsonPersonalInfo personalInfo)
         {
             try
@@ -271,6 +283,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return await ListAllWorkers();
         }
+        //Sending a login request to the server
         public async Task<bool> Login(string username, string password)
         {
             string serverUrl = this.serverUrl + "AdminLogin";

@@ -76,7 +76,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 
         public async void Start()
         {
-            
+            //Loading the car data from the server
             AllCars = await httpRequests.ListAllCars();
             CarPanel.AutoScroll = true;
 
@@ -92,6 +92,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 AddCarBtn.Text = "Hozzáadás";
             };
         }
+        //Update the car data and the list
         async void UpdateCar()
         {
             try
@@ -144,6 +145,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             
         }
+        //Adds a new car to the database and updates the list
         async void AddOneCar()
         {
             try
@@ -187,6 +189,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 return;
             }
         }
+        //Listing all the cars in the database on a panel using a custom usercontrol 
         public void CarList()
         {
             try
@@ -197,9 +200,11 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 }
                 int count = 0;
                 CarPanel.Controls.Clear();
+                //Creating a new instance of the custom usercontrol for each car
                 foreach (jsonCars item in AllCars)
                 {
                     count++;
+                    //Setting the information of the car in the usercontrol
                     OneCar auto = new OneCar();
                     auto.LicensePlateLabel.Text = item.licensePlate;
                     auto.BrandLabel.Text = item.brand;
@@ -250,17 +255,20 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     auto.FromFifteenLabel.Text = item.OverForteen.ToString();
                     auto.DepositLabel.Text = item.Deposit.ToString();
                     auto.CategoryLabel.Text = item.category;
-                    if (Token.role.ToLower() != "admin")
-                    {
-                        auto.UpdateBtn.Text = "ⓘ";
-                        auto.UpdateBtn.ForeColor = Color.Blue;
-                    }
+                    
+                    //Adding the usercontrol to the panel
                     CarPanel.Controls.Add(auto);
+                    //Setting the delete and update buttons
                     auto.DeleteBtn.Click += async (s, e) =>
                     {
-                        AllCars= await httpRequests.DeleteCar(item.id);
-                        CarList();
-                        IfWorkerSetPanel();
+                        DialogResult result= MessageBox.Show("Biztosan törölni szeretné az autót?", "Törlés megerősítése", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (result==DialogResult.Yes)
+                        {
+                            AllCars = await httpRequests.DeleteCar(item.id);
+                            CarList();
+                            IfWorkerSetPanel();
+                        }
+                        
                     };
                     auto.UpdateBtn.Click += (s, e) =>
                     {
@@ -310,6 +318,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             
         }
+        //Clears the input fields after adding or updating a car
         private void Clear()
         {
             CarPictureBox.Image = null;
@@ -330,17 +339,21 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             FromFifteenRentalTB.Text = "";
             DepositTB.Text = "";
         }
+        //If the user is a worker, hide the delete button and set the update button height and text
         private void IfWorkerSetPanel()
         {
-            if (Token.role == "Dolgozó")
+            if (Token.role.ToLower() == "dolgozó")
             {
                 foreach (OneCar item in CarPanel.Controls)
                 {
                     item.DeleteBtn.Hide();
                     item.UpdateBtn.Height = 46;
+                    item.UpdateBtn.Text = "ⓘ";
+                    item.UpdateBtn.ForeColor = Color.Blue;
                 }
             }
         }
+        //If the user is a worker, disable all input fields and hide the add and cancel buttons
         private void IfWorker()
         {
             if (Token.role == "Dolgozó")
@@ -367,6 +380,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 CancleBtn.Hide();
             }
         }
+        //Sets the picture box to open a file dialog and select an image
         private void SetPictureBox()
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -377,6 +391,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 CarPictureBox.ImageLocation = path.ToString();
             };
         }
+        //Sets the buttons for adding and updating cars
         private void SetButtons()
         {
             AddCarBtn.Click += (s, e) => {
@@ -400,6 +415,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 };
             }
         }
+        //Sets the combo boxes for the input fields
         private void SetComboBoxes()
         {
             int year = Convert.ToInt32(DateTime.Now.Year);
@@ -438,6 +454,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             CategoryCB.DropDownStyle = ComboBoxStyle.DropDownList;
             CategoryCB.SelectedIndex = 0;
         }
+        //Checks if any of the input fields are empty
         private bool CheckIfEmpty()
         {
             if (string.IsNullOrEmpty(LicensePlateTB.Text) || string.IsNullOrEmpty(BrandTB.Text) || string.IsNullOrEmpty(TypeTB.Text) || string.IsNullOrEmpty(YearCB.Text) || string.IsNullOrEmpty(DriveCB.Text) || string.IsNullOrEmpty(ShiftCB.Text) || string.IsNullOrEmpty(FuelCB.Text) || string.IsNullOrEmpty(CategoryCB.Text) || string.IsNullOrEmpty(OneToFiveRentalTB.Text) || string.IsNullOrEmpty(SixToFourteenRentalTB.Text) || string.IsNullOrEmpty(FromFifteenRentalTB.Text) || string.IsNullOrEmpty(DepositTB.Text))
@@ -446,6 +463,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return false;
         }
+        //Checks if the image path is correct and if the image is not null
         private string CheckPictureBox(string image)
         {
             if (image == null ||image=="")
@@ -470,6 +488,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return imageSplit[imageSplit.Length-1];
         }
+
         private void InitializeComponent()
         {
             this.CarsLabel = new System.Windows.Forms.Label();

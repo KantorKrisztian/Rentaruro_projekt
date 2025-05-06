@@ -12,7 +12,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 {
     public partial class LoginForm : Form
     {
-
+        string file = "";
         public LoginForm()
         {
             InitializeComponent();
@@ -23,7 +23,14 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             LoginBtn.Click += (object s, EventArgs e) => formShow();
             LoginPassTb.PasswordChar = '*';
 
-            ShowPB.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\eye.png";
+            string filePath = this.GetType().Assembly.Location;
+            string[] filePathSplit = filePath.Split('\\');
+            
+            for (int i = 0; i < filePathSplit.Length - 5; i++)
+            {
+                file += filePathSplit[i] + "\\";
+            }
+            ShowPB.ImageLocation = file+"\\képek\\eye.png";
             ShowPB.Click += showPassword;
         }
         void closeForm(object s, EventArgs e)
@@ -59,12 +66,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             if (LoginPassTb.PasswordChar == '*')
             {
                 LoginPassTb.PasswordChar = '\0';
-                ShowPB.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\hidden.png";
+                ShowPB.ImageLocation = file+"\\képek\\hidden.png";
             }
             else
             {
                 LoginPassTb.PasswordChar = '*';
-                ShowPB.ImageLocation = "E:\\git\\13\\13-projekt\\képek\\eye.png";
+                ShowPB.ImageLocation = file+"\\képek\\eye.png";
             }
         }
     }

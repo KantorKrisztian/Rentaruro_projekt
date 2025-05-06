@@ -131,7 +131,7 @@
             this.MaximumSize = new System.Drawing.Size(300, 370);
             this.MinimumSize = new System.Drawing.Size(300, 370);
             this.Name = "LoginForm";
-            this.Text = "Bejelentkezés";
+            this.Text = "Rentaruro autókölcsönző";
             ((System.ComponentModel.ISupportInitialize)(this.ShowPB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

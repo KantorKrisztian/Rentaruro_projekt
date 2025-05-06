@@ -35,13 +35,18 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         public async void Start()
         {
+            //Setting the update button to call the UpdateRent method when clicked
             UpdateRentBtn.Click += (s, e) => { UpdateRent(); };
+            //Setting the calendar to select a range of dates
             StartEndCalendar.MaxSelectionCount=int.MaxValue;
             RentPanel.AutoScroll = true;
+            //Getting the list of all rents from the server
             AllRents = await httpRequests.ListAllRents();
             OrderList();
+            
             RentList();
         }
+        //Update the rent information
         public async void UpdateRent()
         {
             try
@@ -72,6 +77,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 MessageBox.Show(e.Message);
             }
         }
+        //Lists all the rents in the panel
         async void RentList()
         {
             
@@ -102,8 +108,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     rent.Top = (count - 1) * rent.Height;
                     rent.DeleteBtn.Click +=async (s, e) =>
                     {
-                        AllRents = await httpRequests.DeleteRent(item.id);
-                        RentList();
+                        DialogResult result = MessageBox.Show("Biztosan törölni szeretné a foglalást?", "Törlés megerősítése", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (result==DialogResult.Yes)
+                        {
+                            AllRents = await httpRequests.DeleteRent(item.id);
+                            RentList();
+                        }
                     };
                     rent.UpdateBtn.Click += (s, e) =>
                     {
@@ -122,6 +132,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
 
         }
+        //Sorting the list of rents by clicking on the headers
         private void OrderList()
         {
             bool isAscT = true;
