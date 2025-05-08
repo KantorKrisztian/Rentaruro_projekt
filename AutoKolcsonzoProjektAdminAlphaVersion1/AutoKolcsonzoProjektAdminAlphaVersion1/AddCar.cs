@@ -418,6 +418,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         //Sets the combo boxes for the input fields
         private void SetComboBoxes()
         {
+            textBox5.ScrollBars = ScrollBars.Vertical;
+
             int year = Convert.ToInt32(DateTime.Now.Year);
             for (int i = year; i >= 1900; i--)
             {

@@ -55,8 +55,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         async void Start()
         {
-            //Loads the workers from the database
-            ListWorkers();
 
             PersonalInfosPanel.AutoScroll = true;
             CancleBtn.Hide();
@@ -102,6 +100,8 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             //Sets the click events for the show password buttons
             ShowPassPB.Click += (s, e) => ShowPass(ShowPassPB,PasswordTB);
             ShowPassAgainPB.Click += (s, e) => ShowPass(ShowPassAgainPB, PasswordAgainTB);
+            //Loads the workers from the database
+            ListWorkers();
         }
         ///Shows the password in the textbox
         void ShowPass(PictureBox picture,TextBox text)
