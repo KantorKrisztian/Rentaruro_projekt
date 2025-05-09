@@ -26,13 +26,13 @@ function auth() {
         const authenticate=req.headers.authorization
         if (typeof(authenticate)=='undefined') {
             res.status(401)
-            res.json({"message":"Nem létező token"})
+            res.json({"message":"Nem létező token!"})
             res.end()
             return
         }
         if (!authenticate.startsWith("Bearer")) {
-            res.status(401)
-            res.json({"message":"Hibás token"})
+            res.status(498)
+            res.json({"message":"Hibás token!"})
             res.end()
             return
         }
@@ -51,7 +51,7 @@ function auth() {
 }
 
 
-server.get("/ListAllRents",async (req,res)=>{
+server.get("/ListAllRents",auth(),async (req,res)=>{
     try {
         const reservations = await dbHandler.reservationTable.findAll()
         const cars = await dbHandler.carsTable.findAll()
@@ -80,7 +80,7 @@ server.get("/ListAllRents",async (req,res)=>{
 
         res.json(detailedReservations).end()
     } catch (error) {
-        res.status(500).json({ "message": error }).end()
+        res.status(400).json({ "message": error }).end()
     }
 })
 
@@ -139,12 +139,12 @@ server.put("/UpdateRent/:id",auth(),async (req,res)=>{
                 id:req.params.id
             }
         })
-        if (!oneRent) {
-            res.status(404).json({"message":"Nem található ilyen foglalás!"}).end()
-            return
-        }
     } catch (error) {
-        res.json({"message":error}).end()
+        res.status(400).json({"message":error}).end()
+        return
+    }
+    if (!oneRent) {
+        res.status(404).json({"message":"Nem található ilyen foglalás!"}).end()
         return
     }
     await dbHandler.reservationTable.update({
@@ -166,25 +166,32 @@ server.delete("/DeleteRent/:id",auth(),async (req,res)=>{
             where:{
                 id:req.params.id
             }
-        })
-        if (!oneRent) {
-            res.status(404).json({"message":"Nem található ilyen foglalás!"}).end()
+        })} catch (error) {
+            res.status(400).json({"message":error}).end()
             return
         }
-        dbHandler.reservationTable.destroy({
-            where:{
-                id:req.params.id
-            }
-        })
-        res.status(200).json({"message":"Sikeres törlés!"}).end()
+    if (!oneRent) {
+        res.status(404).json({"message":"Nem található ilyen foglalás!"}).end()
         return
-    } catch (error) {
-        res.json({"message":error}).end()
     }
+    await dbHandler.reservationTable.destroy({
+        where:{
+                id:req.params.id
+        }
+    })
+    res.status(200).json({"message":"Sikeres törlés!"}).end()
+    return
+    
 })
 
 server.get("/ListCars",async (req,res)=>{
-    const cars = await dbHandler.carsTable.findAll()
+    let cars
+    try {
+        cars =await dbHandler.carsTable.findAll()
+    } catch (error) {
+        res.status(400).end()
+        return
+    } 
     res.json(cars).end()
 })
 
@@ -197,7 +204,7 @@ server.delete('/DeleteCar/:id',auth(),async (req,res)=>{
             }
         })
     } catch (error) {
-        res.status(200).json({'message':error}).end()
+        res.status(400).json({'message':error}).end()
         return
     }
 
@@ -272,7 +279,6 @@ server.post("/AddCar",auth(),async (req,res)=>{
 })
 
 server.put("/UpdateCar/:id",auth(),async (req,res)=>{
-    
     let oneCar
     try {
         oneCar=await dbHandler.carsTable.findOne({
@@ -325,13 +331,14 @@ server.post("/AdminRegistration",auth(),async (req,res)=>{
             }
         })
     } catch (error) {
+        res.status(400)
         res.json({'message':error})
         res.end()
         return
     }
     if (oneUser) {
-        res.status(403)
-        res.json({'message':'Ilyen felhasználó már van'})
+        res.status(409)
+        res.json({'message':'Már létezik ilyen felhasználó!'})
         res.end()
         return
     }
@@ -348,6 +355,7 @@ server.post("/AdminRegistration",auth(),async (req,res)=>{
             tax:req.body.tax
         })
     } catch (error) {
+        res.status(400)
         res.json({'message':"error"})
         res.end()
         return
@@ -368,6 +376,7 @@ server.post("/AdminLogin",async (req,res)=>{
             }
         })
     } catch (error) {
+        res.status(400)
         res.json({'message':error})
         res.end()
         return
@@ -380,6 +389,7 @@ server.post("/AdminLogin",async (req,res)=>{
             res.end()
             return
         } catch (error) {
+
             res.json({'message':error})
             res.end()
             return
@@ -392,30 +402,45 @@ server.post("/AdminLogin",async (req,res)=>{
 })
 
 server.get("/ListAllWorkers",auth(),async (req,res)=>{
-    const workers=await dbHandler.adminTable.findAll()
+    let workers
+    try {
+        workers=await dbHandler.adminTable.findAll()
+    } catch (error) {
+        res.status(400).json({"message":error}).end()
+        return
+    }
+    
     res.status(200).json(workers).end()
 })
 
 server.delete("/DeleteWorker/:id",auth(),async (req,res)=>{
+    let worker
     try {
-        const worker=await dbHandler.adminTable.findOne({
+        worker=await dbHandler.adminTable.findOne({
             where:{
                 id:req.params.id
             }
         })
-        if (!worker) {
-            res.status(404).json({"message":"Nincs ilyen dolgozó!"}).end()
-            return
-        }
+    } catch (error) {
+        res.status(400).json({"message":error}).end()
+        return
+    }
+    if (!worker) {
+        res.status(404).json({"message":"Nincs ilyen dolgozó!"}).end()
+        return
+    }
+    try {
         await dbHandler.adminTable.destroy({
             where:{
                 id:req.params.id
             }
         })
-        res.status(200).json({"message":"Sikeres törlés!"}).end()
     } catch (error) {
-        
+        res.status(400).json({"message":error}).end()
+        return
     }
+    res.status(200).json({"message":"Sikeres törlés!"}).end()
+    
 })
 
 server.put("/UpdateWorker/:id",auth(),async (req,res)=>{
@@ -428,6 +453,15 @@ server.put("/UpdateWorker/:id",auth(),async (req,res)=>{
         })
         if (!oneWorker) {
             res.status(404).json({"message":"Nincs ilyen dolgozó!"}).end()
+            return
+        }
+        oneWorker=await dbHandler.adminTable.findOne({
+            where:{
+                username:req.params.username
+            }
+        })
+        if (oneWorker) {
+            res.status(409).json({"message":"Már létezik ilyen felhasználó!"}).end()
             return
         }
         await dbHandler.adminTable.update({
@@ -454,17 +488,12 @@ server.put("/UpdateWorker/:id",auth(),async (req,res)=>{
 async function createAdmin() {
     let admin
     try {
-        admin =await dbHandler.adminTable.findOne({
-            where: {
-                username: "admin"
-            }
-        })
+        admin =await dbHandler.adminTable.findAll()
     } catch (error) {
         console.log(error)
         return
     }
-    if (admin) {
-        console.log("Admin már létezik")
+    if (admin.length!=0) {
         return
     }
     try {

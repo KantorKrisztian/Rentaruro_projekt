@@ -152,7 +152,7 @@ cars.init({
         allowNull: false
     },
     "info":{
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(3000),
         allowNull: false
     },
     "category":{
