@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Fejléc -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REGISZTRÁCIÓ"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#F9A825"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="24dp"/>
+
+        <!-- Név -->
+        <EditText
+            android:id="@+id/et_reg_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Teljes név"
+            android:inputType="textPersonName"/>
+
+        <!-- E-mail -->
+        <EditText
+            android:id="@+id/et_reg_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="E-mail cím"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Jelszó -->
+        <EditText
+            android:id="@+id/et_reg_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Jelszó"
+            android:inputType="textPassword"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Jelszó újra -->
+        <EditText
+            android:id="@+id/et_reg_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Jelszó megerősítése"
+            android:inputType="textPassword"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Regisztráció gomb -->
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Regisztráció"
+            android:backgroundTint="#F9A825"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="24dp"/>
+
+        <!-- Átirányítás bejelentkezésre -->
+        <TextView
+            android:id="@+id/tv_go_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Már van fiókod? Bejelentkezés"
+            android:textColor="#42A5F5"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+    </LinearLayout>
+</ScrollView>
