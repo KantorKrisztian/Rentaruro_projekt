@@ -388,6 +388,78 @@ server.post("/AdminRegistration",async (req,res)=>{
     res.end()
 })
 
+server.post("/UserRegistration",async (req,res)=>{
+    let oneUser
+    try {
+        oneUser=await dbHandler.userTable.findOne({
+            where:{
+                email:req.body.registerEmail
+            }
+        })
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
+        console.log(error)
+        return
+    }
+    if (oneUser) {
+        res.status(403)
+        res.json({'message':'Ezzel az email címmel már regisztráltak'})
+        res.end()
+        return
+    }
+    try {
+        await dbHandler.adminTable.create({
+            username:req.body.registerNev,
+            password:req.body.registerPassword,
+            phone:req.body.registerPhone,
+            email:req.body.registerEmail,
+            name:req.body.registerName
+        })
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
+        return
+    }
+
+    res.status(201)
+    res.json({"message":"Sikeres regisztráció"})
+    res.end()
+})
+
+server.post("/UserLogin",async (req,res)=>{
+    let oneUser
+    try {
+        oneUser=await dbHandler.userTable.findOne({
+            where:{
+                username:req.body.loginNev,
+                password:req.body.loginPassword
+            }
+        })
+    } catch (error) {
+        res.json({'message':error})
+        res.end()
+        return
+    }
+
+    if (oneUser) {
+        try {
+            const token=await JWT.sign({"username":oneUser.username,'id':oneUser.id},SUPERSECRET,{expiresIn:timeLimit})
+            res.json({'message':'Sikeres bejelentkezés','token':token})
+            res.end()
+            return
+        } catch (error) {
+            res.json({'message':error})
+            res.end()
+            return
+        }
+    }
+
+    res.status(409)
+    res.json({"message":"Hibás felhasználónév, vagy jelszó"})
+    res.end()
+})
+
 
 
 
