@@ -14,7 +14,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
     {
         private PictureBox CarPictureBox;
         private DataGridView InfoDGV;
-        private Label BrandLabel;
         private Label DriveLabel;
         private Label ShiftLabel;
         private Label FuelLabel;
@@ -67,6 +66,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private Label SixToFourteenHeaderLabel;
         private Label OneToFiveHeaderLabel;
         private Button CancleBtn;
+        private Label BrandLabel;
         public List<jsonCars> AllCars = new List<jsonCars>();
         public AddCar()
         {
@@ -85,6 +85,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             SetPictureBox();
             CarList();
             IfWorker();
+            OrderList();
             CancleBtn.Click += (s, e) =>
             {
                 Clear();
@@ -490,13 +491,253 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return imageSplit[imageSplit.Length-1];
         }
+        //Orders the list of cars by the selected column
+        private void OrderList()
+        {
+            bool isAscB = true;
+            CarHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscB)
+                {
+                    AllCars = AllCars.OrderBy(x => x.brand).ToList();
+                    isAscB = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.brand).ToList();
+                    isAscB = true;
+                }
+                CarList();
+            };
+
+            bool isAscL = true;
+            LicensePlateHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscL)
+                {
+                    AllCars = AllCars.OrderBy(x => x.licensePlate).ToList();
+                    isAscL = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.licensePlate).ToList();
+                    isAscL = true;
+                }
+                CarList();
+            };
+
+            bool isAscY = true;
+            YearHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscY)
+                {
+                    AllCars = AllCars.OrderBy(x => x.year).ToList();
+                    isAscY = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.year).ToList();
+                    isAscY = true;
+                }
+                CarList();
+            };
+
+            bool isAscD = true;
+            DriveHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscD)
+                {
+                    AllCars = AllCars.OrderBy(x => x.drive).ToList();
+                    isAscD = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.drive).ToList();
+                    isAscD = true;
+                }
+                CarList();
+            };
+
+            bool isAscG = true;
+            ShiftHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscG)
+                {
+                    AllCars = AllCars.OrderBy(x => x.gearShift).ToList();
+                    isAscG = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.gearShift).ToList();
+                    isAscG = true;
+                }
+                CarList();
+            };
+
+            bool isAscF = true;
+            FuelHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscF)
+                {
+                    AllCars = AllCars.OrderBy(x => x.fuel).ToList();
+                    isAscF = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.fuel).ToList();
+                    isAscF = true;
+                }
+                CarList();
+            };
+
+            bool isAscA = true;
+            AirCondHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscA)
+                {
+                    AllCars = AllCars.OrderBy(x => x.airCondition).ToList();
+                    isAscA = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.airCondition).ToList();
+                    isAscA = true;
+                }
+                CarList();
+            };
+
+            bool isAscR = true;
+            RadarHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscR)
+                {
+                    AllCars = AllCars.OrderBy(x => x.radar).ToList();
+                    isAscR = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.radar).ToList();
+                    isAscR = true;
+                }
+                CarList();
+            };
+
+            bool isAscC = true;
+            CruiseControlHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscC)
+                {
+                    AllCars = AllCars.OrderBy(x => x.cruiseControl).ToList();
+                    isAscC = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.cruiseControl).ToList();
+                    isAscC = true;
+                }
+                CarList();
+            };
+
+            bool isAscO = true;
+            OneToFiveHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscO)
+                {
+                    AllCars = AllCars.OrderBy(x => x.OneToFive).ToList();
+                    isAscO = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.OneToFive).ToList();
+                    isAscO = true;
+                }
+                CarList();
+            };
+
+            bool isAscS = true;
+            SixToFourteenHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscS)
+                {
+                    AllCars = AllCars.OrderBy(x => x.SixToForteen).ToList();
+                    isAscS = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.SixToForteen).ToList();
+                    isAscS = true;
+                }
+                CarList();
+            };
+
+            bool isAscFi = true;
+            FromFifteenHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscFi)
+                {
+                    AllCars = AllCars.OrderBy(x => x.OverForteen).ToList();
+                    isAscFi = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.OverForteen).ToList();
+                    isAscFi = true;
+                }
+                CarList();
+            };
+
+            bool isAscDe = true;
+            DepositeHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscDe)
+                {
+                    AllCars = AllCars.OrderBy(x => x.Deposit).ToList();
+                    isAscDe = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.Deposit).ToList();
+                    isAscDe = true;
+                }
+                CarList();
+            };
+
+            bool isAscCa = true;
+            CategoryHeaderLabel.Click += async (s, e) =>
+            {
+                AllCars = await httpRequests.ListAllCars();
+                if (isAscCa)
+                {
+                    AllCars = AllCars.OrderBy(x => x.category).ToList();
+                    isAscCa = false;
+                }
+                else
+                {
+                    AllCars = AllCars.OrderByDescending(x => x.category).ToList();
+                    isAscCa = true;
+                }
+                CarList();
+            };
+        }
 
         private void InitializeComponent()
         {
             this.CarsLabel = new System.Windows.Forms.Label();
             this.CarPictureBox = new System.Windows.Forms.PictureBox();
             this.InfoDGV = new System.Windows.Forms.DataGridView();
-            this.BrandLabel = new System.Windows.Forms.Label();
             this.DriveLabel = new System.Windows.Forms.Label();
             this.ShiftLabel = new System.Windows.Forms.Label();
             this.FuelLabel = new System.Windows.Forms.Label();
@@ -547,6 +788,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.SixToFourteenHeaderLabel = new System.Windows.Forms.Label();
             this.OneToFiveHeaderLabel = new System.Windows.Forms.Label();
             this.CancleBtn = new System.Windows.Forms.Button();
+            this.BrandLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.CarPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).BeginInit();
@@ -581,17 +823,6 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.InfoDGV.Name = "InfoDGV";
             this.InfoDGV.Size = new System.Drawing.Size(785, 212);
             this.InfoDGV.TabIndex = 3;
-            // 
-            // BrandLabel
-            // 
-            this.BrandLabel.AutoSize = true;
-            this.BrandLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.BrandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BrandLabel.Location = new System.Drawing.Point(252, 60);
-            this.BrandLabel.Name = "BrandLabel";
-            this.BrandLabel.Size = new System.Drawing.Size(54, 18);
-            this.BrandLabel.TabIndex = 4;
-            this.BrandLabel.Text = "Márka:";
             // 
             // DriveLabel
             // 
@@ -1086,6 +1317,17 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.CancleBtn.TabIndex = 59;
             this.CancleBtn.Text = "Mégse";
             this.CancleBtn.UseVisualStyleBackColor = true;
+            // 
+            // BrandLabel
+            // 
+            this.BrandLabel.AutoSize = true;
+            this.BrandLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.BrandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.BrandLabel.Location = new System.Drawing.Point(252, 60);
+            this.BrandLabel.Name = "BrandLabel";
+            this.BrandLabel.Size = new System.Drawing.Size(54, 18);
+            this.BrandLabel.TabIndex = 4;
+            this.BrandLabel.Text = "Márka:";
             // 
             // AddCar
             // 

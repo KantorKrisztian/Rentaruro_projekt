@@ -27,6 +27,13 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         public List<jsonRents> AllRents = new List<jsonRents>();
         private MonthCalendar StartEndCalendar;
         private Label InfoHeaderLabel;
+        private Label UserLabel;
+        private Label EmailLabel;
+        private Label PhoneLabel;
+        private Label NameLabel;
+        private Label BrandLabel;
+        private Label LicensePlateLabel;
+        private Button CancleBtn;
         HttpRequests httpRequests = new HttpRequests();
         public RentCar()
         {
@@ -43,7 +50,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             //Getting the list of all rents from the server
             AllRents = await httpRequests.ListAllRents();
             OrderList();
-            
+            CancleBtn.Click += (s, e) => { Clear(); };
             RentList();
         }
         //Update the rent information
@@ -71,6 +78,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 
                 AllRents = await httpRequests.UpdateRent(rent);
                 RentList();
+                Clear();
             }
             catch (Exception e)
             {
@@ -120,6 +128,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                         OtherInfoLabelTB.Text = item.other;
                         StartEndCalendar.SetDate(item.start);
                         StartEndCalendar.SetSelectionRange(item.start, item.end);
+                        LicensePlateLabel.Text ="Rendszám: " +item.licensePlate;
+                        BrandLabel.Text = "Márka: " + item.brand;
+                        NameLabel.Text = "Név: " + item.name;
+                        UserLabel.Text = "Felhasználónév: " + item.username;
+                        EmailLabel.Text = "Email: " + item.email;
+                        PhoneLabel.Text = "Telefonszám: " + item.phone;
                         UpdateRentBtn.Tag = item.id;
                     };
                 }
@@ -248,6 +262,19 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 RentList();
             };
         }
+        //Clears the labels and textboxes
+        private void Clear()
+        {
+            OtherInfoLabelTB.Text = "";
+            StartEndCalendar.SetDate(DateTime.Now);
+            LicensePlateLabel.Text = "Rendszám:";
+            BrandLabel.Text = "Márka:";
+            NameLabel.Text = "Név:";
+            UserLabel.Text = "Felhasználónév:";
+            EmailLabel.Text = "Email:";
+            PhoneLabel.Text = "Telefonszám:";
+            UpdateRentBtn.Tag = 0;
+        }
         private void InitializeComponent()
         {
             this.RentLabel = new System.Windows.Forms.Label();
@@ -266,6 +293,13 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.PhoneHeaderLabel = new System.Windows.Forms.Label();
             this.StartEndCalendar = new System.Windows.Forms.MonthCalendar();
             this.InfoHeaderLabel = new System.Windows.Forms.Label();
+            this.UserLabel = new System.Windows.Forms.Label();
+            this.EmailLabel = new System.Windows.Forms.Label();
+            this.PhoneLabel = new System.Windows.Forms.Label();
+            this.NameLabel = new System.Windows.Forms.Label();
+            this.BrandLabel = new System.Windows.Forms.Label();
+            this.LicensePlateLabel = new System.Windows.Forms.Label();
+            this.CancleBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.InfoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderDGV)).BeginInit();
             this.SuspendLayout();
@@ -309,7 +343,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.OtherInfoLabel.AutoSize = true;
             this.OtherInfoLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.OtherInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.OtherInfoLabel.Location = new System.Drawing.Point(328, 64);
+            this.OtherInfoLabel.Location = new System.Drawing.Point(198, 64);
             this.OtherInfoLabel.Name = "OtherInfoLabel";
             this.OtherInfoLabel.Size = new System.Drawing.Size(127, 18);
             this.OtherInfoLabel.TabIndex = 39;
@@ -317,10 +351,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             // 
             // OtherInfoLabelTB
             // 
-            this.OtherInfoLabelTB.Location = new System.Drawing.Point(331, 85);
+            this.OtherInfoLabelTB.Location = new System.Drawing.Point(201, 85);
             this.OtherInfoLabelTB.Multiline = true;
             this.OtherInfoLabelTB.Name = "OtherInfoLabelTB";
-            this.OtherInfoLabelTB.Size = new System.Drawing.Size(451, 71);
+            this.OtherInfoLabelTB.Size = new System.Drawing.Size(231, 71);
             this.OtherInfoLabelTB.TabIndex = 52;
             // 
             // UpdateRentBtn
@@ -428,8 +462,90 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.InfoHeaderLabel.Text = "Információ";
             this.InfoHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // UserLabel
+            // 
+            this.UserLabel.AutoSize = true;
+            this.UserLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.UserLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.UserLabel.Location = new System.Drawing.Point(458, 64);
+            this.UserLabel.Name = "UserLabel";
+            this.UserLabel.Size = new System.Drawing.Size(115, 18);
+            this.UserLabel.TabIndex = 70;
+            this.UserLabel.Text = "Felhasználónév:";
+            // 
+            // EmailLabel
+            // 
+            this.EmailLabel.AutoSize = true;
+            this.EmailLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.EmailLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.EmailLabel.Location = new System.Drawing.Point(458, 94);
+            this.EmailLabel.Name = "EmailLabel";
+            this.EmailLabel.Size = new System.Drawing.Size(49, 18);
+            this.EmailLabel.TabIndex = 71;
+            this.EmailLabel.Text = "Email:";
+            // 
+            // PhoneLabel
+            // 
+            this.PhoneLabel.AutoSize = true;
+            this.PhoneLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.PhoneLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.PhoneLabel.Location = new System.Drawing.Point(458, 124);
+            this.PhoneLabel.Name = "PhoneLabel";
+            this.PhoneLabel.Size = new System.Drawing.Size(98, 18);
+            this.PhoneLabel.TabIndex = 72;
+            this.PhoneLabel.Text = "Telefonszám:";
+            // 
+            // NameLabel
+            // 
+            this.NameLabel.AutoSize = true;
+            this.NameLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.NameLabel.Location = new System.Drawing.Point(458, 154);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(38, 18);
+            this.NameLabel.TabIndex = 73;
+            this.NameLabel.Text = "Név:";
+            // 
+            // BrandLabel
+            // 
+            this.BrandLabel.AutoSize = true;
+            this.BrandLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BrandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.BrandLabel.Location = new System.Drawing.Point(198, 189);
+            this.BrandLabel.Name = "BrandLabel";
+            this.BrandLabel.Size = new System.Drawing.Size(54, 18);
+            this.BrandLabel.TabIndex = 74;
+            this.BrandLabel.Text = "Márka:";
+            // 
+            // LicensePlateLabel
+            // 
+            this.LicensePlateLabel.AutoSize = true;
+            this.LicensePlateLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.LicensePlateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LicensePlateLabel.Location = new System.Drawing.Point(198, 161);
+            this.LicensePlateLabel.Name = "LicensePlateLabel";
+            this.LicensePlateLabel.Size = new System.Drawing.Size(84, 18);
+            this.LicensePlateLabel.TabIndex = 75;
+            this.LicensePlateLabel.Text = "Rendszám:";
+            // 
+            // CancleBtn
+            // 
+            this.CancleBtn.Location = new System.Drawing.Point(693, 175);
+            this.CancleBtn.Name = "CancleBtn";
+            this.CancleBtn.Size = new System.Drawing.Size(89, 23);
+            this.CancleBtn.TabIndex = 76;
+            this.CancleBtn.Text = "Mégse";
+            this.CancleBtn.UseVisualStyleBackColor = true;
+            // 
             // RentCar
             // 
+            this.Controls.Add(this.CancleBtn);
+            this.Controls.Add(this.LicensePlateLabel);
+            this.Controls.Add(this.BrandLabel);
+            this.Controls.Add(this.NameLabel);
+            this.Controls.Add(this.PhoneLabel);
+            this.Controls.Add(this.EmailLabel);
+            this.Controls.Add(this.UserLabel);
             this.Controls.Add(this.InfoHeaderLabel);
             this.Controls.Add(this.StartEndCalendar);
             this.Controls.Add(this.PhoneHeaderLabel);
@@ -455,6 +571,5 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 
         }
 
-        
     }
 }
