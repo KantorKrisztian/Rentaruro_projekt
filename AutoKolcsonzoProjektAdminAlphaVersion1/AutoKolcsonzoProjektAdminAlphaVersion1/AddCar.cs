@@ -179,8 +179,14 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 carss.SixToForteen = int.Parse(SixToFourteenRentalTB.Text);
                 carss.OverForteen = int.Parse(FromFifteenRentalTB.Text);
                 carss.Deposit = int.Parse(DepositTB.Text);
-                AllCars = await httpRequests.CreateCar(carss);
+                bool succes = await httpRequests.CreateCar(carss);
+                if (!succes)
+                {
+                    return;
+                }
+                AllCars = await httpRequests.ListAllCars();
                 CarList();
+                
                 Clear();
                 return;
             }
@@ -460,7 +466,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         //Checks if any of the input fields are empty
         private bool CheckIfEmpty()
         {
-            if (string.IsNullOrEmpty(LicensePlateTB.Text) || string.IsNullOrEmpty(BrandTB.Text) || string.IsNullOrEmpty(TypeTB.Text) || string.IsNullOrEmpty(YearCB.Text) || string.IsNullOrEmpty(DriveCB.Text) || string.IsNullOrEmpty(ShiftCB.Text) || string.IsNullOrEmpty(FuelCB.Text) || string.IsNullOrEmpty(CategoryCB.Text) || string.IsNullOrEmpty(OneToFiveRentalTB.Text) || string.IsNullOrEmpty(SixToFourteenRentalTB.Text) || string.IsNullOrEmpty(FromFifteenRentalTB.Text) || string.IsNullOrEmpty(DepositTB.Text))
+            if (string.IsNullOrEmpty(LicensePlateTB.Text) || string.IsNullOrEmpty(BrandTB.Text) || string.IsNullOrEmpty(TypeTB.Text) || string.IsNullOrEmpty(YearCB.Text) || string.IsNullOrEmpty(DriveCB.Text) || string.IsNullOrEmpty(ShiftCB.Text) || string.IsNullOrEmpty(FuelCB.Text) || string.IsNullOrEmpty(CategoryCB.Text) || string.IsNullOrEmpty(OneToFiveRentalTB.Text) || string.IsNullOrEmpty(SixToFourteenRentalTB.Text) || string.IsNullOrEmpty(FromFifteenRentalTB.Text) || string.IsNullOrEmpty(DepositTB.Text)||string.IsNullOrEmpty(textBox5.Text))
             {
                 return true;
             }

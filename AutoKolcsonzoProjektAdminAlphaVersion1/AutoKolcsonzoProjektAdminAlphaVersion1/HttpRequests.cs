@@ -40,7 +40,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             return Encoding.UTF8.GetString(passwordBytes);
         }
         //Creating a new car
-        public async Task<List<jsonCars>> CreateCar(jsonCars Cars)
+        public async Task<bool> CreateCar(jsonCars Cars)
         {
             try
             {
@@ -52,12 +52,21 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
                 MessageBox.Show(message);
                 response.EnsureSuccessStatusCode();
-                return await ListAllCars();
+                //Check if the response is successful
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return await ListAllCars();
+                return false;
             }
             
         }

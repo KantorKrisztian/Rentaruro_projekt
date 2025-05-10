@@ -169,6 +169,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             RegisterBtn.Text = "Regisztráció";
             Clear();
             CancleBtn.Hide();
+            UserTB.Enabled = true;
         }
         //Lists the workers in the panel
         void ListWorkers()
@@ -187,6 +188,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     inf.PhoneLabel.Text = item.phone;
                     inf.EmailLabel.Text = item.email;
                     inf.UserLabel.Text = item.username;
+
                     inf.RoleLabel.Text = item.role;
                     inf.Top = (count)*inf.Height;
                     inf.DeleteBtn.Click += async (s, e) =>
@@ -212,6 +214,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                         RoleCB.Text = item.role;
                         monthCalendar1.SetDate(item.birth);
                         RegisterBtn.TabIndex =item.id;
+                        UserTB.Enabled = false;
                         RegisterBtn.Text = "Módosítás";
                     };
                     PersonalInfosPanel.Controls.Add(inf);
@@ -236,6 +239,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             PasswordAgainTB.Text = "";
             RoleCB.Text = "";
             monthCalendar1.SetDate(DateTime.Now);
+            UserTB.Enabled = true;
         }
         //Sets the combobox for the role
         private void SetComboBox()
