@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     val grid = findViewById<GridLayout>(R.id.gridCars)
     lifecycleScope.launch {
       try {
-        val cars: List<Car> = RetrofitClient.apiService.getCars()
+        val cars: List<Car> = RetrofitClient.apiService.listCars()
         cars.forEach { car ->
           val card = LayoutInflater.from(this@MainActivity)
             .inflate(R.layout.item_car, grid, false) as LinearLayout

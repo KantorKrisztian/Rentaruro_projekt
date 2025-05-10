@@ -100,16 +100,24 @@
 
             <LinearLayout
                 android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:gravity="center">
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@android:drawable/ic_menu_compass" />
-                <TextView android:text="Benzin" />
+                <TextView
+                    android:text="Benzin"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    />
             </LinearLayout>
 
             <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginHorizontal="16dp"
                 android:gravity="center">
@@ -117,7 +125,10 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@android:drawable/ic_menu_manage" />
-                <TextView android:text="Manuális" />
+                <TextView
+                    android:text="Manuális"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
 
