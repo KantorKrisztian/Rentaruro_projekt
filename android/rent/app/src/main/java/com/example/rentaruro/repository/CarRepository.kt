@@ -1,9 +1,11 @@
 package com.example.rentaruro.repository
 
 import com.example.rentaruro.model.Car
-import com.google.firebase.appdistribution.gradle.ApiService
+import com.example.rentaruro.network.ApiService
+import com.example.rentaruro.network.RetrofitClient.apiService
 
-class CarRepository(private val apiService: com.google.firebase.appdistribution.gradle.ApiService) {
+
+class CarRepository() {
     suspend fun getCars(): List<Car> {
         return apiService.listCars()
     }
