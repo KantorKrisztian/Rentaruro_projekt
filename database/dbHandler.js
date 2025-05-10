@@ -32,31 +32,8 @@ admin.init({
     "role":{
         type: DataTypes.STRING,
         allowNull: false
-    }
-},{
-    sequelize:dbHandler, modelName:'admin'
-})
-
-exports.adminTable = admin
-
-class personalInfo extends Model {}
-
-personalInfo.init({
-    "id":{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
     },
-    "userId":{
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references:{
-            model: admin,
-            key:'id'
-        }
-    },
-    "name":{
+    "realName":{
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -73,7 +50,7 @@ personalInfo.init({
         allowNull: false
     },
     "birth":{
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false
     },
     "tax":{
@@ -81,10 +58,10 @@ personalInfo.init({
         allowNull: false
     }
 },{
-    sequelize:dbHandler, modelName:'personalInfo'
+    sequelize:dbHandler, modelName:'admin'
 })
 
-exports.personalTable = personalInfo
+
 
 class user extends Model {}
 
@@ -119,7 +96,7 @@ user.init({
     sequelize:dbHandler, modelName: 'user'
 })
 
-exports.userTable = user
+
 
 class cars extends Model {}
 
@@ -150,6 +127,10 @@ cars.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    "drive":{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     "gearShift":{
         type: DataTypes.STRING,
         allowNull: false
@@ -159,22 +140,22 @@ cars.init({
         allowNull: false
     },
     "airCondition":{
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: false
     },
     "radar":{
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: false
     },
     "cruiseControl":{
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: false
     },
     "info":{
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(3000),
         allowNull: false
     },
-    "location":{
+    "category":{
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -198,7 +179,7 @@ cars.init({
     sequelize:dbHandler, modelName: 'cars'
 })
 
-exports.carsTable = cars
+
 
 class reservation extends Model {}
 
@@ -241,13 +222,22 @@ reservation.init({
     sequelize:dbHandler, modelName: 'reservation'
 })
 
-exports.reservationTable = reservation
 
-reservation.hasOne(cars,{
-    foreignKey:'id',
-    sourceKey:'carId'
+
+
+
+
+reservation.belongsTo(cars,{
+    foreignKey:'carId',
+    targetKey:'id'
 })
-reservation.hasOne(user,{
-    foreignKey:'id',
-    sourceKey:'personId'
+
+reservation.belongsTo(user,{
+    foreignKey:'personId',
+    targetKey:'id'
 })
+
+exports.adminTable = admin
+exports.userTable = user
+exports.carsTable = cars
+exports.reservationTable = reservation

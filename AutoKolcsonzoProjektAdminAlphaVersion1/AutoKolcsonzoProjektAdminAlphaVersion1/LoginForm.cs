@@ -12,7 +12,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
 {
     public partial class LoginForm : Form
     {
-        
+        string file = "";
         public LoginForm()
         {
             InitializeComponent();
@@ -20,9 +20,18 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         }
         void Start()
         {
-            LoginBtn.Click += (object s, EventArgs e)=> formShow();
+            LoginBtn.Click += (object s, EventArgs e) => formShow();
+            LoginPassTb.PasswordChar = '*';
+
+            string filePath = this.GetType().Assembly.Location;
+            string[] filePathSplit = filePath.Split('\\');
             
-            button1.Click += register;
+            for (int i = 0; i < filePathSplit.Length - 5; i++)
+            {
+                file += filePathSplit[i] + "\\";
+            }
+            ShowPB.ImageLocation = file+"\\képek\\eye.png";
+            ShowPB.Click += showPassword;
         }
         void closeForm(object s, EventArgs e)
         {
@@ -31,7 +40,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         HttpRequests httpRequests = new HttpRequests();
         async void formShow()
         {
-            
+
             bool loginSuccess = await httpRequests.Login(LoginUserTb.Text, LoginPassTb.Text);
             if (loginSuccess)
             {
@@ -50,14 +59,20 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     Token.role = "";
                 }
             }
-
-            
-
         }
-        void register(object s, EventArgs e)
+
+        void showPassword(object s, EventArgs e)
         {
-            httpRequests.Registration(LoginUserTb.Text, LoginPassTb.Text);
+            if (LoginPassTb.PasswordChar == '*')
+            {
+                LoginPassTb.PasswordChar = '\0';
+                ShowPB.ImageLocation = file+"\\képek\\hidden.png";
+            }
+            else
+            {
+                LoginPassTb.PasswordChar = '*';
+                ShowPB.ImageLocation = file+"\\képek\\eye.png";
+            }
         }
-        
     }
 }
