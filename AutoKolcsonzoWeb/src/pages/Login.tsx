@@ -10,10 +10,13 @@ import { useState } from 'react'
 
 const Login = () => {
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = useState(false)
 
 
   const handleClose = () => {
+    navigate("/");
+  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     navigate("/");
   };
 
@@ -22,14 +25,13 @@ const Login = () => {
     loginRequest.open('post','http://127.1.1.1:3000/UserLogin')
     loginRequest.setRequestHeader('Content-Type','Application/JSON')
     loginRequest.send(JSON.stringify({
-      loginEmail: (document.getElementById('loginEmail') as HTMLInputElement).value,
+      username: (document.getElementById('loginUsername') as HTMLInputElement).value,
       loginPassword: (document.getElementById('loginPassword') as HTMLInputElement).value
     }))
     loginRequest.onreadystatechange = () => {
       if(loginRequest.readyState == 4 && loginRequest.status == 200){
         const result = JSON.parse(loginRequest.response)
         sessionStorage.setItem('token',result.token)
-        setLoggedIn((loggedIn) => true)
       }
     }
   }
@@ -50,13 +52,13 @@ const Login = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Input
                 type="text"
-                placeholder="Email cím"
+                placeholder="Felhasználó név"
                 className="w-full"
-                id="loginEmail"
+                id="loginUsername"
               />
             </div>
             <div className="space-y-2">
@@ -67,7 +69,7 @@ const Login = () => {
                 id="loginPassword"
               />
             </div>
-            <Button type="submit" className="w-full bg-amber-500 hover:bg-amber-600">
+            <Button type="submit" className="w-full bg-amber-500 hover:bg-amber-600" onClick={login}>
               Bejelentkezés
             </Button>
             <p className="text-center text-sm text-gray-600">

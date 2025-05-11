@@ -15,11 +15,55 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from 'react'
+import { useState, useEffect } from "react";
+
+
+
 
 
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+
+// Load the login state from local storage or default to false
+  const [loggedIn, setLoggedIn] = useState(() => {
+    return localStorage.getItem("loggedIn") === "true";
+  });
+
+  // Function to handle login
+  const handleLogin = async () => {
+    // Simulate successful login logic
+    const success = await mockLogin();
+
+    if (success) {
+      setLoggedIn(true);
+      localStorage.setItem("loggedIn", "true"); // Persist login state in local storage
+      console.log("User logged in successfully!");
+    } else {
+      console.error("Login failed!");
+    }
+  };
+
+  // Function to handle logout
+  const handleLogout = () => {
+    setLoggedIn(false);
+    localStorage.removeItem("loggedIn"); // Clear login state from local storage
+    console.log("User logged out!");
+  };
+
+  // Simulate login process (replace with real authentication logic)
+  const mockLogin = () => {
+    return new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+  };
+
+  // Check for token expiration or validate the session (Optional)
+  useEffect(() => {
+    const tokenCheck = () => {
+      const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+      setLoggedIn(isLoggedIn);
+    };
+
+    tokenCheck();
+  }, []);
+
 
   const scrollToFooter = () => {
     const footer = document.querySelector('footer');
@@ -34,7 +78,8 @@ const Navbar = () => {
     event.preventDefault();
     // Perform search logic or redirect with search query
     console.log("Search submitted:", searchQuery);
-  };
+  }
+
 
 
   return (

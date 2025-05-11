@@ -558,7 +558,7 @@ server.post("/UserLogin",async (req,res)=>{
     try {
         oneUser=await dbHandler.userTable.findOne({
             where:{
-                email:req.body.loginEmail,
+                username:req.body.username,
                 password:req.body.loginPassword
             }
         })
