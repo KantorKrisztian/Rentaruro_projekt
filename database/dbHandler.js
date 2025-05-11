@@ -216,7 +216,7 @@ reservation.init({
     },
     "other":{
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     }
 },{
     sequelize:dbHandler, modelName: 'reservation'

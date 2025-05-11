@@ -5,14 +5,9 @@ import com.example.rentaruro.network.ApiService
 import com.example.rentaruro.network.RetrofitClient.apiService
 
 
-class CarRepository() {
+class CarRepository(private val apiService: ApiService) {
     suspend fun getCars(): List<Car> {
         return apiService.listCars()
     }
+
 }
-
-private fun ApiService.listCars(): List<Car> {
-    TODO("Not yet implemented")
-}
-
-

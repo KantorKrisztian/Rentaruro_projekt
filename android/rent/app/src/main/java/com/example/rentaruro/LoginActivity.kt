@@ -13,40 +13,73 @@ import com.example.rentaruro.network.RetrofitClient
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var etUsername: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var btnLogin: Button
+    private lateinit var tvRegister: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
-        val etEmail    = findViewById<EditText>(R.id.et_login_email)
-        val etPassword = findViewById<EditText>(R.id.et_login_password)
-        val btnLogin   = findViewById<Button>(R.id.btn_login)
-        val tvRegister = findViewById<TextView>(R.id.tv_go_register)
+        // Initialize views
+        etUsername = findViewById(R.id.et_login_email) // Reusing the same EditText, but will change hint
+        etPassword = findViewById(R.id.et_login_password)
+        btnLogin = findViewById(R.id.btn_login)
+        tvRegister = findViewById(R.id.tv_go_register)
+
+        // Set the hint for the username field
+        etUsername.hint = "Felhasználónév"
 
         btnLogin.setOnClickListener {
-            val email = etEmail.text.toString().trim()
-            val pass  = etPassword.text.toString()
-            if (email.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Töltsd ki az összes mezőt", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            lifecycleScope.launch {
-                try {
-                    val res = RetrofitClient.apiService.login(
-                        LoginRequest(loginNev = email, loginPassword = pass)
-                    )
-                    getSharedPreferences("prefs", MODE_PRIVATE)
-                        .edit().putString("jwt", res.token).apply()
-                    Toast.makeText(this@LoginActivity, res.message, Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    finish()
-                } catch (e: Exception) {
-                    Toast.makeText(this@LoginActivity, "Hiba: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-            }
+            attemptLogin()
         }
 
         tvRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
+            navigateToRegister()
         }
+    }
+
+    private fun attemptLogin() {
+        val username = etUsername.text.toString().trim()
+        val password = etPassword.text.toString()
+
+        if (username.isEmpty() || password.isEmpty()) {
+            showToast("Töltsd ki az összes mezőt")
+            return
+        }
+
+        lifecycleScope.launch {
+            try {
+                val loginRequest = LoginRequest(loginNev = username, loginPassword = password)
+                val response = RetrofitClient.apiService.login(loginRequest)
+
+                // Store the JWT token securely
+                getSharedPreferences("prefs", MODE_PRIVATE)
+                    .edit()
+                    .putString("jwt", response.token)
+                    .apply()
+
+                showToast(response.message)
+
+                navigateToMain()
+            } catch (e: Exception) {
+                showToast("Hiba: ${e.message}")
+            }
+        }
+    }
+
+    private fun navigateToRegister() {
+        startActivity(Intent(this, RegisterActivity::class.java))
+    }
+
+    private fun navigateToMain() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish() // Prevent going back to the login screen
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -18,44 +19,24 @@ import com.example.rentaruro.network.RetrofitClient
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+  private var carsList: List<Car> = emptyList() // Store the fetched cars
+
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-    // 1) INFORMÁCIÓK lenyíló kód
-    val infoButton = findViewById<TextView>(R.id.info_button)
-    val dropdown   = findViewById<LinearLayout>(R.id.info_dropdown)
-    infoButton.setOnClickListener {
-      dropdown.visibility = if (dropdown.visibility == GridLayout.GONE)
-        GridLayout.VISIBLE else GridLayout.GONE
-    }
-
-    // 2) Profil-ikon kattintás kezelése
     val ivProfile = findViewById<ImageView>(R.id.profile_icon)
     ivProfile.setOnClickListener {
       showAuthChoiceDialog()
     }
 
-    // 3) Autók dinamikus betöltése
     val grid = findViewById<GridLayout>(R.id.gridCars)
+
     lifecycleScope.launch {
       try {
-        val cars: List<Car> = RetrofitClient.apiService.listCars()
-        cars.forEach { car ->
-          val card = LayoutInflater.from(this@MainActivity)
-            .inflate(R.layout.item_car, grid, false) as LinearLayout
-
-          card.findViewById<TextView>(R.id.tvBrand).text = "${car.brand} (${car.year})"
-          card.findViewById<TextView>(R.id.tvInfo).text  = car.info
-          card.findViewById<TextView>(R.id.tvPrice).text = "1–5 nap: ${car.oneToFive} Ft/nap"
-
-          card.setOnClickListener {
-            val intent = Intent(this@MainActivity, CarDetailActivity::class.java)
-            intent.putExtra("carName", car.brand)
-            startActivity(intent)
-          }
-          grid.addView(card)
-        }
+        carsList = RetrofitClient.apiService.listCars() // Fetch and store the car list
+        displayCars(grid, carsList) // Display all cars initially
       } catch (e: Exception) {
         Toast.makeText(
           this@MainActivity,
@@ -66,21 +47,58 @@ class MainActivity : AppCompatActivity() {
     }
   }
 
-  // 4) A felugró választó dialog
+  private fun displayCars(grid: GridLayout, cars: List<Car>) {
+    grid.removeAllViews() // Clear previous views
+    cars.forEach { car ->
+      val card = LayoutInflater.from(this@MainActivity)
+        .inflate(R.layout.item_car, grid, false) as LinearLayout
+
+      card.findViewById<TextView>(R.id.tvBrand).text = car.brand
+      card.findViewById<TextView>(R.id.tvType).text = " (${car.type})"
+      card.findViewById<TextView>(R.id.tvInfo).text = car.info
+      card.findViewById<TextView>(R.id.licensePlate).text = car.licensePlate ?: "Nincs rendszám"
+
+      card.setOnClickListener { clickedCard ->
+        val clickedLicensePlateTextView = clickedCard.findViewById<TextView>(R.id.licensePlate)
+        val clickedLicensePlate = clickedLicensePlateTextView.text.toString()
+
+        // Find the car in the list with the matching license plate
+        val selectedCar = carsList.find { it.licensePlate?.equals(clickedLicensePlate, ignoreCase = true) == true }
+
+        selectedCar?.let {
+          val intent = Intent(this@MainActivity, CarDetailActivity::class.java)
+          intent.putExtra("carId", it.id)
+          intent.putExtra("carName", "${it.brand} ${it.type}") // pass name
+          intent.putExtra("fuel", it.fuel)
+          intent.putExtra("gearShift", it.gearShift)
+          intent.putExtra("airCondition", it.airCondition)
+          intent.putExtra("price_1_5", it.OneToFive)
+          intent.putExtra("price_6_14", it.SixToForteen)
+          intent.putExtra("price_15_plus", it.OverForteen)
+          intent.putExtra("deposit", it.Deposit)
+          intent.putExtra("picture", it.picture)
+          startActivity(intent)
+        } ?: run {
+          Toast.makeText(this@MainActivity, "Hiba: Az autó nem található a listában!", Toast.LENGTH_SHORT).show()
+          Log.e("MainActivity", "Could not find car with license plate: $clickedLicensePlate")
+        }
+      }
+      grid.addView(card)
+    }
+  }
+
   private fun showAuthChoiceDialog() {
     val dialogView = layoutInflater.inflate(R.layout.dialog_auth_choice, null)
     val dialog = AlertDialog.Builder(this)
       .setView(dialogView)
       .create()
 
-    // Bejelentkezés gomb
     dialogView.findViewById<Button>(R.id.btnDialogLogin)
       .setOnClickListener {
         Log.d("MainActivity", "Bejelentkezés gomb megnyomva")
         startActivity(Intent(this, LoginActivity::class.java))
         dialog.dismiss()
       }
-    // Regisztráció gomb
     dialogView.findViewById<Button>(R.id.btnDialogRegister)
       .setOnClickListener {
         Log.d("MainActivity", "Regisztráció gomb megnyomva")

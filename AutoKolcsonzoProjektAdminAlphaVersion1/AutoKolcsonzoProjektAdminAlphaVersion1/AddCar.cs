@@ -975,11 +975,11 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.OtherInfoLabel.AutoSize = true;
             this.OtherInfoLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.OtherInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.OtherInfoLabel.Location = new System.Drawing.Point(383, 179);
+            this.OtherInfoLabel.Location = new System.Drawing.Point(383, 177);
             this.OtherInfoLabel.Name = "OtherInfoLabel";
-            this.OtherInfoLabel.Size = new System.Drawing.Size(135, 18);
+            this.OtherInfoLabel.Size = new System.Drawing.Size(127, 18);
             this.OtherInfoLabel.TabIndex = 17;
-            this.OtherInfoLabel.Text = "Egyébb információ:";
+            this.OtherInfoLabel.Text = "Egyéb információ:";
             // 
             // BrandTB
             // 

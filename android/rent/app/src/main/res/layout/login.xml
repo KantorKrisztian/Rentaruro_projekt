@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Fejléc -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,24 +20,18 @@
             android:layout_gravity="center_horizontal"
             android:paddingBottom="24dp"/>
 
-        <!-- E-mail -->
         <EditText
             android:id="@+id/et_login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail cím"
-            android:inputType="textEmailAddress"/>
+            android:hint="Felhasználónév" android:inputType="text"/> <EditText
+        android:id="@+id/et_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Jelszó"
+        android:inputType="textPassword"
+        android:layout_marginTop="16dp"/>
 
-        <!-- Jelszó -->
-        <EditText
-            android:id="@+id/et_login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Jelszó"
-            android:inputType="textPassword"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Bejelentkezés gomb -->
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
@@ -48,7 +41,6 @@
             android:textColor="#FFFFFF"
             android:layout_marginTop="24dp"/>
 
-        <!-- Átirányítás regisztrációra -->
         <TextView
             android:id="@+id/tv_go_register"
             android:layout_width="wrap_content"

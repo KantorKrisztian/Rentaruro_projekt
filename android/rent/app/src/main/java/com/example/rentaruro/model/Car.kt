@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class Car(
     val id: Int,
-    val licensePlate: String?,
     val picture: String,
+    val licensePlate: String?,
     val brand: String,
-    @SerializedName("type") val model: String,
+    val type: String,
     val year: Int,
     val drive: String,
     val gearShift: String,
@@ -17,8 +17,8 @@ data class Car(
     val cruiseControl: Boolean,
     val info: String,
     val category: String,
-    @SerializedName("OneToFive") val oneToFive: Int,
-    @SerializedName("SixToForteen") val sixToForteen: Int,
-    @SerializedName("OverForteen") val overForteen: Int,
+    val OneToFive: Int,
+    val SixToForteen: Int,
+    val OverForteen: Int,
     val Deposit: Int
 )

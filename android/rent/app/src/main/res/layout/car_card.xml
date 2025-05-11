@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Vissza gomb -->
         <ImageView
             android:id="@+id/back_button"
             android:layout_width="24dp"
@@ -20,7 +19,6 @@
             android:contentDescription="Vissza"
             android:layout_marginBottom="8dp" />
 
-        <!-- Cím -->
         <TextView
             android:id="@+id/detail_title"
             android:layout_width="wrap_content"
@@ -30,16 +28,14 @@
             android:textStyle="bold"
             android:layout_marginBottom="12dp" />
 
-        <!-- Nagy kép -->
         <ImageView
+            android:id="@+id/big_car_image"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:src="@android:drawable/ic_menu_gallery"
             android:scaleType="centerCrop"
             android:background="#CCCCCC"
             android:layout_marginBottom="12dp" />
 
-        <!-- Bérleti díjak táblázat -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,37 +56,22 @@
             </TableRow>
             <TableRow>
                 <TextView android:text="1–5" android:padding="4dp" />
-                <TextView android:text="10 500 Ft/nap" android:padding="4dp" />
+                <TextView android:id="@+id/price_1_5" android:text="10 500 Ft/nap" android:padding="4dp" />
             </TableRow>
             <TableRow>
                 <TextView android:text="6–14" android:padding="4dp" />
-                <TextView android:text="10 500 Ft/nap" android:padding="4dp" />
+                <TextView android:id="@+id/price_6_14" android:text="10 500 Ft/nap" android:padding="4dp" />
             </TableRow>
             <TableRow>
                 <TextView android:text="15+" android:padding="4dp" />
-                <TextView android:text="9 000 Ft/nap" android:padding="4dp" />
-            </TableRow>
-            <TableRow>
-                <TextView android:text="1 hónap" android:padding="4dp" />
-                <TextView android:text="225 000 Ft/hó" android:padding="4dp" />
+                <TextView android:id="@+id/price_15_plus" android:text="9 000 Ft/nap" android:padding="4dp" />
             </TableRow>
             <TableRow>
                 <TextView android:text="Kaució" android:padding="4dp" />
-                <TextView android:text="50 000 Ft" android:padding="4dp" />
+                <TextView android:id="@+id/deposit_amount" android:text="50 000 Ft" android:padding="4dp" />
             </TableRow>
         </TableLayout>
 
-        <!-- Gépjármű adatok gomb -->
-        <Button
-            android:id="@+id/btn_vehicle_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gépjármű adatok"
-            android:backgroundTint="#42A5F5"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Ikonos adatok -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -105,10 +86,12 @@
                 android:layout_marginHorizontal="16dp"
                 android:gravity="center">
                 <ImageView
+                    android:id="@+id/fuel_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@android:drawable/ic_menu_compass" />
+                    android:src="@drawable/fuel" />
                 <TextView
+                    android:id="@+id/fuel_type"
                     android:text="Benzin"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
@@ -122,27 +105,37 @@
                 android:layout_marginHorizontal="16dp"
                 android:gravity="center">
                 <ImageView
+                    android:id="@+id/gearshift_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@android:drawable/ic_menu_manage" />
+                    android:src="@drawable/gearshift" />
                 <TextView
+                    android:id="@+id/gearshift_type"
                     android:text="Manuális"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/aircond_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/aircond" />
+                <TextView
+                    android:id="@+id/aircond_status"
+                    android:text="Légkondi"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Foglalás gomb -->
-        <Button
-            android:id="@+id/btn_book_car"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gépjármű foglalása"
-            android:backgroundTint="#F9A825"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="24dp" />
 
-        <!-- Lábléc -->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -160,6 +153,4 @@
             android:textStyle="bold"
             android:padding="8dp"/>
     </LinearLayout>
-
-
 </ScrollView>

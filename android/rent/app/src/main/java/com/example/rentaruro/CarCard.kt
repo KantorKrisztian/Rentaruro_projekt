@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.io.File
+import com.bumptech.glide.Glide
 
 class CarDetailActivity : AppCompatActivity() {
 
@@ -26,7 +28,32 @@ class CarDetailActivity : AppCompatActivity() {
 
         // Cím beállítása intentből
         val carName = intent.getStringExtra("carName") ?: "Autó neve"
-        findViewById<TextView>(R.id.detail_title).text = carName
+        findViewById<TextView>(R.id.detail_title).text =
+            intent.getStringExtra("carName") ?: "Autó neve"
+
+        findViewById<TextView>(R.id.fuel_type).text =
+            intent.getStringExtra("fuel") ?: "N/A"
+
+        findViewById<TextView>(R.id.gearshift_type).text =
+            intent.getStringExtra("gearShift") ?: "N/A"
+
+        findViewById<TextView>(R.id.aircond_status).text =
+            if (intent.getBooleanExtra("airCondition", false)) "Légkondi" else "Nincs légkondi"
+
+        findViewById<TextView>(R.id.price_1_5).text =
+            "${intent.getIntExtra("price_1_5", 0)} Ft/nap"
+
+        findViewById<TextView>(R.id.price_6_14).text =
+            "${intent.getIntExtra("price_6_14", 0)} Ft/nap"
+
+        findViewById<TextView>(R.id.price_15_plus).text =
+            "${intent.getIntExtra("price_15_plus", 0)} Ft/nap"
+
+        findViewById<TextView>(R.id.deposit_amount).text =
+            "${intent.getIntExtra("deposit", 0)} Ft"
+
+        val imageUrl = intent.getStringExtra("picture")
+        val carImage = findViewById<ImageView>(R.id.big_car_image)
 
         // Foglalás gomb
         findViewById<Button>(R.id.btn_book_car).setOnClickListener {

@@ -19,6 +19,8 @@ class RegisterActivity : AppCompatActivity() {
 
         val etName     = findViewById<EditText>(R.id.et_reg_name)
         val etEmail    = findViewById<EditText>(R.id.et_reg_email)
+        val etPhone     = findViewById<EditText>(R.id.et_reg_phone)
+        val etUsername     = findViewById<EditText>(R.id.et_reg_username)
         val etPass     = findViewById<EditText>(R.id.et_reg_password)
         val etPassConf = findViewById<EditText>(R.id.et_reg_password_confirm)
         val btnReg     = findViewById<Button>(R.id.btn_register)
@@ -26,10 +28,12 @@ class RegisterActivity : AppCompatActivity() {
 
         btnReg.setOnClickListener {
             val name  = etName.text.toString().trim()
+            val username  = etUsername.text.toString().trim()
+            val phone=etPhone.text.toString().trim()
             val email = etEmail.text.toString().trim()
             val pass  = etPass.text.toString()
             val pass2 = etPassConf.text.toString()
-            if (name.isEmpty() || email.isEmpty() || pass.isEmpty() || pass2.isEmpty()) {
+            if (name.isEmpty() || email.isEmpty() || pass.isEmpty() || pass2.isEmpty()||username.isEmpty()||phone.isEmpty()) {
                 Toast.makeText(this, "Töltsd ki az összes mezőt", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -41,14 +45,11 @@ class RegisterActivity : AppCompatActivity() {
                 try {
                     val res = RetrofitClient.apiService.register(
                         RegisterRequest(
-                            username = email,
-                            password = pass,
-                            realName = name,
-                            address  = "",
-                            email    = email,
-                            phone    = "",
-                            birth    = "",
-                            tax      = ""
+                            registerNev = name,
+                            registerPassword = pass,
+                            registerName = username, // Assuming 'name' from the input maps to 'registerName' on the server
+                            registerEmail = email,
+                            registerPhone = phone
                         )
                     )
                     Toast.makeText(this@RegisterActivity, res.message, Toast.LENGTH_SHORT).show()

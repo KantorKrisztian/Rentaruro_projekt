@@ -8,14 +8,15 @@ import com.example.rentaruro.model.RegisterResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("ListCars")
     suspend fun listCars(): List<Car>
 
-    @POST("Login")
+    @POST("UserLogin")
     suspend fun login(@Body req: LoginRequest): LoginResponse
 
-    @POST("Registration")
+    @POST("UserRegistration")
     suspend fun register(@Body req: RegisterRequest): RegisterResponse
 }

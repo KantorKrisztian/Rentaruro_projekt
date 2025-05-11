@@ -436,7 +436,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.EmailHeaderLabel.Name = "EmailHeaderLabel";
             this.EmailHeaderLabel.Size = new System.Drawing.Size(90, 15);
             this.EmailHeaderLabel.TabIndex = 65;
-            this.EmailHeaderLabel.Text = "Email";
+            this.EmailHeaderLabel.Text = "E-mail";
             this.EmailHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PhoneHeaderLabel
@@ -486,9 +486,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             this.EmailLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.EmailLabel.Location = new System.Drawing.Point(458, 94);
             this.EmailLabel.Name = "EmailLabel";
-            this.EmailLabel.Size = new System.Drawing.Size(49, 18);
+            this.EmailLabel.Size = new System.Drawing.Size(54, 18);
             this.EmailLabel.TabIndex = 71;
-            this.EmailLabel.Text = "Email:";
+            this.EmailLabel.Text = "E-mail:";
             // 
             // PhoneLabel
             // 

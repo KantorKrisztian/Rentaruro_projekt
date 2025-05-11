@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Fejléc -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,15 +20,21 @@
             android:layout_gravity="center_horizontal"
             android:paddingBottom="24dp"/>
 
-        <!-- Név -->
+        <EditText
+            android:id="@+id/et_reg_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Felhasználónév"
+            android:inputType="text"/>
+
         <EditText
             android:id="@+id/et_reg_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Teljes név"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName"
+            android:layout_marginTop="16dp"/>
 
-        <!-- E-mail -->
         <EditText
             android:id="@+id/et_reg_email"
             android:layout_width="match_parent"
@@ -38,7 +43,14 @@
             android:inputType="textEmailAddress"
             android:layout_marginTop="16dp"/>
 
-        <!-- Jelszó -->
+        <EditText
+            android:id="@+id/et_reg_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Telefonszám"
+            android:inputType="text"
+            android:layout_marginTop="16dp"/>
+
         <EditText
             android:id="@+id/et_reg_password"
             android:layout_width="match_parent"
@@ -47,7 +59,6 @@
             android:inputType="textPassword"
             android:layout_marginTop="16dp"/>
 
-        <!-- Jelszó újra -->
         <EditText
             android:id="@+id/et_reg_password_confirm"
             android:layout_width="match_parent"
@@ -56,7 +67,6 @@
             android:inputType="textPassword"
             android:layout_marginTop="16dp"/>
 
-        <!-- Regisztráció gomb -->
         <Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
@@ -66,7 +76,6 @@
             android:textColor="#FFFFFF"
             android:layout_marginTop="24dp"/>
 
-        <!-- Átirányítás bejelentkezésre -->
         <TextView
             android:id="@+id/tv_go_login"
             android:layout_width="wrap_content"
