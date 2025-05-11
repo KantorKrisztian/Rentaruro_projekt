@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace AutoKolcsonzoProjektAdminAlphaVersion1
 {
@@ -75,8 +76,13 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                         rent.carId =item.carId;
                     }
                 }
-                
-                AllRents = await httpRequests.UpdateRent(rent);
+
+                bool succes = await httpRequests.UpdateRent(rent);
+                if (!succes)
+                {
+                    return;
+                }
+                AllRents = await httpRequests.ListAllRents();
                 RentList();
                 Clear();
             }

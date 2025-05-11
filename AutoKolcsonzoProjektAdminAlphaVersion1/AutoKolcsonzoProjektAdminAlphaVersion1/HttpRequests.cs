@@ -89,7 +89,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             
         }
         //Updating a cars information based on it's id
-        public async Task<List<jsonCars>> UpdateCar(jsonCars Cars)
+        public async Task<bool> UpdateCar(jsonCars Cars)
         {
             try
             {
@@ -100,12 +100,19 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 string stringResult = await response.Content.ReadAsStringAsync();
                 string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
                 MessageBox.Show(message);
-                return await ListAllCars();
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return await ListAllCars();
+                return false;
             }
         }
         //Deleting a car based on it's id
@@ -145,7 +152,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
         }
         //Updating a rent based on it's id
-        public async Task<List<jsonRents>> UpdateRent(jsonRents rents)
+        public async Task<bool> UpdateRent(jsonRents rents)
         {
             try
             {
@@ -169,12 +176,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                         if ((item.start.DayOfYear <= rents.start.DayOfYear && item.end.DayOfYear >= rents.start.DayOfYear) || (item.start.DayOfYear <= rents.end.DayOfYear && item.end.DayOfYear >= rents.end.DayOfYear))
                         {
                             MessageBox.Show("Ez az autó már foglalt ebben az időpontban!");
-                            return await ListAllRents();
+                            return false;
                         }
                         if (item.start.DayOfYear >= rents.start.DayOfYear && item.end.DayOfYear <= rents.end.DayOfYear)
                         {
                             MessageBox.Show("Ez az autó már foglalt ebben az időpontban!");
-                            return await ListAllRents();
+                            return false;
                         }
                     }
                 }
@@ -184,12 +191,19 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 string stringResult = await response.Content.ReadAsStringAsync();
                 string message = JsonConvert.DeserializeObject<jsonResponesData>(stringResult).message;
                 MessageBox.Show(message);
-                return await ListAllRents();
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return await ListAllRents();
+                return false;
             }
         }
         //Deleting a rent based on it's id

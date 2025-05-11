@@ -134,7 +134,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                 carss.SixToForteen = int.Parse(SixToFourteenRentalTB.Text);
                 carss.OverForteen = int.Parse(FromFifteenRentalTB.Text);
                 carss.Deposit = int.Parse(DepositTB.Text);
-                AllCars = await httpRequests.UpdateCar(carss);
+                bool succes = await httpRequests.UpdateCar(carss);
+                if (!succes)
+                {
+                    return;
+                }
+                AllCars = await httpRequests.ListAllCars();
                 CarList();
                 AddCarBtn.Text = "Hozzáadás";
                 Clear();

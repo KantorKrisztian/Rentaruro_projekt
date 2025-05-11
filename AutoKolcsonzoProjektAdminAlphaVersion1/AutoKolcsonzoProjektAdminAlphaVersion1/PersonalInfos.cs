@@ -184,7 +184,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     inf.RealNameLabel.Text = item.realName;
                     inf.AdressLabel.Text = item.address;
                     inf.TaxLabel.Text = item.tax;
-                    inf.BirthLabel.Text = item.birth.ToString();
+                    inf.BirthLabel.Text = item.birth.ToShortDateString();
                     inf.PhoneLabel.Text = item.phone;
                     inf.EmailLabel.Text = item.email;
                     inf.UserLabel.Text = item.username;
