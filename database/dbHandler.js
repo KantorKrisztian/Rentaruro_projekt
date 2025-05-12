@@ -16,10 +16,10 @@ class admin extends Model {}
 
 admin.init({
     "id":{
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
+        allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+        defaultValue: DataTypes.UUIDV4
     },
     "username":{
         type: DataTypes.STRING,
@@ -67,10 +67,10 @@ class user extends Model {}
 
 user.init({
     "id":{
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
+        allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+        defaultValue: DataTypes.UUIDV4
     },
     "username":{
         type: DataTypes.STRING,
@@ -102,10 +102,10 @@ class cars extends Model {}
 
 cars.init({
     "id":{
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
+        allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+        defaultValue: DataTypes.UUIDV4
     },
     "licensePlate":{
         type: DataTypes.STRING,
@@ -185,10 +185,10 @@ class reservation extends Model {}
 
 reservation.init({
     "id":{
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
+        allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+        defaultValue: DataTypes.UUIDV4
     },
     "carId":{
         type:DataTypes.INTEGER,

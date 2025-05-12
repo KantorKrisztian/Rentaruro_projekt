@@ -25,6 +25,20 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
+    val fuelLayout = findViewById<LinearLayout>(R.id.fuel_layout)
+    val gearshiftLayout = findViewById<LinearLayout>(R.id.gearshift_layout)
+    val aircondLayout = findViewById<LinearLayout>(R.id.aircond_status)
+
+    val fuelText = findViewById<TextView>(R.id.fuel_type)
+    val gearshiftText = findViewById<TextView>(R.id.gearshift_type)
+
+
+    if (car.airCondition) {
+      aircondLayout.visibility = View.VISIBLE
+    } else {
+      aircondLayout.visibility = View.GONE
+    }
+  }
 
     val ivProfile = findViewById<ImageView>(R.id.profile_icon)
     ivProfile.setOnClickListener {
