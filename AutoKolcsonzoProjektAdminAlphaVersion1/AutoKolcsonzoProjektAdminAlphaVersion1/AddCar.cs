@@ -288,7 +288,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     {
                         LicensePlateTB.Enabled = false;
                         
-                        CarPictureBox.ImageLocation = item.picture;
+                        CarPictureBox.ImageLocation = "http://127.1.1.1:3000/kepek/" + item.picture;
                         LicensePlateTB.Text = item.licensePlate;
                         BrandTB.Text = item.brand;
                         TypeTB.Text = item.type;
@@ -475,7 +475,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
         private string pictureSend(string file)
         {
             string[] strings = file.Split('\\');
-            string picture = "http://127.1.1.1:3000/kepek/"+ strings[strings.Length-1];
+            string picture =strings[strings.Length-1];
             return picture;
         }
         //Orders the list of cars by the selected column
