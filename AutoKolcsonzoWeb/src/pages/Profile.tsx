@@ -27,13 +27,6 @@ const Profile = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="grid gap-4">
-              <div className="flex items-center gap-4">
-                <Avatar className="h-24 w-24">
-                  <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <Button variant="outline">Profilkép módosítása</Button>
-              </div>
               
               <div className="grid gap-4">
                 <div className="grid gap-2">
@@ -43,7 +36,7 @@ const Profile = () => {
                 
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email cím</Label>
-                  <Input id="email" type="email" placeholder="email@example.com" />
+                  <p id="email"  className="block w-full" ></p>
                 </div>
                 
                 <div className="grid gap-2">

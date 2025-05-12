@@ -41,7 +41,6 @@ function App() {
     }
   }
 
-  // Trigger loading when the component is mounted
   useEffect(() => {
     loadCars();
   }, []);
@@ -51,23 +50,19 @@ function App() {
 
 export default App;
 
-// Car service functions
-// Extracted constant for delay configuration
 const DEFAULT_DELAY = 300;
 
-// Renamed for better clarity and added explicit generic type
 const simulateDelay = <T>(data: T, delay: number = DEFAULT_DELAY): Promise<T> => {
   return new Promise((resolve) => setTimeout(() => resolve(data), delay));
 };
 
 
 
-// Refactored main functions with extracted constant and reusable logic
 export const getAllCars = (): Promise<Car[]> => simulateDelay([]);
 
 export const getCarById = (id: number): Promise<Car | undefined> => {
   return new Promise((resolve) => {
-    // Simulate network delay
+
     setTimeout(() => {
       const car = getAllCars().then((cars) => cars.find((car) => car.id === id));
       resolve(car);

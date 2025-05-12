@@ -19,7 +19,6 @@ interface Rental {
   carName: string;
   startDate: string;
   endDate: string;
-  status: string;
   price: string;
 }
 
@@ -30,7 +29,6 @@ const mockRentals: Rental[] = [
     carName: "Volkswagen Golf",
     startDate: "2024-04-20",
     endDate: "2024-04-25",
-    status: "Aktív",
     price: "75000 Ft",
   },
   {
@@ -38,7 +36,6 @@ const mockRentals: Rental[] = [
     carName: "Toyota Corolla",
     startDate: "2024-05-01",
     endDate: "2024-05-03",
-    status: "Függőben",
     price: "45000 Ft",
   },
 ];
@@ -56,28 +53,6 @@ const MyRentals = () => {
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-900">Bérléseim</h1>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Aktív bérlések</CardTitle>
-                <Package className="h-4 w-4 text-amber-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">1</div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Következő bérlés</CardTitle>
-                <Calendar className="h-4 w-4 text-amber-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">2024.05.01</div>
-              </CardContent>
-            </Card>
           </div>
 
           <Card>
@@ -101,7 +76,6 @@ const MyRentals = () => {
                       <TableCell className="font-medium">{rental.carName}</TableCell>
                       <TableCell>{rental.startDate}</TableCell>
                       <TableCell>{rental.endDate}</TableCell>
-                      <TableCell>{rental.status}</TableCell>
                       <TableCell className="text-right">{rental.price}</TableCell>
                     </TableRow>
                   ))}
