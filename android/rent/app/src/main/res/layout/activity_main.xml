@@ -10,7 +10,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Fejléc -->
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Navigációs sáv -->
+        <!-- Navigation -->
         <LinearLayout
             android:id="@+id/navigation_bar"
             android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                 />
         </LinearLayout>
 
-        <!-- Autó kártyák -->
+        <!-- Car cards -->
         <GridLayout
     android:id="@+id/gridCars"
             android:layout_width="match_parent"
@@ -80,7 +80,7 @@
 
         </GridLayout>
 
-        <!-- Lábléc -->
+        <!-- Footer -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
