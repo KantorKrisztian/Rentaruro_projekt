@@ -67,5 +67,12 @@
             android:gravity="top"
             android:layout_marginTop="8dp"/>
 
+        <Button
+            android:id="@+id/btn_book_car"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Foglalás"
+            android:backgroundTint="#F9A825"/>
+
     </LinearLayout>
 </ScrollView>

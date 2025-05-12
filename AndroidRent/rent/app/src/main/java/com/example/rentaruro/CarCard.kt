@@ -4,15 +4,11 @@ package com.example.rentaruro
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import java.io.File
-import com.bumptech.glide.Glide
 
 class CarDetailActivity : AppCompatActivity() {
 
@@ -70,7 +66,7 @@ class CarDetailActivity : AppCompatActivity() {
     private fun showBookingDialog() {
         // Load layout
         val dialogView = LayoutInflater.from(this)
-            .inflate(R.layout.foglalas, null)
+            .inflate(R.layout.rent, null)
 
         // EditTexts get content
         val etName      = dialogView.findViewById<EditText>(R.id.et_name)
@@ -80,7 +76,6 @@ class CarDetailActivity : AppCompatActivity() {
         val etEndDate   = dialogView.findViewById<EditText>(R.id.et_end_date)
         val etNotes     = dialogView.findViewById<EditText>(R.id.et_notes)
 
-        // AlertDialog
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .setPositiveButton("Küldés") { dlg, _ ->

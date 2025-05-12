@@ -24,12 +24,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.login)
 
         // Initialize views
-        etUsername = findViewById(R.id.et_login_email) // Reusing the same EditText, but will change hint
+        etUsername = findViewById(R.id.et_login_email)
         etPassword = findViewById(R.id.et_login_password)
         btnLogin = findViewById(R.id.btn_login)
         tvRegister = findViewById(R.id.tv_go_register)
 
-        // Set the hint for the username field
         etUsername.hint = "Felhasználónév"
 
         btnLogin.setOnClickListener {
@@ -55,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                 val loginRequest = LoginRequest(loginNev = username, loginPassword = password)
                 val response = RetrofitClient.apiService.login(loginRequest)
 
-                // Store the JWT token securely
+                // Store the JWT token
                 getSharedPreferences("prefs", MODE_PRIVATE)
                     .edit()
                     .putString("jwt", response.token)
@@ -76,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateToMain() {
         startActivity(Intent(this, MainActivity::class.java))
-        finish() // Prevent going back to the login screen
+        finish()
     }
 
     private fun showToast(message: String) {

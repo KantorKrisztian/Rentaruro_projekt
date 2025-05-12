@@ -47,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
                         RegisterRequest(
                             registerNev = name,
                             registerPassword = pass,
-                            registerName = username, // Assuming 'name' from the input maps to 'registerName' on the server
+                            registerName = username,
                             registerEmail = email,
                             registerPhone = phone
                         )
