@@ -8,7 +8,6 @@ import { X } from "lucide-react";
 import { useState } from 'react'
 
 const Registration = () => {
-  const [loggedIn, setLoggedIn] = useState(false)
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -17,7 +16,6 @@ const Registration = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Registration logic will be handled later with Supabase
     navigate("/");
   };
     function registration(){
@@ -35,7 +33,6 @@ const Registration = () => {
         if(registrationRequest.readyState == 4 && registrationRequest.status == 200){
           const result = JSON.parse(registrationRequest.response)
           sessionStorage.setItem('token',result.token)
-          setLoggedIn((loggedIn) => true)
         }
       }
     }

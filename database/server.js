@@ -1,10 +1,12 @@
 const express = require('express')
 const server = express()
+const cors=require('cors')
 require('dotenv').config()
 
 server.use(express.json())
 server.use(express.static('public'))
-server.use(express.static('kepek'))
+server.use('/kepek',express.static('kepek'))
+server.use(cors())
 const PORT = process.env.PORT
 
 const JWT = require('jsonwebtoken')
@@ -14,6 +16,7 @@ const SUPERSECRET = process.env.SECRETKEY
 
 
 const dbHandler = require('./dbHandler')
+const {json} = require("express");
 async function database(){
     await dbHandler.adminTable.sync({alter:true})
     await dbHandler.carsTable.sync({alter:true})
@@ -196,6 +199,22 @@ server.get("/ListCars",async (req,res)=>{
     res.json(cars).end()
 })
 
+server.get('/ListCar/:id', async(req,res) => {
+    const car = await dbHandler.carsTable.findOne({
+        where:{
+            ID: req.params.id
+        }
+    })
+    if(!car){
+        res.status(404).json({'message':'Nincs ilyen autó'}).end()
+        return
+    }
+    await dbHandler.carsTable.findOne({
+
+    })
+    res.json(car).end()
+})
+
 server.delete('/DeleteCar/:id',auth(),async (req,res)=>{
     let oneCar
     try {
@@ -357,7 +376,7 @@ server.post("/AdminRegistration",auth(),async (req,res)=>{
         })
     } catch (error) {
         res.status(400)
-        res.json({'message':"error"})
+        res.json({'message':error})
         res.end()
         return
     }
@@ -520,18 +539,17 @@ server.post("/UserRegistration",async (req,res)=>{
     try {
         oneUser=await dbHandler.userTable.findOne({
             where:{
+                username:req.body.registerNev,
                 email:req.body.registerEmail
             }
         })
     } catch (error) {
-        res.json({'message':error})
-        res.end()
+        res.status(400).json({'message':error}).end()
         return
     }
     if (oneUser) {
-        res.status(403)
-        res.json({'message':'Ezzel az email címmel már regisztráltak'})
-        res.end()
+        res.status(409)
+        res.json({'message':'Ezzel az email címmel vagy felhasználó névvel már regisztráltak'}).end()
         return
     }
     try {
@@ -543,8 +561,7 @@ server.post("/UserRegistration",async (req,res)=>{
             name:req.body.registerName
         })
     } catch (error) {
-        res.json({'message':error})
-        res.end()
+        res.status(400).json({'message':error}).end()
         return
     }
 
@@ -558,14 +575,12 @@ server.post("/UserLogin",async (req,res)=>{
     try {
         oneUser=await dbHandler.userTable.findOne({
             where:{
-                email:req.body.loginEmail,
+                username:req.body.loginNev,
                 password:req.body.loginPassword
             }
         })
     } catch (error) {
-        res.json({'message':error})
-        res.status(400)
-        res.end()
+        res.status(400).json({'message':error}).end()
         return
     }
 
@@ -577,8 +592,7 @@ server.post("/UserLogin",async (req,res)=>{
             
             return
         } catch (error) {
-            res.json({'message':error})
-            res.end()
+            res.status(400).json({'message':error}).end()
             return
         }
     }
@@ -587,6 +601,23 @@ server.post("/UserLogin",async (req,res)=>{
     res.json({"message":"Hibás felhasználónév, vagy jelszó"})
     res.end()
 })
+
+server.get('/User', async(req,res) => {
+    const user = await dbHandler.userTable.findOne({
+        where:{
+            id: req.params.id
+        }
+    })
+    if(!user){
+        res.status(404).json({'message':'Nincs ilyen felhasználó'}).end()
+        return
+    }
+    await dbHandler.userTable.findOne({
+
+    })
+    res.json(user).end()
+})
+
 
 function encodePassword(password) {
     const buffer = Buffer.from(password, 'utf-8');

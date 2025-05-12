@@ -39,5 +39,4 @@ const CarCard = ({ id, name, price, imageUrl }: CarCardProps) => {
     </div>
   );
 };
-
 export default CarCard;

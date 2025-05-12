@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import CarDetails from "./pages/CarDetails";
 import NotFound from "./pages/NotFound";
 import MyRentals from "./pages/MyRentals";
-import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 
@@ -24,7 +23,6 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/car/:id" element={<CarDetails />} />
           <Route path="/my-rentals" element={<MyRentals />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="*" element={<NotFound />} />

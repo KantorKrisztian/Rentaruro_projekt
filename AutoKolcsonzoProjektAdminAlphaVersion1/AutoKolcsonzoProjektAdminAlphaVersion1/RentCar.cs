@@ -138,7 +138,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                         BrandLabel.Text = "Márka: " + item.brand;
                         NameLabel.Text = "Név: " + item.name;
                         UserLabel.Text = "Felhasználónév: " + item.username;
-                        EmailLabel.Text = "Email: " + item.email;
+                        EmailLabel.Text = "E-mail: " + item.email;
                         PhoneLabel.Text = "Telefonszám: " + item.phone;
                         UpdateRentBtn.Tag = item.id;
                     };

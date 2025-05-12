@@ -87,15 +87,9 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             PasswordAgainTB.PasswordChar = '*';
 
             //Sets the image location for the show password buttons
-            string filePath = this.GetType().Assembly.Location;
-            string[] filePathSplit = filePath.Split('\\');
             
-            for (int i = 0; i < filePathSplit.Length - 5; i++)
-            {
-                file += filePathSplit[i] + "\\";
-            }
-            ShowPassPB.ImageLocation = file + "képek\\eye.png";
-            ShowPassAgainPB.ImageLocation = file + "képek\\eye.png";
+            ShowPassPB.ImageLocation = "http://127.1.1.1:3000/kepek/eye.png";
+            ShowPassAgainPB.ImageLocation = "http://127.1.1.1:3000/kepek/eye.png";
 
             //Sets the click events for the show password buttons
             ShowPassPB.Click += (s, e) => ShowPass(ShowPassPB,PasswordTB);
@@ -109,12 +103,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             if (text.PasswordChar == '*')
             {
                 text.PasswordChar = '\0';
-                picture.ImageLocation = file + "képek\\hidden.png";
+                picture.ImageLocation = "http://127.1.1.1:3000/kepek/hidden.png";
             }
             else
             {
                 text.PasswordChar = '*';
-                picture.ImageLocation = file+ "képek\\eye.png";
+                picture.ImageLocation = "http://127.1.1.1:3000/kepek/eye.png";
             }
         }
         ///Registers a new worker

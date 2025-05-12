@@ -20,9 +20,7 @@ interface RentalDialogProps {
 const RentalDialog = ({ open, onOpenChange, carName }: RentalDialogProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would submit the rental form to the backend
     onOpenChange(false);
-    // Show success message here
   };
 
   return (

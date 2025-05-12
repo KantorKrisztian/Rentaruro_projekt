@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white">
 
-    <!-- Bejelentkezés gomb -->
     <Button
         android:id="@+id/btnDialogLogin"
         android:layout_width="match_parent"
@@ -16,7 +15,6 @@
         android:textColor="#FFFFFF"
         android:layout_marginBottom="12dp"/>
 
-    <!-- Regisztráció gomb -->
     <Button
         android:id="@+id/btnDialogRegister"
         android:layout_width="match_parent"

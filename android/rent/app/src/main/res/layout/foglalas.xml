@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Cím -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,7 +18,6 @@
             android:layout_gravity="center_horizontal"
             android:paddingBottom="12dp"/>
 
-        <!-- Név -->
         <EditText
             android:id="@+id/et_name"
             android:layout_width="match_parent"
@@ -27,7 +25,6 @@
             android:hint="Név"
             android:inputType="textPersonName" />
 
-        <!-- Telefonszám -->
         <EditText
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
@@ -36,7 +33,6 @@
             android:inputType="phone"
             android:layout_marginTop="8dp"/>
 
-        <!-- E-mail -->
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
@@ -45,7 +41,6 @@
             android:inputType="textEmailAddress"
             android:layout_marginTop="8dp"/>
 
-        <!-- Bérlés kezdete -->
         <EditText
             android:id="@+id/et_start_date"
             android:layout_width="match_parent"
@@ -54,7 +49,6 @@
             android:inputType="date"
             android:layout_marginTop="8dp"/>
 
-        <!-- Bérlés vége -->
         <EditText
             android:id="@+id/et_end_date"
             android:layout_width="match_parent"
@@ -63,7 +57,6 @@
             android:inputType="date"
             android:layout_marginTop="8dp"/>
 
-        <!-- Egyéb kérések -->
         <EditText
             android:id="@+id/et_notes"
             android:layout_width="match_parent"
