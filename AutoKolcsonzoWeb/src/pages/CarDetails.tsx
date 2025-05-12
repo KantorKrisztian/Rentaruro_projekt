@@ -33,11 +33,9 @@ import { useParams, useNavigate } from "react-router-dom";
 const CarDetails = () => {
   const [showLoginDialog, setShowLoginDialog] = React.useState(false);
   const [showRentalDialog, setShowRentalDialog] = React.useState(false);
-  const [LoggedIn, setLoggedIn] = React.useState(false);
   const [showBookingDialog, setShowBookingDialog] = useState(false);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
-  const [cars, setCars] = useState([])
 
   interface Car {
     id: number;
@@ -66,8 +64,28 @@ const CarDetails = () => {
     const [car, setCar] = useState<Car | null>(null); // Define state for a single car using the Car interface
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [user, setUser] = useState();
 
-    // Fetch car details from the server
+  interface User {
+    id: number;
+    username: string;
+    password: string;
+    phone: string;
+    email: string;
+    name: string;
+  }
+
+
+  useEffect(() => {
+    const tokenCheck = () => {
+      const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+      setLoggedIn((loggedIn) => true)
+    };
+
+    tokenCheck();
+  }, []);
+
     useEffect(() => {
       const loadCarDetails = async () => {
         try {
@@ -104,49 +122,55 @@ const CarDetails = () => {
     }
 
 
-    const handleRentClick = () => {
-      if (LoggedIn) {
-        setShowRentalDialog(true);
-      } else {
-        setShowLoginDialog(true);
+  const handleRentClick = () => {
+    setShowBookingDialog(true);
+    User();
+  };
+
+  function User() {
+    const loadRequest = new XMLHttpRequest()
+    loadRequest.open('get', 'http://127.1.1.1:3000/User')
+    loadRequest.send()
+    loadRequest.onreadystatechange = () => {
+      if (loadRequest.readyState == 4 && loadRequest.status == 200) {
+        const result = JSON.parse(loadRequest.response)
+        setUser((user) => result)
       }
-    };
+    }
+  }
+  const useer:User = user;
+
+
+
+  function AddRent(){
+    const addRequest = new XMLHttpRequest()
+    addRequest.open('post','http://127.1.1.1:3000/NewRent')
+    addRequest.setRequestHeader('Content-Type','Application/JSON')
+    addRequest.setRequestHeader('authorization',sessionStorage.getItem('token'))
+    addRequest.send(JSON.stringify({
+      carId: car.id,
+      id: useer.id,
+      start: startDate,
+      end: endDate,
+      other: (document.getElementById('notes') as HTMLInputElement)?.value || '',
+    }))
+    addRequest.onreadystatechange = () => {
+      if(addRequest.readyState == 4){
+        const result = JSON.parse(addRequest.response)
+        console.log(result.message)
+        if(addRequest.status == 201){
+          alert('Sikeres létrehozás!')
+        }
+      }
+    }
+  }
+
 
     const handleLogin = () => {
       navigate("/login");
       setShowLoginDialog(false);
     };
 
-    const PRICE_DISPLAY_NAMES: Record<string, string> = {
-      OneToFive: "1-5 days",
-      SixToForteen: "6-14 days",
-      OverForteen: "Over 14 days",
-      Deposit: "Deposit"
-    };
-    const FuelIcon = ({fuelType}: { fuelType: string }) => {
-      const getIcon = () => {
-        switch (fuelType.toLowerCase()) {
-          case 'electricity':
-            return <img className="h-8 w-8" alt="electricity" src="../icons/Battery.png"/>;
-          case 'diesel':
-            return <img className="h-8 w-8" alt="diesel" src="../icons/Diesel.png"/>;
-          case 'hybrid':
-            return <img className="h-8 w-8" alt="hybrid" src="../icons/Hybrid.png"/>;
-          case 'fuel':
-          default:
-            return <img className="h-8 w-8" alt="fuel" src="../icons/Fuel.jpg"/>;
-        }
-      };
-
-      return (
-          <div className="flex flex-col items-center">
-            <div className="bg-gray-200 p-3 rounded-full">
-              {getIcon()}
-            </div>
-            <span className="mt-2">{fuelType}</span>
-          </div>
-      );
-    };
 
     const handleBookingSubmit = (e: React.FormEvent) => {
       e.preventDefault();
@@ -249,12 +273,11 @@ const CarDetails = () => {
                 <div className="mt-8">
                   <Button
                       className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded"
-                      onClick={LoggedIn ? handleRentClick : handleLogin}
+                      onClick={loggedIn ? handleRentClick : handleLogin}
                   >
                     Gépjármű foglalás
                   </Button>
                 </div>
-
                 <div className="mt-12 border-t pt-6">
                   <h3 className="text-lg font-bold text-center mb-4">Kapcsolat</h3>
                   <div className="flex flex-col items-center space-y-2">
@@ -295,7 +318,7 @@ const CarDetails = () => {
                               !startDate && "text-muted-foreground"
                           )}
                       >
-                        <CalendarIcon className="mr-2 h-4 w-4"/>
+                        <CalendarIcon className="mr-2 h-4 w-4" />
                         {startDate ? format(startDate, "yyyy-MM-dd") : "Válasszon dátumot"}
                       </Button>
                     </PopoverTrigger>
@@ -325,7 +348,7 @@ const CarDetails = () => {
                               !endDate && "text-muted-foreground"
                           )}
                       >
-                        <CalendarIcon className="mr-2 h-4 w-4"/>
+                        <CalendarIcon className="mr-2 h-4 w-4" />
                         {endDate ? format(endDate, "yyyy-MM-dd") : "Válasszon dátumot"}
                       </Button>
                     </PopoverTrigger>
@@ -359,8 +382,10 @@ const CarDetails = () => {
                     <Button variant="outline">Mégsem</Button>
                   </DialogClose>
                   <Button
+                      onClick={AddRent}
                       type="submit"
                       disabled={!startDate || !endDate}
+
                   >
                     Foglalás
                   </Button>

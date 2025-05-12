@@ -23,42 +23,19 @@ import { useState, useEffect } from "react";
 
 const Navbar = () => {
 
-// Load the login state from local storage or default to false
-  const [loggedIn, setLoggedIn] = useState(() => {
-    return localStorage.getItem("loggedIn") === "true";
-  });
+  const [loggedIn, setLoggedIn] = useState(false)
 
-  // Function to handle login
-  const handleLogin = async () => {
-    // Simulate successful login logic
-    const success = await mockLogin();
 
-    if (success) {
-      setLoggedIn(true);
-      localStorage.setItem("loggedIn", "true"); // Persist login state in local storage
-      console.log("User logged in successfully!");
-    } else {
-      console.error("Login failed!");
-    }
-  };
 
-  // Function to handle logout
-  const handleLogout = () => {
-    setLoggedIn(false);
-    localStorage.removeItem("loggedIn"); // Clear login state from local storage
-    console.log("User logged out!");
-  };
 
-  // Simulate login process (replace with real authentication logic)
-  const mockLogin = () => {
-    return new Promise((resolve) => setTimeout(() => resolve(true), 1000));
-  };
 
-  // Check for token expiration or validate the session (Optional)
   useEffect(() => {
     const tokenCheck = () => {
-      const isLoggedIn = localStorage.getItem("loggedIn") === "true";
-      setLoggedIn(isLoggedIn);
+      if (sessionStorage.getItem('token')!=''){
+        const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+        setLoggedIn((loggedIn) => true)
+      }
+
     };
 
     tokenCheck();
@@ -76,7 +53,6 @@ const Navbar = () => {
 
   const handleSearchSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Perform search logic or redirect with search query
     console.log("Search submitted:", searchQuery);
   }
 
@@ -142,11 +118,6 @@ const Navbar = () => {
                       <DropdownMenuItem>
                         <Link to="/my-rentals" className="w-full">
                           Bérléseim
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link to="/settings" className="w-full">
-                          Beállítások
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem className="text-red-600">

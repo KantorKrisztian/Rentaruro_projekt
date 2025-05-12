@@ -602,6 +602,23 @@ server.post("/UserLogin",async (req,res)=>{
     res.end()
 })
 
+server.get('/User', async(req,res) => {
+    const user = await dbHandler.userTable.findOne({
+        where:{
+            id: req.params.id
+        }
+    })
+    if(!user){
+        res.status(404).json({'message':'Nincs ilyen felhasználó'}).end()
+        return
+    }
+    await dbHandler.userTable.findOne({
+
+    })
+    res.json(user).end()
+})
+
+
 function encodePassword(password) {
     const buffer = Buffer.from(password, 'utf-8');
     return buffer.toString('base64');

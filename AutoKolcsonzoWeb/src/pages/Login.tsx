@@ -25,7 +25,7 @@ const Login = () => {
     loginRequest.open('post','http://127.1.1.1:3000/UserLogin')
     loginRequest.setRequestHeader('Content-Type','Application/JSON')
     loginRequest.send(JSON.stringify({
-      username: (document.getElementById('loginUsername') as HTMLInputElement).value,
+      loginNev: (document.getElementById('loginUsername') as HTMLInputElement).value,
       loginPassword: (document.getElementById('loginPassword') as HTMLInputElement).value
     }))
     loginRequest.onreadystatechange = () => {
