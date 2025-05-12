@@ -1,10 +1,12 @@
 const express = require('express')
 const server = express()
+const cors=require('cors')
 require('dotenv').config()
 
 server.use(express.json())
 server.use(express.static('public'))
-server.use(express.static('kepek'))
+server.use('/kepek',express.static('kepek'))
+server.use(cors())
 const PORT = process.env.PORT
 
 const JWT = require('jsonwebtoken')
@@ -357,7 +359,7 @@ server.post("/AdminRegistration",auth(),async (req,res)=>{
         })
     } catch (error) {
         res.status(400)
-        res.json({'message':"error"})
+        res.json({'message':error})
         res.end()
         return
     }
@@ -524,14 +526,11 @@ server.post("/UserRegistration",async (req,res)=>{
             }
         })
     } catch (error) {
-        res.json({'message':error})
-        res.end()
+        res.status(400).json({'message':error}).end()
         return
     }
     if (oneUser) {
-        res.status(403)
-        res.json({'message':'Ezzel az email címmel már regisztráltak'})
-        res.end()
+        res.status(409).json({'message':'Ezzel az email címmel már regisztráltak'}).end()
         return
     }
     try {
@@ -543,8 +542,7 @@ server.post("/UserRegistration",async (req,res)=>{
             name:req.body.registerName
         })
     } catch (error) {
-        res.json({'message':error})
-        res.end()
+        res.status(400).json({'message':error}).end()
         return
     }
 
@@ -558,14 +556,12 @@ server.post("/UserLogin",async (req,res)=>{
     try {
         oneUser=await dbHandler.userTable.findOne({
             where:{
-                username:req.body.username,
+                username:req.body.loginNev,
                 password:req.body.loginPassword
             }
         })
     } catch (error) {
-        res.json({'message':error})
-        res.status(400)
-        res.end()
+        res.status(400).json({'message':error}).end()
         return
     }
 
@@ -577,8 +573,7 @@ server.post("/UserLogin",async (req,res)=>{
             
             return
         } catch (error) {
-            res.json({'message':error})
-            res.end()
+            res.status(400).json({'message':error}).end()
             return
         }
     }

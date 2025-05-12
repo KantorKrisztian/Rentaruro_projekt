@@ -113,7 +113,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     }
                 }
 
-                carss.picture = CheckPictureBox(CarPictureBox.ImageLocation);
+                carss.picture = pictureSend(CarPictureBox.ImageLocation);
                 if (carss.picture == null)
                 {
                     return;
@@ -162,8 +162,10 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     return;
                 }
                 jsonCars carss = new jsonCars();
+
+
+                carss.picture = pictureSend(CarPictureBox.ImageLocation);
                 
-                carss.picture = CheckPictureBox(CarPictureBox.ImageLocation);
                 if (carss.picture==null)
                 {
                     return;
@@ -286,15 +288,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
                     {
                         LicensePlateTB.Enabled = false;
                         
-                        string filePath = this.GetType().Assembly.Location;
-                        string[] filePathSplit = filePath.Split('\\');
-                        string checkfile = "";
-                        for (int i = 0; i < filePathSplit.Length - 5; i++)
-                        {
-                            checkfile += filePathSplit[i] + "\\";
-                        }
-                        checkfile += "képek\\" + item.picture;
-                        CarPictureBox.ImageLocation = checkfile;
+                        CarPictureBox.ImageLocation = item.picture;
                         LicensePlateTB.Text = item.licensePlate;
                         BrandTB.Text = item.brand;
                         TypeTB.Text = item.type;
@@ -477,30 +471,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             }
             return false;
         }
-        //Checks if the image path is correct and if the image is not null
-        private string CheckPictureBox(string image)
+        //Converts the image path to a url
+        private string pictureSend(string file)
         {
-            if (image == null ||image=="")
-            {
-                MessageBox.Show("Kérem válasszon ki egy képet!");
-                return null;
-            }
-            string[] imageSplit = image.Split('\\');
-            string filePath=this.GetType().Assembly.Location;
-            string[] filePathSplit = filePath.Split('\\');
-            string checkfile = "";
-            for (int i = 0; i < filePathSplit.Length - 5; i++)
-            {
-                checkfile += filePathSplit[i] + "\\";
-            }
-            checkfile += "képek\\";
-            if (image!= checkfile + imageSplit[imageSplit.Length-1])
-            {
-                
-                MessageBox.Show("Kép helye nem megfelelő!");
-                return null;
-            }
-            return imageSplit[imageSplit.Length-1];
+            string[] strings = file.Split('\\');
+            string picture = "http://127.1.1.1:3000/kepek/"+ strings[strings.Length-1];
+            return picture;
         }
         //Orders the list of cars by the selected column
         private void OrderList()
