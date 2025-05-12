@@ -9,7 +9,6 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getCarById } from "@/services/carService";
 import {
   Dialog,
   DialogContent,
@@ -37,10 +36,32 @@ const CarDetails = () => {
   const navigate = useNavigate();
   const [showLoginDialog, setShowLoginDialog] = React.useState(false);
   const [showRentalDialog, setShowRentalDialog] = React.useState(false);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [LoggedIn, setLoggedIn] = React.useState(false);
   const [showBookingDialog, setShowBookingDialog] = useState(false);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [cars, setCars] = useState([])
+
+  function load(id) {
+    const loadRequest = new XMLHttpRequest();
+    loadRequest.open("get", "http://127.1.1.1:3000/ListCar/"+id);
+    loadRequest.send()
+    loadRequest.onreadystatechange = () => {
+      if (loadRequest.readyState == 4 && loadRequest.status == 200) {
+        const result = JSON.parse(loadRequest.response)
+        setCars((cars) => result)
+      }
+    }
+  }
+  load(id)
+  const getCarById = (id: number): Promise< undefined> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const car = (cars).find((cars) => cars.id === id);
+        resolve(car);
+      }, 300);
+    });
+  };
 
 
   const { data: car, isLoading, error } = useQuery({
@@ -54,7 +75,6 @@ const CarDetails = () => {
   };
 
   const handleRentClick = () => {
-    // If user is logged in, show rental dialog, otherwise show login dialog
     if (isLoggedIn) {
       setShowRentalDialog(true);
     } else {
@@ -68,13 +88,12 @@ const CarDetails = () => {
   };
 
   const PRICE_DISPLAY_NAMES: Record<string, string> = {
-    OneToFive: "1-5 days",
+    "1-5 days":,
     SixToForteen: "6-14 days",
     OverForteen: "Over 14 days",
     Deposit: "Deposit"
   };
   const FuelIcon = ({ fuelType }: { fuelType: string }) => {
-    // Determine the icon to render based on fuelType
     const getIcon = () => {
       switch (fuelType.toLowerCase()) {
         case 'electricity':
@@ -99,24 +118,19 @@ const CarDetails = () => {
     );
   };
 
-// Usage example
   const CarFuelInfo = ({ car }: { car: { specs: { fuel: string } } }) => (
       <FuelIcon fuelType={car.specs.fuel} />
   );
 
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would send booking data to your backend
     setShowBookingDialog(false);
-    // Show a success message (in a real app)
     alert("Foglalás sikeresen elküldve!");
   };
 
-  // Get today's date at midnight for date comparisons
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Update end date if it's before start date
   const handleStartDateChange = (date: Date | undefined) => {
     setStartDate(date);
     if (date && endDate && date > endDate) {
@@ -124,7 +138,6 @@ const CarDetails = () => {
     }
   };
 
-  // Custom style for disabled dates
   const calendarStyles = {
     day_disabled: "text-muted-foreground opacity-30 bg-gray-100 dark:bg-gray-800",
   };
@@ -210,7 +223,7 @@ const CarDetails = () => {
               <div className="mt-8">
                 <Button
                     className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded"
-                    onClick={handleRentClick}
+                    onClick={LoggedIn ? handleRentClick : handleLogin}
                 >
                   Gépjármű foglalás
                 </Button>

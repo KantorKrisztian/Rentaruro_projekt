@@ -24,50 +24,46 @@ export interface Car {
   Deposit: number;
 
 }
+function carService() {
+  const [cars, setCars] = useState([])
 
-function App() {
-  const [cars, setCars] = useState<Car[]>([]);
-
-  async function loadCars() {
-    try {
-      const response = await fetch("http://127.1.1.1:3000/listCars");
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+  function load() {
+    const loadRequest = new XMLHttpRequest();
+    loadRequest.open("get", "http://127.1.1.1:3000/ListCars");
+    loadRequest.send();
+    loadRequest.onreadystatechange = () => {
+      if (loadRequest.readyState === 4 && loadRequest.status === 200) {
+        const result = JSON.parse(loadRequest.response); // Raw response
+        const cars: Car[] = result.map((car: any) => ({
+          id: car.id,
+          licensePlate: car.licensePlate,
+          picture: car.picture,
+          brand: car.brand,
+          type: car.type,
+          year: car.year,
+          drive: car.drive,
+          gearShift: car.gearShift,
+          fuel: car.fuel,
+          airCondition: car.airCondition,
+          radar: car.radar,
+          cruiseControl: car.cruiseControl,
+          info: car.info,
+          category: car.category,
+          OneToFive: car.OneToFive,
+          SixToForteen: car.SixToForteen,
+          OverForteen: car.OverForteen,
+          Deposit: car.Deposit,
+        }));
+        setCars(cars);
       }
-      const data: Car[] = await response.json();
-      setCars(data);
-    } catch (error) {
-      console.error("Failed to load cars:", error);
-    }
+    };
   }
-
   useEffect(() => {
-    loadCars();
+    load();
   }, []);
-
-  return cars;
+return setCars;
 }
 
-export default App;
 
-const DEFAULT_DELAY = 300;
-
-const simulateDelay = <T>(data: T, delay: number = DEFAULT_DELAY): Promise<T> => {
-  return new Promise((resolve) => setTimeout(() => resolve(data), delay));
-};
-
-
-
-export const getAllCars = (): Promise<Car[]> => simulateDelay([]);
-
-export const getCarById = (id: number): Promise<Car | undefined> => {
-  return new Promise((resolve) => {
-
-    setTimeout(() => {
-      const car = getAllCars().then((cars) => cars.find((car) => car.id === id));
-      resolve(car);
-    }, 300);
-  });
-};
 
 

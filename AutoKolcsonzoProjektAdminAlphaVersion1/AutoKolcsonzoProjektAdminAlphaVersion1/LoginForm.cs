@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace AutoKolcsonzoProjektAdminAlphaVersion1
 {
@@ -23,14 +24,7 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             LoginBtn.Click += (object s, EventArgs e) => formShow();
             LoginPassTb.PasswordChar = '*';
 
-            string filePath = this.GetType().Assembly.Location;
-            string[] filePathSplit = filePath.Split('\\');
-            
-            for (int i = 0; i < filePathSplit.Length - 5; i++)
-            {
-                file += filePathSplit[i] + "\\";
-            }
-            ShowPB.ImageLocation = file+"\\képek\\eye.png";
+            ShowPB.ImageLocation = "http://127.1.1.1:3000/kepek/eye.png";
             ShowPB.Click += showPassword;
         }
         void closeForm(object s, EventArgs e)
@@ -66,12 +60,12 @@ namespace AutoKolcsonzoProjektAdminAlphaVersion1
             if (LoginPassTb.PasswordChar == '*')
             {
                 LoginPassTb.PasswordChar = '\0';
-                ShowPB.ImageLocation = file+"\\képek\\hidden.png";
+                ShowPB.ImageLocation = "http://127.1.1.1:3000/kepek/hidden.png";
             }
             else
             {
                 LoginPassTb.PasswordChar = '*';
-                ShowPB.ImageLocation = file+"\\képek\\eye.png";
+                ShowPB.ImageLocation = "http://127.1.1.1:3000/kepek/eye.png";
             }
         }
     }
