@@ -520,6 +520,7 @@ server.post("/UserRegistration",async (req,res)=>{
     try {
         oneUser=await dbHandler.userTable.findOne({
             where:{
+                username:req.body.registerNev,
                 email:req.body.registerEmail
             }
         })
@@ -530,7 +531,7 @@ server.post("/UserRegistration",async (req,res)=>{
     }
     if (oneUser) {
         res.status(403)
-        res.json({'message':'Ezzel az email címmel már regisztráltak'})
+        res.json({'message':'Ezzel az email címmel vagy felhasználó névvel már regisztráltak'})
         res.end()
         return
     }
