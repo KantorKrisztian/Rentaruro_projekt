@@ -228,19 +228,19 @@ const CarDetails = () => {
                         <tbody>
                         <tr>
                             <td className="border-t border-gray-200 py-2 px-4">1-5 nap:</td>
-                          <td className="border-t border-gray-200 py-2 px-4">{car.OneToFive}</td>
+                          <td className="border-t border-gray-200 py-2 px-4">{car.OneToFive} ft</td>
                         </tr>
                         <tr>
                           <td className="border-t border-gray-200 py-2 px-4">6-14 nap:</td>
-                          <td className="border-t border-gray-200 py-2 px-4">{car.SixToForteen}</td>
+                          <td className="border-t border-gray-200 py-2 px-4">{car.SixToForteen} ft</td>
                         </tr>
                         <tr>
                           <td className="border-t border-gray-200 py-2 px-4">15+ nap:</td>
-                          <td className="border-t border-gray-200 py-2 px-4">{car.OverForteen}</td>
+                          <td className="border-t border-gray-200 py-2 px-4">{car.OverForteen} ft</td>
                         </tr>
                         <tr>
                           <td className="border-t border-gray-200 py-2 px-4">Kaukció:</td>
-                          <td className="border-t border-gray-200 py-2 px-4">{car.Deposit}</td>
+                          <td className="border-t border-gray-200 py-2 px-4">{car.Deposit} ft</td>
                         </tr>
                         </tbody>
                       </table>

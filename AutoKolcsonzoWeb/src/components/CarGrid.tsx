@@ -24,7 +24,7 @@ load()
 
   const sortedCars = React.useMemo(() => {
     if (!cars || sortOrder === "none") return cars;
-    
+
     return [...cars].sort((a, b) => {
       const priceA = parseInt(a.OneToFive.toString().replace(/[^0-9]/g, ""));
       const priceB = parseInt(b.OneToFive.toString().replace(/[^0-9]/g, ""));
@@ -37,7 +37,7 @@ load()
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-6 flex justify-end">
+      <div className="mb-6 flex justify-end">  ,,
         <Select value={sortOrder} onValueChange={(value: "asc" | "desc" | "none") => setSortOrder(value)}>
           <SelectTrigger className="w-[200px]">
             <SelectValue placeholder="Rendezés ár szerint" />

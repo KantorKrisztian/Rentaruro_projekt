@@ -25,19 +25,13 @@ const Navbar = () => {
 
   const [loggedIn, setLoggedIn] = useState(false)
 
-
-
-
-
   useEffect(() => {
     const tokenCheck = () => {
       if (sessionStorage.getItem('token')!=''){
         const isLoggedIn = localStorage.getItem("loggedIn") === "true";
         setLoggedIn((loggedIn) => true)
       }
-
     };
-
     tokenCheck();
   }, []);
 

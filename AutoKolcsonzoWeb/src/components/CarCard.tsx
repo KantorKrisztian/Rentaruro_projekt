@@ -28,7 +28,7 @@ const CarCard = ({ id, name, price, imageUrl }: CarCardProps) => {
       </div>
       <div className="p-4 bg-gray-200">
         <h3 className="text-lg font-medium text-gray-900 text-center">{name}</h3>
-        <p className="text-center text-gray-600 mb-3">{price}</p>
+        <p className="text-center text-gray-600 mb-3">{price} ft</p>
         <Button 
           className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-md"
           onClick={handleMoreInfo}

@@ -66,7 +66,6 @@ const MyRentals = () => {
                     <TableHead>Autó</TableHead>
                     <TableHead>Kezdő dátum</TableHead>
                     <TableHead>Záró dátum</TableHead>
-                    <TableHead>Státusz</TableHead>
                     <TableHead className="text-right">Összeg</TableHead>
                   </TableRow>
                 </TableHeader>
